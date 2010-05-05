@@ -39,3 +39,9 @@ class EntryTitle(models.Model):
     
     def get_absolute_url(self):
         return u'/%s%s' % (self.language, self._get_absolute_url())
+        
+from cms.models import CMSPlugin
+
+class PygmentsPlugin(CMSPlugin):
+    code_language = models.CharField(max_length=20)
+    code = models.TextField()
