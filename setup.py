@@ -1,15 +1,14 @@
 from setuptools import setup, find_packages
-
 setup(
-    name='cmsplugin-news',
-    version='0.3b',
-    description='This is a news app/plugin for the django-cms 2',
-    author='Harro van der Klauw',
-    author_email='hvdklauw@gmail.com',
-    url='http://bitbucket.org/MrOxiMoron/cmsplugin-news/',
+    name='cmsplugin-blog',
+    version='0.1a',
+    description='This is a blog app/plugin for django-cms 2.0',
+    author='Oyvind Saltvik',
+    author_email='oyvind@gmail.com',
+    url='http://bitbucket.org/fivethreeo/cmsplugin-blog/',
     packages=find_packages(),
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
