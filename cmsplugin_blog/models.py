@@ -9,16 +9,16 @@ class PublishedEntriesManager(models.Manager):
     """
     def get_query_set(self):
         return super(PublishedEntriesManager, self).get_query_set() \
-                    .filter(is_published=True) \
-                    .filter(pub_date__lte=datetime.datetime.now())
+                    .filter(is_published=True, pub_date__lte=datetime.datetime.now())
                     
 class Entry(models.Model):
-    published = models.BooleanField()
+    is_published = models.BooleanField()
     content = PlaceholderField('entry')
     pub_date = models.DateTimeField(default=datetime.datetime.now)
  
+    objects = models.Manager()
     published = PublishedEntriesManager()
-    
+
 class EntryTitle(models.Model):
     entry = models.ForeignKey(Entry)
     language = models.CharField(max_length=2, choices=settings.LANGUAGES)

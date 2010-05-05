@@ -158,6 +158,22 @@ class TranslationAdmin(PlaceholderAdmin):
         language = get_language_from_request(request)
         return queryset.filter(language=language)
         
+    def response_change(self, request, obj):
+        response = super(TranslationAdmin, self).response_change(request, obj)
+        language = get_language_from_request(request)
+        if response.status_code == 302 and response._headers['location'][1] == request.path:
+            location = response._headers['location']
+            response._headers['location'] = (location[0], "%s?language=%s" % (location[1], language))
+        return response
+    
+    def response_add(self, request, obj, post_url_continue='../%s/'):
+        response = super(TranslationAdmin, self).response_add(request, obj, post_url_continue)
+        if request.POST.has_key("_continue"):
+            language = get_language_from_request(request)
+            location = response._headers['location']
+            response._headers['location'] = (location[0], "%s?language=%s" % (location[1], language))
+        return response
+        
 class EntryAdmin(TranslationAdmin):
     
     translation_model = EntryTitle
