@@ -27,6 +27,6 @@ urlpatterns = patterns('django.views.generic.date_based',
         'archive_day', blog_info_month_dict, 'blog_archive_day'),
     
     (r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$', 
-        'object_detail', dict(blog_info_month_dict, slug_field='entrytitle__slug), 'blog_detail'),
+        'object_detail', dict(blog_info_month_dict, slug_field='entrytitle__slug'), 'blog_detail'),
 )
 

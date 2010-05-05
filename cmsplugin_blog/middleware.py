@@ -5,6 +5,7 @@ class MultilingualBlogEntriesMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if 'queryset' in view_kwargs and view_kwargs['queryset'].model == Entry:
-            view_kwargs['queryset'] = view_kwargs['queryset'].filter(language=language)
+            language = get_language_from_request(request)
+            view_kwargs['queryset'] = view_kwargs['queryset'].filter(entrytitle__language=language).distinct()
             
 

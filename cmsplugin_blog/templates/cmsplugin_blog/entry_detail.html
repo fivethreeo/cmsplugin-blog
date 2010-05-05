@@ -1,0 +1,20 @@
+{% extends "base_templates/default.html" %}
+
+{% load placeholder_tags %}
+
+{% block right-col %}
+
+{% load cmsplugin_news_tags %}{% render_month_links %}
+
+
+{% endblock %}
+
+{% block left-col %}
+
+<h1>{{ object.title }}</h1>
+
+<p class="date"><span>{{ object.pub_date|date:"d F Y" }}</span></p>
+	{% render_placeholder object.content %}
+
+
+{% endblock %}

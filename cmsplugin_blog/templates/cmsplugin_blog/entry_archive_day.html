@@ -1,0 +1,16 @@
+{% extends "base_templates/default.html" %}
+
+{% block right-col %}
+
+
+<h1>News for {{ day|date:"d F Y" }}</h1>
+
+<ul>
+	{% for object in object_list %}
+		<li><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></li>
+	{% empty %}
+		<li>No news for this day</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base_templates/default.html" %}
+{% load i18n %}
+
+{% block left-col %}
+<h1>Siste nyheter</h1>
+
+{% for entry in latest %}
+	<p>{{ entry.pub_date|date:"d b Y" }}<br/><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a><br/>{{ entry.excerpt }}</p>
+{% empty %}
+	<p>{% trans "No news" %}<p>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block right-col %}
+
+{% load cmsplugin_news_tags %}{% render_month_links %}
+
+
+{% endblock %}

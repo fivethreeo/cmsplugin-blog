@@ -1,0 +1,20 @@
+{% extends "base_templates/default.html" %}
+{% load i18n %}
+
+{% block left-col %}
+
+<h1>Nyheter for {{ month|date:"F Y" }}</h1>
+
+{% for news in object_list %}
+	<p>{{ news.pub_date|date:"d b Y" }}<br/><a href="{{ news.get_absolute_url }}">{{ news.title }}</a><br/>{{ news.excerpt }}</p>
+{% empty %}
+	<p>{% trans "No news for this month" %}<p>
+{% endfor %}
+
+{% endblock %}
+
+{% block right-col %}
+
+{% load cmsplugin_news_tags %}{% render_month_links %}
+
+{% endblock %}

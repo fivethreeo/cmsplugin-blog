@@ -45,7 +45,7 @@ class LanguageChangeList(ChangeList):
 
     def get_results(self, request):
         super(LanguageChangeList, self).get_results(request)
-        result_list = list(self.result_list)
+        result_list = self.result_list
         
         id_list = [r.pk for r in result_list]
         pk_index_map = dict([(pk, index) for index, pk in enumerate(id_list)])
@@ -179,5 +179,8 @@ class EntryAdmin(TranslationAdmin):
     translation_model = EntryTitle
     translation_model_fk = 'entry'
     translation_model_language = 'language'
-    
+
+    list_display = ('description', 'languages', 'is_published')
+    list_editable = ('is_published',)
+
 admin.site.register(Entry, EntryAdmin)
