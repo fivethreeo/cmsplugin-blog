@@ -1,6 +1,6 @@
 {% extends "base_templates/default.html" %}
 
-{% load placeholder_tags %}
+{% load placeholder_tags cmsplugin_blog_tags %}
 
 {% block right-col %}
 
@@ -11,7 +11,7 @@
 
 {% block left-col %}
 
-<h1>{{ object.title }}</h1>
+<h1>{% with object|get_entry_title:request as title %}{{ title }}{% endwith %}</h1>
 
 <p class="date"><span>{{ object.pub_date|date:"d F Y" }}</span></p>
 	{% render_placeholder object.content %}

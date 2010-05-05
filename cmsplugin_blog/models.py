@@ -27,3 +27,15 @@ class EntryTitle(models.Model):
     
     def __unicode__(self):
         return self.title
+        
+    def __get_absolute_url(self):
+        return ('blog_detail', (), {
+            'year': self.entry.pub_date.strftime('%Y'),
+            'month': self.entry.pub_date.strftime('%m'),
+            'day': self.entry.pub_date.strftime('%d'),
+            'slug': self.slug
+        })
+    _get_absolute_url = models.permalink(__get_absolute_url)
+    
+    def get_absolute_url(self):
+        return u'/%s%s' % (self.language, self._get_absolute_url())

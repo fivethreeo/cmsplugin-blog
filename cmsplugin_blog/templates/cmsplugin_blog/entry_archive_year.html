@@ -1,13 +1,15 @@
 {% extends "base_templates/default.html" %}
 
+{% load i18n cmsplugin_blog_tags %}
+
 {% block right-col %}
 
 <h1>Nyheter for {{ year }}</h1>
 <ul>
     {% for date in date_list %}
-        <li><a href="{% url news_archive_month year=year month=date|date:'m'  %}">{{ date|date:"F" }}</a></li>
+        <li><a href="{% url blog_archive_month year=year month=date|date:'m'  %}">{{ date|date:"F" }}</a></li>
     {% empty %}
-        <li>No news for this year</li>
+        <li>No entries for this year</li>
     {% endfor %}
 </ul>
 
