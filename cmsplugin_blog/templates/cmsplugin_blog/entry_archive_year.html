@@ -4,12 +4,12 @@
 
 {% block left-col %}
 
-<h1>Nyheter for {{ year }}</h1>
+<h1>{% trans "Entries for" %} {{ year }}</h1>
 <ul>
     {% for date in date_list %}
         <li><a href="{% url blog_archive_month year=year month=date|date:'m'  %}">{{ date|date:"F" }}</a></li>
     {% empty %}
-        <li>No entries for this year</li>
+        <li>{% trans "No entries for this year" %}</li>
     {% endfor %}
 </ul>
 

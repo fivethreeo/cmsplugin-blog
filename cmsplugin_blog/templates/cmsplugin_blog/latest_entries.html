@@ -1,5 +1,5 @@
 {% load i18n %}
-<h1>{% trans "Siste nyheter" %}</h1>
+<h1>{% trans "Latest entries" %}</h1>
 {% for news in latest %}
 	<p>{{ news.pub_date|date:"d b Y" }}<br/><a href="{{ news.get_absolute_url }}">{{ news.title }}</a><br/>{{ news.excerpt }}</p>
 {% empty %}

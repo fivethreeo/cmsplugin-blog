@@ -29,7 +29,8 @@ class EntryTitle(models.Model):
         return self.title
         
     def __get_absolute_url(self):
-        return ('blog_detail', (), {
+        language_namespace = 'simple_translation.middleware.MultilingualGenericsMiddleware' in settings.MIDDLEWARE_CLASSES and '%s:' % self.language or ''
+        return ('%sblog_detail' % language_namespace, (), {
             'year': self.entry.pub_date.strftime('%Y'),
             'month': self.entry.pub_date.strftime('%m'),
             'day': self.entry.pub_date.strftime('%d'),
@@ -38,7 +39,7 @@ class EntryTitle(models.Model):
     _get_absolute_url = models.permalink(__get_absolute_url)
     
     def get_absolute_url(self):
-        return u'/%s%s' % (self.language, self._get_absolute_url())
+        return self._get_absolute_url()
 
         
 from cms.models import CMSPlugin

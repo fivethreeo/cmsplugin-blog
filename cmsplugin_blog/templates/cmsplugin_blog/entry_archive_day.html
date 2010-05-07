@@ -4,7 +4,7 @@
 {% block right-col %}
 
 
-<h1>Entries for {{ day|date:"d F Y" }}</h1>
+<h1>{% trans "Entries for" %} {{ day|date:"d F Y" }}</h1>
 
 <ul>
 	{% for object in object_list|annotate_with_translations %}
@@ -12,7 +12,7 @@
 		<li><a href="{{ title.get_absolute_url }}">{{ title }}</a></li>
 	    {% endwith %}
 	{% empty %}
-		<li>No news for this day</li>
+		<li>{% trans "No entries for this day" %}</li>
 	{% endfor %}
 </ul>
 

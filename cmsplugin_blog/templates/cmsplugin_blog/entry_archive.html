@@ -2,11 +2,12 @@
 {% load i18n cmsplugin_blog_tags simple_translation_tags %}
 
 {% block left-col %}
-<h1>Siste nyheter</h1>
+<h1>{% trans "Latest entries" %}</h1>
 
 {% for entry in latest|annotate_with_translations %}
     {% with entry|get_preferred_translation_from_request:request as title %}
-	<p>{{ entry.pub_date|date:"d b Y" }}<br/><a href="{{ title.get_absolute_url }}">{{ title }}</a><br/>{{ entry.excerpt }}</p>
+	<p>{{ entry.pub_date|date:"d b Y" }}<br/><a href="{{ title.get_absolute_url }}">{{ title }}</a>
+		({% for t in entry.translations %}<a href="{{ t.get_absolute_url }}">{{ t.language|upper }}</a> {% endfor %})<br/>{{ entry.excerpt }}</p>
 	{% endwith %}
 {% empty %}
 	<p>{% trans "No news" %}<p>
