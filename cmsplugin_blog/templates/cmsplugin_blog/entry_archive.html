@@ -1,11 +1,11 @@
 {% extends "base_templates/default.html" %}
-{% load i18n cmsplugin_blog_tags %}
+{% load i18n cmsplugin_blog_tags simple_translation_tags %}
 
 {% block left-col %}
 <h1>Siste nyheter</h1>
 
-{% for entry in latest %}
-    {% with entry|get_entry_title:request as title %}
+{% for entry in latest|annotate_with_translations %}
+    {% with entry|get_preferred_translation_from_request:request as title %}
 	<p>{{ entry.pub_date|date:"d b Y" }}<br/><a href="{{ title.get_absolute_url }}">{{ title }}</a><br/>{{ entry.excerpt }}</p>
 	{% endwith %}
 {% empty %}

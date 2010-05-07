@@ -1,5 +1,5 @@
 {% extends "base_templates/default.html" %}
-{% load i18n cmsplugin_blog_tags %}
+{% load i18n cmsplugin_blog_tags simple_translation_tags %}
 
 {% block right-col %}
 
@@ -7,8 +7,8 @@
 <h1>Entries for {{ day|date:"d F Y" }}</h1>
 
 <ul>
-	{% for object in object_list %}
-	    {% with object|get_entry_title:request as title %}
+	{% for object in object_list|annotate_with_translations %}
+	    {% with object|get_preferred_translation_from_request:request as title %}
 		<li><a href="{{ title.get_absolute_url }}">{{ title }}</a></li>
 	    {% endwith %}
 	{% empty %}
