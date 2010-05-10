@@ -1,7 +1,8 @@
-{% load i18n %}
-<h1>{% trans "Latest entries" %}</h1>
-{% for news in latest %}
-	<p>{{ news.pub_date|date:"d b Y" }}<br/><a href="{{ news.get_absolute_url }}">{{ news.title }}</a><br/>{{ news.excerpt }}</p>
+{% load i18n simple_translation_tags %}
+{% for object in latest|annotate_with_translations %}
+    {% with object|get_preferred_translation_from_request:request as title %}
+	<p>{{ object.pub_date|date:"d b Y" }}<br/><a href="{{ title.get_absolute_url }}">{{ title }}</a> {{ object|render_language_choices:request|safe }}<br/>{{ title.excerpt }}</p>
+	{% endwith %}
 {% empty %}
-	<p>{% trans "Ingen nyheter" %}<p>
+	<p>{% trans "No entries" %}<p>
 {% endfor %}
