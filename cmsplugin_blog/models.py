@@ -14,9 +14,9 @@ class PublishedEntriesManager(models.Manager):
                     .filter(is_published=True, pub_date__lte=datetime.datetime.now())
                     
 class Entry(models.Model):
-    is_published = models.BooleanField()
-    content = PlaceholderField('entry')
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    is_published = models.BooleanField(_('Is published'))
+    content = PlaceholderField('entry', verbose_name=_('Content'))
+    pub_date = models.DateTimeField(_('Published'), default=datetime.datetime.now)
  
     objects = models.Manager()
     published = PublishedEntriesManager()
@@ -27,10 +27,10 @@ class Entry(models.Model):
         ordering = ('-pub_date', )
 
 class EntryTitle(models.Model):
-    entry = models.ForeignKey(Entry)
-    language = models.CharField(max_length=2, choices=settings.LANGUAGES)
-    title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    entry = models.ForeignKey(Entry, verbose_name=_('Entry'))
+    language = models.CharField(_('Language'), max_length=2, choices=settings.LANGUAGES)
+    title = models.CharField(_('Title'), max_length=255)
+    slug = models.SlugField(_('Slug'))
     
     def __unicode__(self):
         return self.title
@@ -45,7 +45,9 @@ class EntryTitle(models.Model):
         })
     get_absolute_url = models.permalink(_get_absolute_url)
 
-
+    class Meta:
+        verbose_name = _('Entry title')
+        verbose_name_plural = _('Entry titles')
         
 from cms.models import CMSPlugin
 
