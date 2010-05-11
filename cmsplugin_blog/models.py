@@ -1,10 +1,11 @@
-from django.utils.translation import ugettext_lazy as _
-
-from django.db import models
-from cms.models.fields import PlaceholderField
 import datetime
 
+from django.db import models
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
+from cms.models.fields import PlaceholderField
+from cms.models import CMSPlugin
 
 import tagging
 from tagging.fields import TagField
@@ -22,7 +23,7 @@ if "south" in settings.INSTALLED_APPS:
         ),
     ]
     
-    add_introspection_rules(rules, ["^tagging_autocomplete\.models",])
+    add_introspection_rules(rules, ["^tagging\.fields",])
 
 
 class PublishedEntriesManager(models.Manager):
@@ -72,12 +73,6 @@ class EntryTitle(models.Model):
     class Meta:
         verbose_name = _('Entry title')
         verbose_name_plural = _('Entry titles')
-        
-from cms.models import CMSPlugin
-
-class PygmentsPlugin(CMSPlugin):
-    code_language = models.CharField(max_length=20)
-    code = models.TextField()
     
 class LatestEntriesPlugin(CMSPlugin):
     """
