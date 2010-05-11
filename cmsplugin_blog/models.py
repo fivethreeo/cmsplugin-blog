@@ -1,9 +1,29 @@
 from django.utils.translation import ugettext_lazy as _
 
 from django.db import models
-from cms import settings
 from cms.models.fields import PlaceholderField
 import datetime
+
+from django.conf import settings
+
+import tagging
+from tagging.fields import TagField
+
+if "south" in settings.INSTALLED_APPS:
+    from south.modelsinspector import add_introspection_rules
+    rules = [
+        (
+            (TagField, ),
+            [],
+            {
+                "blank": ["blank", {"default": True}],
+                "max_length": ["max_length", {"default": 255}],
+            },
+        ),
+    ]
+    
+    add_introspection_rules(rules, ["^tagging_autocomplete\.models",])
+
 
 class PublishedEntriesManager(models.Manager):
     """
@@ -18,6 +38,8 @@ class Entry(models.Model):
     content = PlaceholderField('entry', verbose_name=_('Content'))
     pub_date = models.DateTimeField(_('Published'), default=datetime.datetime.now)
  
+    tags = TagField()
+    
     objects = models.Manager()
     published = PublishedEntriesManager()
     
@@ -25,6 +47,8 @@ class Entry(models.Model):
         verbose_name = _('Entry')
         verbose_name_plural = _('Entries')
         ordering = ('-pub_date', )
+
+tagging.register(Entry, tag_descriptor_attr='entry_tags')
 
 class EntryTitle(models.Model):
     entry = models.ForeignKey(Entry, verbose_name=_('Entry'))
