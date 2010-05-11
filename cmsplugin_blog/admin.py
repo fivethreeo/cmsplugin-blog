@@ -5,7 +5,7 @@ from cmsplugin_blog.models import Entry, EntryTitle
 from cmsplugin_blog.widgets import AutoCompleteTagInput
 
 class EntryForm(forms.ModelForm):
-    
+        
     class Meta:
         model = Entry
         widgets = {'tags': AutoCompleteTagInput}
@@ -26,5 +26,17 @@ class EntryAdmin(TranslationAdmin):
         super(EntryAdmin, self).__init__(*args, **kwargs)
         self.prepopulated_fields.update({'slug': ('title',)})
         
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(EntryAdmin, self).get_fieldsets(request, obj=obj)
+        fieldsets[0] = (None, {'fields': (
+            'language',
+            'is_published',
+            'pub_date',
+            'title',
+            'slug',
+            'tags'
+        )})
+        return fieldsets
+           
 admin.site.register(Entry, EntryAdmin)
 
