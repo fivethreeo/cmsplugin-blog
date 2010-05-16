@@ -21,4 +21,6 @@ Setup
 - add 'cmsplugin_blog' to INSTALLED_APPS
 - (optional) add 'simple_translation.middleware.MultilingualGenericsMiddleware' to MIDDLEWARE_CLASSES
 - run 'python manage.py syncdb'
-- Create a page in cms and in the 'advanced settings' section of the admin for that page for 'application' select 'Blog' (Restart of the server required due to caching!)
+- Create a page in cms and in the 'Advanced settings' section of the admin for that page for 'Application' select 'Blog Apphook'
+  Do this for each language you want to show posts in.
+  (Restart of the server required due to caching!)
