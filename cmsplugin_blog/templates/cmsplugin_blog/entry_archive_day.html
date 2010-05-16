@@ -1,8 +1,7 @@
 {% extends "cmsplugin_blog/cmsplugin_blog_base.html" %}
 {% load i18n cmsplugin_blog_tags simple_translation_tags %}
 
-{% block right-col %}
-
+{% block left-col %}
 
 <h1>{% trans "Entries for" %} {{ day|date:"d F Y" }}</h1>
 
@@ -15,5 +14,13 @@
 		<li>{% trans "No entries for this day" %}</li>
 	{% endfor %}
 </ul>
+
+{% endblock %}
+
+{% block right-col %}
+
+{% render_month_links %}
+
+{% render_tag_links %}
 
 {% endblock %}

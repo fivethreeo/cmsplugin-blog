@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-16 20:29+0200\n"
-"PO-Revision-Date: 2010-05-16 19:09-0000\n"
+"POT-Creation-Date: 2010-05-17 00:12+0200\n"
+"PO-Revision-Date: 2010-05-16 23:06-0000\n"
 "Last-Translator: Øyvind Saltvik <oyvind.saltvik@gmail.com>\n"
 "Language-Team: Norwegian <oyvind.saltvik@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,15 +19,18 @@ msgstr ""
 msgid "Blog Apphook"
 msgstr "Blogg Applikasjon"
 
-#: cms_plugins.py:12 templates/cmsplugin_blog/entry_archive.html:5
+#: cms_plugins.py:12
+#: templates/cmsplugin_blog/entry_archive.html:5
 msgid "Latest entries"
 msgstr "Siste innlegg"
 
-#: feeds.py:36 feeds.py:47
+#: feeds.py:36
+#: feeds.py:47
 msgid "Blog entries"
 msgstr "Blogginlegg"
 
-#: feeds.py:37 feeds.py:48
+#: feeds.py:37
+#: feeds.py:48
 #, python-format
 msgid "Blog entries in %s"
 msgstr "Bloginnleg på %s"
@@ -54,7 +57,8 @@ msgstr "Innhold"
 msgid "Published"
 msgstr "Publisert"
 
-#: models.py:48 models.py:55
+#: models.py:48
+#: models.py:55
 msgid "Entry"
 msgstr "Innlegg"
 
@@ -103,13 +107,13 @@ msgstr ""
 msgid "No entries"
 msgstr "Ingen innlegg"
 
-#: templates/cmsplugin_blog/entry_archive_day.html:7
+#: templates/cmsplugin_blog/entry_archive_day.html:6
 #: templates/cmsplugin_blog/entry_archive_month.html:6
 #: templates/cmsplugin_blog/entry_archive_year.html:7
 msgid "Entries for"
 msgstr "Innlegg for"
 
-#: templates/cmsplugin_blog/entry_archive_day.html:15
+#: templates/cmsplugin_blog/entry_archive_day.html:14
 msgid "No entries for this day"
 msgstr "Ingen innlegg for denne dagen"
 
@@ -132,3 +136,8 @@ msgstr "Ingen innlegg tagget"
 #: templates/cmsplugin_blog/month_links_snippet.html:3
 msgid "See entries for"
 msgstr "Se innlegg for"
+
+#: templates/cmsplugin_blog/tag_links_snippet.html:3
+msgid "See entries tagged"
+msgstr "Se innlegg med stikkord"
+
