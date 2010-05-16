@@ -6,7 +6,8 @@ Download: http://bitbucket.org/fivethreeo/cmsplugin-blog/
 
 Requirements:
 - django-cms-2.0
-- simple-translation - http://bitbucket.org/fivethreeo/simple-translation
+- django tagging - http://code.google.com/p/django-tagging/
+- simple-translation - http://bitbucket.org/fivethreeo/simple-translation/
 
 Setup
 - make sure requirements are installed and properly working

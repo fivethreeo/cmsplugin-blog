@@ -8,6 +8,8 @@ from cms.middleware.multilingual import has_lang_prefix
 from simple_translation.translation_pool import translation_pool
 from simple_translation.templatetags.simple_translation_tags import get_preferred_translation_from_lang
 
+from cmsplugin_blog.models import Entry
+
 def get_lang_name(lang):
     return dict(settings.LANGUAGES)[lang]
     
@@ -31,8 +33,8 @@ class EntriesFeed(Feed):
         
     def title(self, obj):
         if self.any_language:
-            return "Blog entries"
-        return "Blog entries in %s" % get_lang_name(self.language_code)
+            return u"Blog entries"
+        return u"Blog entries in %s" % get_lang_name(self.language_code)
 
     def link(self, obj):
         return add_current_root(reverse('%s:blog_archive_index' % self.language_code))
@@ -42,15 +44,46 @@ class EntriesFeed(Feed):
 
     def description(self, obj):        
         if self.any_language:
-            return "Blog entries"
-        return "Blog entries in %s" % get_lang_name(self.language_code)
+            return u"Blog entries"
+        return u"Blog entries in %s" % get_lang_name(self.language_code)
 
-    def items(self, obj):
-        from cmsplugin_blog.models import Entry
+    def get_queryset(self, obj):
         if self.any_language:
-            items = Entry.objects.order_by('-pub_date')[:10]
+            qs = Entry.published.order_by('-pub_date')
         else:
-            items = Entry.objects.filter(entrytitle__language=self.language_code).order_by('-pub_date')[:10]
+            qs = Entry.published.filter(entrytitle__language=self.language_code).order_by('-pub_date')
+        return qs
         
+    def items(self, obj):
+        items = self.get_queryset(obj)[:10]
         items = [get_preferred_translation_from_lang(title, self.language_code) for title in translation_pool.annotate_with_translations(items)]
         return items
+        
+class TaggedEntriesFeed(EntriesFeed):
+    
+    def get_object(self, request, **kwargs):
+        super(TaggedEntriesFeed, self).get_object(request, **kwargs)
+        self.tag = kwargs.get('tag')  
+        return None
+    
+    def title(self, obj):
+        title = super(TaggedEntriesFeed, self).title(obj)
+        return u'%s tagged "%s"' % (title, self.tag)
+        
+    def feed_url(self, obj):
+        if self.any_language:
+            return add_current_root(reverse('%s:blog_rss_any_tagged' % self.language_code, kwargs={'tag': self.tag}))
+        return add_current_root(reverse('%s:blog_rss_tagged' % self.language_code, kwargs={'tag': self.tag}))
+        
+    def link(self, obj):
+        return add_current_root(reverse('%s:blog_archive_tagged' % self.language_code, kwargs={'tag': self.tag}))
+
+    def description(self, obj):
+        description = super(TaggedEntriesFeed, self).description(obj)
+        return u'%s tagged "%s"' % (description, self.tag)
+        
+    def get_queryset(self, obj):
+        qs = super(TaggedEntriesFeed, self).get_queryset(obj)
+        return Entry.tagged.with_any(self.tag, queryset=qs)
+        
+
