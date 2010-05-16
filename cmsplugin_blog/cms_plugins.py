@@ -1,8 +1,6 @@
-from django.utils.translation import ugettext_lazy as _
-
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from cmsplugin_blog.models import LatestEntriesPlugin, Entry
 

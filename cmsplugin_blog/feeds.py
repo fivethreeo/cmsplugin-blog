@@ -1,6 +1,6 @@
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
-from django.utils.translation import get_language
+from django.utils.translation import get_language, ugettext_lazy as _
 
 from cms import settings
 from cms.utils import get_language_from_request
@@ -11,7 +11,7 @@ from simple_translation.templatetags.simple_translation_tags import get_preferre
 from cmsplugin_blog.models import Entry
 
 def get_lang_name(lang):
-    return dict(settings.LANGUAGES)[lang]
+    return _(dict(settings.LANGUAGES)[lang])
     
 def add_current_root(url):
     if not has_lang_prefix(url):
@@ -33,8 +33,8 @@ class EntriesFeed(Feed):
         
     def title(self, obj):
         if self.any_language:
-            return u"Blog entries"
-        return u"Blog entries in %s" % get_lang_name(self.language_code)
+            return _(u"Blog entries")
+        return _(u"Blog entries in %s") % get_lang_name(self.language_code)
 
     def link(self, obj):
         return add_current_root(reverse('%s:blog_archive_index' % self.language_code))
@@ -44,8 +44,8 @@ class EntriesFeed(Feed):
 
     def description(self, obj):        
         if self.any_language:
-            return u"Blog entries"
-        return u"Blog entries in %s" % get_lang_name(self.language_code)
+            return _(u"Blog entries")
+        return _(u"Blog entries in %s") % get_lang_name(self.language_code)
 
     def get_queryset(self, obj):
         if self.any_language:
@@ -68,7 +68,7 @@ class TaggedEntriesFeed(EntriesFeed):
     
     def title(self, obj):
         title = super(TaggedEntriesFeed, self).title(obj)
-        return u'%s tagged "%s"' % (title, self.tag)
+        return _(u'%(title)s tagged "%(tag)s"') % {'title': title, 'tag': self.tag}
         
     def feed_url(self, obj):
         if self.any_language:
@@ -80,7 +80,7 @@ class TaggedEntriesFeed(EntriesFeed):
 
     def description(self, obj):
         description = super(TaggedEntriesFeed, self).description(obj)
-        return u'%s tagged "%s"' % (description, self.tag)
+        return _(u'%(description)s tagged "%(tag)s"') % {'description': description, 'tag': self.tag}
         
     def get_queryset(self, obj):
         qs = super(TaggedEntriesFeed, self).get_queryset(obj)
