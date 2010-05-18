@@ -1,4 +1,4 @@
-ALPHA
+BETA
 
 Name: cmsplugin-blog
 Description: A blog plugin for django-cms
@@ -19,7 +19,7 @@ Setup
 - make sure requirements are installed and properly working
 - add cmsplugin_blog to python path
 - add 'cmsplugin_blog' to INSTALLED_APPS
-- (optional) add 'simple_translation.middleware.MultilingualGenericsMiddleware' to MIDDLEWARE_CLASSES
+- add 'simple_translation.middleware.MultilingualGenericsMiddleware' to MIDDLEWARE_CLASSES
 - run 'python manage.py syncdb'
 - Create a page in cms and in the 'Advanced settings' section of the admin for that page for 'Application' select 'Blog Apphook'
   Do this for each language you want to show posts in.

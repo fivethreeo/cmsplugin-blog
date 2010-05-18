@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 setup(
     name='cmsplugin-blog',
-    version='0.1a',
+    version='0.9b',
     description='This is a blog app/plugin for django-cms 2.0',
     author='Oyvind Saltvik',
     author_email='oyvind@gmail.com',
     url='http://bitbucket.org/fivethreeo/cmsplugin-blog/',
     packages=find_packages(),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
