@@ -1,13 +1,19 @@
 from django import forms
 from django.contrib import admin
 from django.conf import settings
-from simple_translation.admin import TranslationAdmin
-from cmsplugin_blog.models import Entry, EntryTitle
-from cmsplugin_blog.widgets import AutoCompleteTagInput
-from cms.forms.widgets import PlaceholderPluginEditorWidget
+
+from django.http import HttpResponse
 from django.utils.text import capfirst
 from django.template.defaultfilters import title, escape, force_escape, escapejs
 from django.forms import CharField
+
+from cms.models.pluginmodel import CMSPlugin
+from cms.forms.widgets import PlaceholderPluginEditorWidget
+
+from simple_translation.admin import TranslationAdmin
+from cmsplugin_blog.models import Entry, EntryTitle
+from cmsplugin_blog.widgets import AutoCompleteTagInput
+
 from copy import deepcopy
 
 class EntryForm(forms.ModelForm):
@@ -57,7 +63,39 @@ class M2MPlaceholderAdmin(TranslationAdmin):
                 given_fieldsets += [(title(placeholder_name), {'fields':[placeholder_name], 'classes':['plugin-holder']})]
 
         return given_fieldsets
+            
+    def move_plugin(self, request):
         
+        def get_placeholder(plugin, request):
+            
+            return plugin.placeholder
+            
+        if request.method == "POST":    
+            if 'plugin_id' in request.POST:
+                plugin = CMSPlugin.objects.get(pk=int(request.POST['plugin_id']))
+                if "placeholder" in request.POST:
+                    obj = plugin.placeholder._get_attached_model().objects.get(placeholders__cmsplugin=plugin)
+                    placeholder = obj.placeholders.get(slot=request.POST["placeholder"])
+                else:
+                    placeholder = plugin.placeholder
+                # plugin positions are 0 based, so just using count here should give us 'last_position + 1'
+                position = CMSPlugin.objects.filter(placeholder=placeholder).count()
+                plugin.placeholder = placeholder
+                plugin.position = position
+                plugin.save()
+            pos = 0
+            if 'ids' in request.POST:
+                for id in request.POST['ids'].split("_"):
+                    plugin = CMSPlugin.objects.get(pk=id)
+                    if plugin.position != pos:
+                        plugin.position = pos
+                        plugin.save()
+                    pos += 1
+            else:
+                HttpResponse(str("error"))
+            return HttpResponse(str("ok"))
+        else:
+            return HttpResponse(str("error"))        
                 
 class EntryAdmin(M2MPlaceholderAdmin):
     
