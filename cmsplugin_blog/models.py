@@ -4,14 +4,21 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from cms.models.fields import PlaceholderField
+from cms.utils.placeholder import PlaceholderNoAction
+
 from cms.models import CMSPlugin
 
 import tagging
 from tagging.fields import TagField
 
+from simple_translation.actions import SimpleTranslationPlaceholderActions
+
+from cmsplugin_blog.fields import M2MPlaceholderField
+
 if "south" in settings.INSTALLED_APPS:
+    
     from south.modelsinspector import add_introspection_rules
+
     rules = [
         (
             (TagField, ),
@@ -25,7 +32,6 @@ if "south" in settings.INSTALLED_APPS:
     
     add_introspection_rules(rules, ["^tagging\.fields",])
 
-
 class PublishedEntriesManager(models.Manager):
     """
         Filters out all unpublished and items with a publication date in the future
@@ -34,11 +40,14 @@ class PublishedEntriesManager(models.Manager):
         return super(PublishedEntriesManager, self).get_query_set() \
                     .filter(is_published=True, pub_date__lte=datetime.datetime.now())
                     
+CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', ('main',))
+              
 class Entry(models.Model):
     is_published = models.BooleanField(_('Is published'))
-    content = PlaceholderField('entry', verbose_name=_('Content'))
     pub_date = models.DateTimeField(_('Published'), default=datetime.datetime.now)
  
+    placeholders = M2MPlaceholderField(actions=SimpleTranslationPlaceholderActions(), placeholders=CMSPLUGIN_BLOG_PLACEHOLDERS)
+    
     tags = TagField()
     
     objects = models.Manager()

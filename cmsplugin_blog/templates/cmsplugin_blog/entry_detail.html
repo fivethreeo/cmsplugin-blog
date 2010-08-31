@@ -9,7 +9,17 @@
 
 <p class="date"><span>{{ object.pub_date|date:"d F Y" }}</span> {{ object|render_language_choices:request|safe }}</p>
 
-{% render_placeholder object.content %}
+{% with object.placeholders|choose_placeholder:"one" as placeholderone %}
+    {% if placeholderone %}
+        {% render_placeholder  placeholderone %}
+    {% endif %}
+{% endwith %}
+
+{% with object.placeholders|choose_placeholder:"two" as placeholdertwo %}
+    {% if placeholdertwo %}
+        {% render_placeholder placeholdertwo %}
+    {% endif %}
+{% endwith %}
 
 {% endblock %}
 

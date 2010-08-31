@@ -24,3 +24,11 @@ def render_tag_links(context):
     return {
         'tags': Tag.objects.usage_for_model(Entry, filters=filters)
     }
+    
+@register.filter
+def choose_placeholder(placeholders, placeholder):
+    try:
+        return placeholders.get(slot=placeholder)
+    except Placeholder.DoesNotExist:
+        return None
+    
