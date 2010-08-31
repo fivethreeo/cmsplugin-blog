@@ -10,7 +10,7 @@ from django.forms import CharField
 from cms.models.pluginmodel import CMSPlugin
 from cms.forms.widgets import PlaceholderPluginEditorWidget
 
-from simple_translation.admin import TranslationAdmin
+from simple_translation.admin import PlaceholderTranslationAdmin
 from cmsplugin_blog.models import Entry, EntryTitle
 from cmsplugin_blog.widgets import AutoCompleteTagInput
 
@@ -25,7 +25,7 @@ class EntryForm(forms.ModelForm):
     title = forms.CharField()
     slug = forms.SlugField()
     
-class M2MPlaceholderAdmin(TranslationAdmin):
+class M2MPlaceholderAdmin(PlaceholderTranslationAdmin):
     
     def get_form(self, request, obj=None, **kwargs):
         """
