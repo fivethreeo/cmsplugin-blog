@@ -21,7 +21,11 @@ Setup
 - add cmsplugin_blog to python path
 - add 'cmsplugin_blog' to INSTALLED_APPS
 - add 'multilingual.context_processors.multilingual' to TEMPLATE_CONTEXT_PROCESSORS
-- for multilanguage posts add 'simple_translation.middleware.MultilingualGenericsMiddleware' to MIDDLEWARE_CLASSES
+- for multilanguage posts :
+    add 'simple_translation.middleware.MultilingualGenericsMiddleware' 
+    and 'cms.middleware.multilingual.MultilingualURLMiddleware'
+    to MIDDLEWARE_CLASSES 
+- if you *DONT* want multilanguage posts you need to add 'django.middleware.locale.LocaleMiddleWare' to MIDDLEWARE_CLASSES
 - run 'python manage.py syncdb'
 - Create a page in cms and in the 'Advanced settings' section of the admin for that page for 'Application' select 'Blog Apphook'
   Do this for each language you want to show posts in.
