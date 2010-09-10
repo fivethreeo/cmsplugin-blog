@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 setup(
     name='cmsplugin-blog',
-    version='0.9b',
+    version='0.9c',
     description='This is a blog app/plugin for django-cms 2.0',
     author='Oyvind Saltvik',
     author_email='oyvind@gmail.com',
-    url='http://bitbucket.org/fivethreeo/cmsplugin-blog/',
+    url='http://bitbucket.org/va1en0k/cmsplugin-blog/',
     packages=find_packages(),
     package_data={'': ['templates/*/*.html']},
     classifiers=[
