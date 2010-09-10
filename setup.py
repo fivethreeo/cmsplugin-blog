@@ -7,7 +7,7 @@ setup(
     author_email='oyvind@gmail.com',
     url='http://bitbucket.org/fivethreeo/cmsplugin-blog/',
     packages=find_packages(),
-    package_data={'': ['templates/*.html']},
+    package_data={'': ['templates/*/*.html']},
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
