@@ -9,7 +9,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding field 'Entry.tags'
-        db.add_column('cmsplugin_blog_entry', 'tags', self.gf('tagging.field.TagField')(default=''), keep_default=False)
+        db.add_column('cmsplugin_blog_entry', 'tags', self.gf('tagging.fields.TagField')(default=''), keep_default=False)
 
 
     def backwards(self, orm):
