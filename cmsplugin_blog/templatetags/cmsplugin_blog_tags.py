@@ -5,6 +5,7 @@ from tagging.models import Tag
 
 from cms.utils import get_language_from_request
 from cmsplugin_blog.models import Entry, EntryTitle
+from cms.models import Placeholder
 
 register = template.Library()
 
