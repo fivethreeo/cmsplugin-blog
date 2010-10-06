@@ -17,7 +17,7 @@ def _get_attached_field(self):
         
 class M2MPlaceholderField(models.ManyToManyField):
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         
         if 'actions' in kwargs:
             self.actions = kwargs.pop('actions')
@@ -26,7 +26,11 @@ class M2MPlaceholderField(models.ManyToManyField):
             self.placeholders = kwargs.pop('placeholders')
             
         kwargs['editable'] = False
-        super(M2MPlaceholderField, self).__init__(Placeholder, *args, **kwargs)
+        
+        if 'to' in kwargs:
+            del kwargs['to']
+            
+        super(M2MPlaceholderField, self).__init__(Placeholder, **kwargs)
         
     def contribute_to_related_class(self, cls, related):
         setattr(cls, '_get_attached_field', _get_attached_field)
@@ -35,16 +39,6 @@ class M2MPlaceholderField(models.ManyToManyField):
 if "south" in settings.INSTALLED_APPS:
         
     from south.modelsinspector import add_introspection_rules
-    
-    rules = [
-        (
-            (M2MPlaceholderField, ),
-            [],
-            {
-                "editable": ["editable", {"default": True}],
-            },
-        ),
-    ]
-    
-    add_introspection_rules(rules, ["^cmsplugin_blog\.fields",])
+
+    add_introspection_rules([], ["^cmsplugin_blog\.fields",])
     
