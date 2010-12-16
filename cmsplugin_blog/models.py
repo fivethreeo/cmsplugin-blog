@@ -12,25 +12,7 @@ import tagging
 from tagging.fields import TagField
 
 from simple_translation.actions import SimpleTranslationPlaceholderActions
-
-from cmsplugin_blog.fields import M2MPlaceholderField
-
-if "south" in settings.INSTALLED_APPS:
-    
-    from south.modelsinspector import add_introspection_rules
-
-    rules = [
-        (
-            (TagField, ),
-            [],
-            {
-                "blank": ["blank", {"default": True}],
-                "max_length": ["max_length", {"default": 255}],
-            },
-        ),
-    ]
-    
-    add_introspection_rules(rules, ["^tagging\.fields",])
+from djangocms_utils.fields import M2MPlaceholderField
 
 class PublishedEntriesManager(models.Manager):
     """
