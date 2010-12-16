@@ -19,7 +19,6 @@ Setup
     pip install cmsplugin_blog # should do it
 - follow install for django-cms http://django-cms.readthedocs.org/ 
 - add 'cmsplugin_blog' to INSTALLED_APPS
-- add 'multilingual.context_processors.multilingual' to TEMPLATE_CONTEXT_PROCESSORS
 - for multilanguage posts :
     add 'cms.middleware.multilingual.MultilingualURLMiddleware'
     add 'simple_translation.middleware.MultilingualGenericsMiddleware' 
