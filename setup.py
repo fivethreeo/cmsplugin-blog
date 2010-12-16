@@ -5,7 +5,7 @@ setup(
     description='This is a blog app/plugin for django-cms 2.0',
     author='Oyvind Saltvik',
     author_email='oyvind@gmail.com',
-    url='http://bitbucket.org/fivethreeo/cmsplugin-blog/',
+    url='http://github.com/fivethreeo/cmsplugin-blog/',
     packages=find_packages(),
     classifiers=[
         'Development Status :: 4 - Beta',
