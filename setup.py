@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
     name='cmsplugin-blog',
-    version='0.9',
+    version='0.9.0',
     description='This is a blog app/plugin for django-cms 2.0',
     author='Oyvind Saltvik',
     author_email='oyvind@gmail.com',
@@ -18,5 +18,5 @@ setup(
     ],
     include_package_data=True,
     zip_safe=False,
-    install_requires=['simple-translation', 'djangocms-utils'],
+    install_requires=['simple-translation', 'djangocms-utils', 'django-tagging'],
 )
