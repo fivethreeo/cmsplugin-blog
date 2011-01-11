@@ -48,7 +48,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_published': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'tags': ('tagging_autocomplete.models.TagAutocompleteField', [], {'default': "''"})
+            'tags': ('tagging.fields.TagField', [], {'default': "''"})
         },
         'cmsplugin_blog.entrytitle': {
             'Meta': {'object_name': 'EntryTitle'},
