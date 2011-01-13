@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 def run_tests():
     
@@ -50,7 +50,9 @@ def run_tests():
         },
         CMS_TEMPLATES = (
             ('default.html', 'default'),
-        )
+        ),
+        ROOT_URLCONF='cmsplugin_blog.testing.testapp.urls',
+        LANGUAGES=(('en', 'en'),('de','de'))
     )
     
     from django.test.utils import get_runner
