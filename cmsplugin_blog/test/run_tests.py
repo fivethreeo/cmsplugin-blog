@@ -6,7 +6,7 @@ def run_tests():
     
     settings.configure(
         INSTALLED_APPS=[
-            'cmsplugin_blog.testing.testapp',
+            'cmsplugin_blog.test.testapp',
             'django.contrib.auth',
             'django.contrib.contenttypes',
             'django.contrib.sessions',
@@ -51,7 +51,7 @@ def run_tests():
         CMS_TEMPLATES = (
             ('default.html', 'default'),
         ),
-        ROOT_URLCONF='cmsplugin_blog.testing.testapp.urls',
+        ROOT_URLCONF='cmsplugin_blog.test.testapp.urls',
         LANGUAGES=(('en', 'en'),('de','de'))
     )
     

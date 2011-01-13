@@ -16,7 +16,7 @@ setup(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
-    test_suite = "cmsplugin_blog.testing.run_tests.run_tests",
+    test_suite = "cmsplugin_blog.test.run_tests.run_tests",
     include_package_data=True,
     zip_safe=False,
     install_requires=['simple-translation', 'djangocms-utils', 'django-tagging', 'django-cms==2.1.0.rc2', 'sphinx'],
