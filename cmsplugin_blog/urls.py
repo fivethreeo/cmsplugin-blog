@@ -1,20 +1,24 @@
-from django.conf.urls.defaults import *
-from cmsplugin_blog.models import Entry
 from cmsplugin_blog.feeds import EntriesFeed, TaggedEntriesFeed
+from cmsplugin_blog.models import Entry
+from django.conf import settings
+from django.conf.urls.defaults import *
 
 blog_info_dict = {
     'queryset': Entry.published.all(),
     'date_field': 'pub_date',
+    'context_processors': settings.TEMPLATE_CONTEXT_PROCESSORS,
 }
 
 blog_info_tagged_dict = {
     'queryset_or_model': Entry.published.all(),
+    'context_processors': settings.TEMPLATE_CONTEXT_PROCESSORS,
 }
 
 blog_info_month_dict = {
     'queryset': Entry.published.all(),
     'date_field': 'pub_date',
     'month_format': '%m',
+    'context_processors': settings.TEMPLATE_CONTEXT_PROCESSORS,
 }
 
 blog_info_detail_dict = dict(blog_info_month_dict, slug_field='entrytitle__slug')
