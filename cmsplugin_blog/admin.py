@@ -1,20 +1,16 @@
-from django import forms
-from django.contrib import admin
-from django.conf import settings
-
-from django.http import HttpResponse
-from django.utils.text import capfirst
-from django.template.defaultfilters import title, escape, force_escape, escapejs
-from django.forms import CharField
-
-from cms.models.pluginmodel import CMSPlugin
 from cms.forms.widgets import PlaceholderPluginEditorWidget
-
-from simple_translation.admin import PlaceholderTranslationAdmin
+from cms.models.pluginmodel import CMSPlugin
+from cms.utils import get_language_from_request
 from cmsplugin_blog.models import Entry, EntryTitle
 from cmsplugin_blog.widgets import AutoCompleteTagInput
+from django import forms
+from django.contrib import admin
+from django.forms import CharField
+from django.http import HttpResponse
+from django.template.defaultfilters import title
+from django.utils.text import capfirst
+from simple_translation.admin import PlaceholderTranslationAdmin
 
-from copy import deepcopy
 
 class EntryForm(forms.ModelForm):
         
@@ -116,11 +112,19 @@ class EntryAdmin(M2MPlaceholderAdmin):
             'language',
             'is_published',
             'pub_date',
+            'author',
             'title',
             'slug',
             'tags'
         )})
         return fieldsets
+    
+    def save_model(self, request, obj, form, change):
+        """
+        Given a model instance save it to the database.
+        """
+        super(EntryAdmin, self).save_model(request, obj, form, change)
+        language = get_language_from_request(request)
+        EntryTitle.objects.filter(entry=obj, language=language, author=None).update(author=request.user)
            
 admin.site.register(Entry, EntryAdmin)
-
