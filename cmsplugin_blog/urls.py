@@ -1,6 +1,7 @@
-from django.conf.urls.defaults import *
-from cmsplugin_blog.models import Entry
 from cmsplugin_blog.feeds import EntriesFeed, TaggedEntriesFeed
+from cmsplugin_blog.models import Entry
+from django.conf import settings
+from django.conf.urls.defaults import *
 
 blog_info_dict = {
     'queryset': Entry.published.all(),
