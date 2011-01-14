@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from cms.tests.base import CMSTestCase
+from cms.test.testcases import CMSTestCase
 from cms.models.titlemodels import Title
 
 from cmsplugin_blog.models import Entry, EntryTitle
