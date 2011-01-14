@@ -1,0 +1,8 @@
+[run]
+branch = True
+source =
+    cmsplugin_blog
+omit =
+    ../*migrations*
+[report]
+precision = 2
