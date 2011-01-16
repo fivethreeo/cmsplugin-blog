@@ -34,4 +34,4 @@ class BaseBlogTestCase(CMSTestCase):
             title = 'Entry title'
         slug = slug or slugify(title)
         language = language or 'en'
-        return entry.entrytitle_set.create(entry=entry, title=title, slug=slug, language=language)
+        return entry.entrytitle_set.create(entry=entry, title=title, slug=slug, language=language, author=author)
