@@ -22,5 +22,5 @@ setup(
     test_suite = "cmsplugin_blog.test.run_tests.run_tests",
     include_package_data=True,
     zip_safe=False,
-    install_requires=['simple-translation', 'djangocms-utils', 'django-tagging'],
+    install_requires=['simple-translation>=0.7.0', 'djangocms-utils>=0.9.1', 'django-tagging'],
 )
