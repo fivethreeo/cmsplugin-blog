@@ -22,7 +22,7 @@ Overview
 
 There are six steps for using cmsplugin-blog:
 
-    1. Install ``cmsplugin`` blog and dependencies.
+    1. Install ``cmsplugin-blog`` and dependencies.
     
         Install django-cms as per install docs on http://django-cms.rtfd.org/.
         
@@ -35,8 +35,8 @@ There are six steps for using cmsplugin-blog:
     3. Sync the database. ::
         
             python manage.py syncdb
-            # or if sout is installed
-        
+            
+            # or if south is installed
             python manage.py syncdb --all
             python manage.py migrate --fake    
         
