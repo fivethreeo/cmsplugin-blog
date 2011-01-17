@@ -96,7 +96,7 @@ class EntryAdmin(M2MPlaceholderAdmin):
     form = EntryForm
     
     # admin validation does not allow fields not on models
-    prepopulated_fields = settings.DEBUG and {} or {'slug': ('title',)}
+    prepopulated_fields = not settings.DEBUG and {'slug': ('title',)} or {}
         
     list_display = ('description', 'languages', 'is_published')
     list_editable = ('is_published',)
