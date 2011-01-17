@@ -118,7 +118,8 @@ class EntryAdmin(M2MPlaceholderAdmin):
     
     def save_translated_form(self, request, obj, form, change):
         translation_obj = super(EntryAdmin, self).save_translated_form(request, obj, form, change)
-        translation_obj.author=request.user
+        if not translation_obj.author:
+            translation_obj.author=request.user
         return translation_obj
                    
 admin.site.register(Entry, EntryAdmin)
