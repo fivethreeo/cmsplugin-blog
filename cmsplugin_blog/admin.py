@@ -5,7 +5,7 @@ from cmsplugin_blog.models import Entry, EntryTitle
 from cmsplugin_blog.widgets import AutoCompleteTagInput
 from django import forms
 from django.contrib import admin
-
+from django.conf import settings
 from django.forms import CharField
 from django.http import HttpResponse
 from django.template.defaultfilters import title
@@ -95,14 +95,11 @@ class EntryAdmin(M2MPlaceholderAdmin):
     
     form = EntryForm
     
-    prepopulated_fields = {}
+    # admin validation does not allow fields not on models
+    prepopulated_fields = settings.DEBUG and {} or {'slug': ('title',)}
         
     list_display = ('description', 'languages', 'is_published')
     list_editable = ('is_published',)
-    
-    def __init__(self, *args, **kwargs):
-        super(EntryAdmin, self).__init__(*args, **kwargs)
-        prepopulated_fields = {'slug': ('title',)}
     
     fieldsets = (
         (None, {'fields': (
