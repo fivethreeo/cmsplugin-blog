@@ -5,21 +5,19 @@ from cmsplugin_blog.models import Entry, EntryTitle
 from cmsplugin_blog.widgets import AutoCompleteTagInput
 from django import forms
 from django.contrib import admin
+
 from django.forms import CharField
 from django.http import HttpResponse
 from django.template.defaultfilters import title
 from django.utils.text import capfirst
-from simple_translation.admin import PlaceholderTranslationAdmin
+from simple_translation.admin import PlaceholderTranslationAdmin, TranslationModelForm
 
 
-class EntryForm(forms.ModelForm):
+class EntryForm(TranslationModelForm):
         
     class Meta:
         model = Entry
         widgets = {'tags': AutoCompleteTagInput}
-        
-    title = forms.CharField()
-    slug = forms.SlugField()
     
 class M2MPlaceholderAdmin(PlaceholderTranslationAdmin):
     
@@ -97,14 +95,10 @@ class EntryAdmin(M2MPlaceholderAdmin):
     
     form = EntryForm
     
-    prepopulated_fields = {}
+    prepopulated_fields = {'slug': ('title',)}
         
     list_display = ('description', 'languages', 'is_published')
     list_editable = ('is_published',)
-    
-    def __init__(self, *args, **kwargs):
-        super(EntryAdmin, self).__init__(*args, **kwargs)
-        self.prepopulated_fields.update({'slug': ('title',)})
         
     def get_fieldsets(self, request, obj=None):
         fieldsets = super(EntryAdmin, self).get_fieldsets(request, obj=obj)
