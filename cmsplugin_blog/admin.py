@@ -95,14 +95,17 @@ class EntryAdmin(M2MPlaceholderAdmin):
     
     form = EntryForm
     
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {}
         
     list_display = ('description', 'languages', 'is_published')
     list_editable = ('is_published',)
-        
-    def get_fieldsets(self, request, obj=None):
-        fieldsets = super(EntryAdmin, self).get_fieldsets(request, obj=obj)
-        fieldsets[0] = (None, {'fields': (
+    
+    def __init__(self, *args, **kwargs):
+        super(EntryAdmin, self).__init__(*args, **kwargs)
+        prepopulated_fields = {'slug': ('title',)}
+    
+    fieldsets = (
+        (None, {'fields': (
             'language',
             'is_published',
             'pub_date',
@@ -110,15 +113,12 @@ class EntryAdmin(M2MPlaceholderAdmin):
             'title',
             'slug',
             'tags'
-        )})
-        return fieldsets
+        )}),
+    )
     
-    def save_model(self, request, obj, form, change):
-        """
-        Given a model instance save it to the database.
-        """
-        super(EntryAdmin, self).save_model(request, obj, form, change)
-        language = get_language_from_request(request)
-        EntryTitle.objects.filter(entry=obj, language=language, author=None).update(author=request.user)
-           
+    def save_translated_form(self, request, obj, form, change):
+        translation_obj = super(EntryAdmin, self).save_translated_form(request, obj, form, change)
+        translation_obj.author=request.user
+        return translation_obj
+                   
 admin.site.register(Entry, EntryAdmin)
