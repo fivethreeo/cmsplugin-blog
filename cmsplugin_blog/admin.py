@@ -104,7 +104,7 @@ class EntryAdmin(M2MPlaceholderAdmin):
     # needed because of admin validation
     def get_fieldsets(self, request, obj=None):
         fieldsets = super(EntryAdmin, self).get_fieldsets(request, obj=obj)
-        fieldsets((None, {'fields': (
+        fieldsets[0] = (None, {'fields': (
             'language',
             'is_published',
             'pub_date',
@@ -112,7 +112,7 @@ class EntryAdmin(M2MPlaceholderAdmin):
             'title',
             'slug',
             'tags'
-        )}),)
+        )})
         return fieldsets
         
     def save_translated_form(self, request, obj, form, change):
