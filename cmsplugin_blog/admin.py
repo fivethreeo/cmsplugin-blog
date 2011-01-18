@@ -95,15 +95,16 @@ class EntryAdmin(M2MPlaceholderAdmin):
     
     form = EntryForm
     
-    # admin validation does not allow fields not on models
+    # needed because of admin validation
     prepopulated_fields = not settings.DEBUG and {'slug': ('title',)} or {}
         
     list_display = ('description', 'languages', 'is_published')
     list_editable = ('is_published',)
     
+    # needed because of admin validation
     def get_fieldsets(self, request, obj=None):
         fieldsets = super(EntryAdmin, self).get_fieldsets(request, obj=obj)
-        fieldsets[0] = (None, {'fields': (
+        fieldsets((None, {'fields': (
             'language',
             'is_published',
             'pub_date',
@@ -111,7 +112,7 @@ class EntryAdmin(M2MPlaceholderAdmin):
             'title',
             'slug',
             'tags'
-        )})
+        )}),)
         return fieldsets
         
     def save_translated_form(self, request, obj, form, change):
