@@ -7,7 +7,7 @@ setup(
     description='This is a blog app/plugin for django-cms 2.1',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.txt')).read(),
     author='Oyvind Saltvik',
-    author_email='oyvind@gmail.com',
+    author_email='oyvind.saltvik@gmail.com',
     url='http://github.com/fivethreeo/cmsplugin-blog/',
     packages=find_packages(),
     classifiers=[

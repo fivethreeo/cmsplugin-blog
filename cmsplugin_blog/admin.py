@@ -10,15 +10,15 @@ from django.forms import CharField
 from django.http import HttpResponse
 from django.template.defaultfilters import title
 from django.utils.text import capfirst
-from simple_translation.admin import PlaceholderTranslationAdmin, TranslationModelForm
-
+from simple_translation.admin import PlaceholderTranslationAdmin
+from simple_translation.forms import TranslationModelForm
 
 class EntryForm(TranslationModelForm):
         
     class Meta:
         model = Entry
         widgets = {'tags': AutoCompleteTagInput}
-    
+        
 class M2MPlaceholderAdmin(PlaceholderTranslationAdmin):
     
     def get_form(self, request, obj=None, **kwargs):
@@ -101,8 +101,9 @@ class EntryAdmin(M2MPlaceholderAdmin):
     list_display = ('description', 'languages', 'is_published')
     list_editable = ('is_published',)
     
-    fieldsets = (
-        (None, {'fields': (
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(EntryAdmin, self).get_fieldsets(request, obj=obj)
+        fieldsets[0] = (None, {'fields': (
             'language',
             'is_published',
             'pub_date',
@@ -110,9 +111,9 @@ class EntryAdmin(M2MPlaceholderAdmin):
             'title',
             'slug',
             'tags'
-        )}),
-    )
-    
+        )})
+        return fieldsets
+        
     def save_translated_form(self, request, obj, form, change):
         translation_obj = super(EntryAdmin, self).save_translated_form(request, obj, form, change)
         if not translation_obj.author:
