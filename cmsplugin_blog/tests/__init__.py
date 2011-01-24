@@ -31,12 +31,12 @@ class BlogTestCase(BaseBlogTestCase):
         # edit english
         response = self.client.get(add_url, {'language': 'en'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'language_button selected" id="debutton" name="en"' )
+        self.assertContains(response, 'value="en" type="button" disabled' )
         
         # edit german
         response = self.client.get(add_url, {'language': 'de'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'language_button selected" id="debutton" name="de"' )
+        self.assertContains(response, 'value="de" type="button" disabled')
         
     def test_04_admin_change(self):
         
@@ -57,13 +57,14 @@ class BlogTestCase(BaseBlogTestCase):
         # edit english
         response = self.client.get(edit_url, {'language': 'en'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'language_button selected" id="debutton" name="en"' )
+        self.assertContains(response, 'value="en" type="button" disabled' )
+
         
         # edit german
         response = self.client.get(edit_url, {'language': 'de'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'language_button selected" id="debutton" name="de"' )
-        
+        self.assertContains(response, 'value="de" type="button" disabled' )
+
     def test_05_admin_add_post(self):
         
         superuser = User(username="super", is_staff=True, is_active=True, 
