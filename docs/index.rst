@@ -44,6 +44,8 @@ There are six steps for using cmsplugin-blog:
     
     5. Put a template adapted to your site in ``templates/cmsplugin_blog/cmsplugin_blog_base.html``.
     
+        Blocks in default templates are 'left-col' and 'right-col'.
+        
     6. Create a page in the cms and in 'Application' in the 'Advanced settings' section
         of the admin select 'Blog Apphook'
         
