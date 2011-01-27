@@ -32,6 +32,10 @@ There are six steps for using cmsplugin-blog:
         
     2. Add ``cmsplugin_blog``, ``djangocms_utils`` and ``simple_translation`` to ``settings.INSTALLED_APPS``
     
+        Optionally set the placeholders in settings.py. ::
+            
+            CMSPLUGIN_BLOG_PLACEHOLDERS = ('first', 'second', 'third')
+        
     3. Sync the database. ::
         
             python manage.py syncdb
