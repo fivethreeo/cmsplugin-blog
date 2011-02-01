@@ -63,7 +63,7 @@ class EntryTitle(models.Model):
         return self.title
         
     def _get_absolute_url(self):
-        language_namespace = 'simple_translation.middleware.MultilingualGenericsMiddleware' in settings.MIDDLEWARE_CLASSES and '%s:' % self.language or ''
+        language_namespace = 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES and '%s:' % self.language or ''
         return ('%sblog_detail' % language_namespace, (), {
             'year': self.entry.pub_date.strftime('%Y'),
             'month': self.entry.pub_date.strftime('%m'),
