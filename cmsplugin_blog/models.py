@@ -1,7 +1,7 @@
 import datetime
 
 from django.db import models
-
+from django.db.models.query import QuerySet
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,13 +15,22 @@ from tagging.fields import TagField
 from simple_translation.actions import SimpleTranslationPlaceholderActions
 from djangocms_utils.fields import M2MPlaceholderField
 
-class PublishedEntriesManager(models.Manager):
+class PublishedEntriesQueryset(QuerySet):
+    
+    def published(self):
+        return self.filter(is_published=True, pub_date__lte=datetime.datetime.now())
+        
+class EntriesManager(models.Manager):
+    
+    def get_query_set(self):
+        return PublishedEntriesQueryset(self.model)
+                            
+class PublishedEntriesManager(EntriesManager):
     """
         Filters out all unpublished and items with a publication date in the future
     """
     def get_query_set(self):
-        return super(PublishedEntriesManager, self).get_query_set() \
-                    .filter(is_published=True, pub_date__lte=datetime.datetime.now)
+        return super(PublishedEntriesManager, self).get_query_set().published()
                     
 CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', ('main',))
               
@@ -33,7 +42,7 @@ class Entry(models.Model):
     
     tags = TagField()
     
-    objects = models.Manager()
+    objects = EntriesManager()
     published = PublishedEntriesManager()
     
     class Meta:
