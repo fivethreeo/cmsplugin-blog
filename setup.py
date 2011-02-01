@@ -3,7 +3,7 @@ import os
 
 setup(
     name='cmsplugin-blog',
-    version='0.9.3',
+    version='0.9.4',
     description='This is a blog app/plugin for django-cms 2.1',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.txt')).read(),
     author='Oyvind Saltvik',
@@ -22,5 +22,5 @@ setup(
     test_suite = "cmsplugin_blog.test.run_tests.run_tests",
     include_package_data=True,
     zip_safe=False,
-    install_requires=['simple-translation>=0.7.0', 'djangocms-utils>=0.9.1', 'django-tagging'],
+    install_requires=['simple-translation>=0.7.1', 'djangocms-utils>=0.9.1', 'django-tagging'],
 )
