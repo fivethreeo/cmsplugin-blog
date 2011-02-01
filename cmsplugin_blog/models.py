@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,7 +21,7 @@ class PublishedEntriesManager(models.Manager):
     """
     def get_query_set(self):
         return super(PublishedEntriesManager, self).get_query_set() \
-                    .filter(is_published=True, pub_date__lte=datetime.datetime.now())
+                    .filter(is_published=True, pub_date__lte=datetime.datetime.now)
                     
 CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', ('main',))
               
