@@ -32,7 +32,7 @@ def run_tests():
             'cms.middleware.toolbar.ToolbarMiddleware',
             'cms.middleware.media.PlaceholderMediaMiddleware',
             'cms.middleware.multilingual.MultilingualURLMiddleware',
-            'simple_translation.middleware.MultilingualGenericsMiddleware'
+            'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware'
         ),
         TEMPLATE_CONTEXT_PROCESSORS = (
             "django.core.context_processors.auth",
