@@ -52,7 +52,10 @@ def run_tests():
             ('default.html', 'default'),
         ),
         ROOT_URLCONF='cmsplugin_blog.test.testapp.urls',
-        LANGUAGES=(('en', 'en'),('de','de'))
+        LANGUAGES=(('en', 'en'),('de','de')),
+        JQUERY_UI_CSS='',
+        JQUERY_JS='',
+        JQUERY_UI_JS=''
     )
     
     from django.test.utils import get_runner
