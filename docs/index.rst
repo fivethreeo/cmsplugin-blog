@@ -30,7 +30,7 @@ There are six steps for using cmsplugin-blog:
         
             pip install cmsplugin-blog # also installs dependencies
         
-    2. Add ``cmsplugin_blog``, ``djangocms_utils`` and ``simple_translation`` to ``settings.INSTALLED_APPS``
+    2. Add ``cmsplugin_blog``, ``djangocms_utils``, ``tagging`` and ``simple_translation`` to ``settings.INSTALLED_APPS``
     
         Optionally set the placeholders in settings.py. ::
             
@@ -44,7 +44,7 @@ There are six steps for using cmsplugin-blog:
             python manage.py syncdb --all
             python manage.py migrate --fake    
         
-    4. Add ``cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware`` to ``settings.MIDDLEWARE_CLASSES``
+    4. If you are interested in multilangual blog, add ``cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware`` to ``settings.MIDDLEWARE_CLASSES``
     
     5. Put a template adapted to your site in ``templates/cmsplugin_blog/cmsplugin_blog_base.html``.
     
