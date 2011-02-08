@@ -7,13 +7,12 @@ from cmsplugin_blog.models import Entry
 
 class AutoCompleteTagInput(forms.TextInput):
     class Media:
-		js_base_url = getattr(settings, 'TAGGING_AUTOCOMPLETE_JS_BASE_URL','%s/jquery-autocomplete' % settings.MEDIA_URL)
-		css = {
-		    'all': ('%s/jquery.autocomplete.css' % js_base_url,)
-		}
-		js = (
-			'%s/jquery.autocomplete.js' % js_base_url,
-			)
+        css = {
+            'all': (settings.JQUERY_UI_CSS,)
+        }
+        js = (
+            settings.JQUERY_JS, settings.JQUERY_UI_JS
+        )
 
     def render(self, name, value, attrs=None):
         output = super(AutoCompleteTagInput, self).render(name, value, attrs)
