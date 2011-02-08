@@ -30,12 +30,21 @@ There are six steps for using cmsplugin-blog:
         
             pip install cmsplugin-blog # also installs dependencies
         
+        Download jQuery UI and put the files somewhere accessible.
+        
     2. Add ``cmsplugin_blog``, ``djangocms_utils``, ``tagging`` and ``simple_translation`` to ``settings.INSTALLED_APPS``
+    
+        Point ``cmslugin-blog`` to the jQuery/jQuery UI js/css. ::
+        
+            JQUERY_UI = '/path/to/jquery/'
+            JQUERY_JS = '%sjs/jquery-1.4.4.min.js' % JQUERY_UI
+            JQUERY_UI_JQUERY_JS = '%sjs/jquery-ui-1.8.9.custom.min.js' % JQUERY_UI
+            JQUERY_UI_CSS = '%scss/smoothness/jquery-ui-1.8.9.custom.css' % JQUERY_UI 
     
         Optionally set the placeholders in settings.py. ::
             
             CMSPLUGIN_BLOG_PLACEHOLDERS = ('first', 'second', 'third')
-        
+    
     3. Sync the database. ::
         
             python manage.py syncdb
