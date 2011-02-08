@@ -20,7 +20,7 @@ Features
 Overview
 ========
 
-There are six steps for using cmsplugin-blog:
+There are five steps for using cmsplugin-blog:
 
     1. Install ``cmsplugin-blog`` and dependencies.
     
@@ -32,7 +32,7 @@ There are six steps for using cmsplugin-blog:
         
         Download jQuery UI and put the files somewhere accessible.
         
-    2. Add ``cmsplugin_blog``, ``djangocms_utils``, ``tagging`` and ``simple_translation`` to ``settings.INSTALLED_APPS``
+    2. Add ``cmsplugin_blog``, ``simple_translation``, ``djangocms_utils`` and ``tagging`` to ``settings.INSTALLED_APPS``
     
         Point ``cmslugin-blog`` to the jQuery/jQuery UI js/css. ::
         
@@ -41,11 +41,17 @@ There are six steps for using cmsplugin-blog:
             JQUERY_UI_JQUERY_JS = '%sjs/jquery-ui-1.8.9.custom.min.js' % JQUERY_UI
             JQUERY_UI_CSS = '%scss/smoothness/jquery-ui-1.8.9.custom.css' % JQUERY_UI 
     
+        If you are interested in multilangual blog, add ``cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware`` to ``settings.MIDDLEWARE_CLASSES``
+            
         Optionally set the placeholders in settings.py. ::
             
             CMSPLUGIN_BLOG_PLACEHOLDERS = ('first', 'second', 'third')
+            
+    3. Put a template adapted to your site in ``templates/cmsplugin_blog/cmsplugin_blog_base.html``.
     
-    3. Sync the database. ::
+        Blocks in default templates are 'left-col' and 'right-col'.    
+        
+    4. Sync the database. ::
         
             python manage.py syncdb
             
@@ -53,13 +59,7 @@ There are six steps for using cmsplugin-blog:
             python manage.py syncdb --all
             python manage.py migrate --fake    
         
-    4. If you are interested in multilangual blog, add ``cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware`` to ``settings.MIDDLEWARE_CLASSES``
-    
-    5. Put a template adapted to your site in ``templates/cmsplugin_blog/cmsplugin_blog_base.html``.
-    
-        Blocks in default templates are 'left-col' and 'right-col'.
-        
-    6. Create a page in the cms and in 'Application' in the 'Advanced settings' section
+    5. Create a page in the cms and in 'Application' in the 'Advanced settings' section
         of the admin select 'Blog Apphook'
         
         Do this for each language you want to show posts in.
