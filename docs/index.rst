@@ -38,7 +38,7 @@ There are five steps for using cmsplugin-blog:
         
             JQUERY_UI = '/path/to/jquery/'
             JQUERY_JS = '%sjs/jquery-1.4.4.min.js' % JQUERY_UI
-            JQUERY_UI_JQUERY_JS = '%sjs/jquery-ui-1.8.9.custom.min.js' % JQUERY_UI
+            JQUERY_UI_JS = '%sjs/jquery-ui-1.8.9.custom.min.js' % JQUERY_UI
             JQUERY_UI_CSS = '%scss/smoothness/jquery-ui-1.8.9.custom.css' % JQUERY_UI 
     
         If you are interested in multilangual blog, add ``cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware`` to ``settings.MIDDLEWARE_CLASSES``
