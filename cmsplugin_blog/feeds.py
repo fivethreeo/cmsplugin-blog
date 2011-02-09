@@ -59,6 +59,9 @@ class EntriesFeed(Feed):
         items = [get_preferred_translation_from_lang(title, self.language_code) for title in translation_pool.annotate_with_translations(items)]
         return items
         
+    def item_pubdate(self, item):
+        return item.pub_date
+
 class TaggedEntriesFeed(EntriesFeed):
     
     def get_object(self, request, **kwargs):
