@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-15 14:20+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: cms_app.py:6
+msgid "Blog Apphook"
+msgstr ""
+
+#: cms_plugins.py:12 templates/cmsplugin_blog/entry_archive.html:5
+msgid "Latest entries"
+msgstr ""
+
+#: feeds.py:36 feeds.py:47
+msgid "Blog entries"
+msgstr ""
+
+#: feeds.py:37 feeds.py:48
+#, python-format
+msgid "Blog entries in %s"
+msgstr ""
+
+#: feeds.py:74
+#, python-format
+msgid "%(title)s tagged \"%(tag)s\""
+msgstr ""
+
+#: feeds.py:86
+#, python-format
+msgid "%(description)s tagged \"%(tag)s\""
+msgstr ""
+
+#: models.py:38
+msgid "Is published"
+msgstr ""
+
+#: models.py:39
+msgid "Published"
+msgstr ""
+
+#: models.py:49 models.py:56
+msgid "Entry"
+msgstr ""
+
+#: models.py:50
+msgid "Entries"
+msgstr ""
+
+#: models.py:57
+msgid "Language"
+msgstr ""
+
+#: models.py:58
+msgid "Title"
+msgstr ""
+
+#: models.py:59
+msgid "Slug"
+msgstr ""
+
+#: models.py:76
+msgid "Entry title"
+msgstr ""
+
+#: models.py:77
+msgid "Entry titles"
+msgstr ""
+
+#: models.py:83
+msgid "Number of entries items to show"
+msgstr ""
+
+#: models.py:84
+msgid "Limits the number of items that will be displayed"
+msgstr ""
+
+#: models.py:86
+msgid "Only show entries for the current language"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_archive.html:14
+#: templates/cmsplugin_blog/latest_entries.html:7
+msgid "No entries"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_archive_day.html:6
+#: templates/cmsplugin_blog/entry_archive_month.html:6
+#: templates/cmsplugin_blog/entry_archive_year.html:7
+msgid "Entries for"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_archive_day.html:14
+msgid "No entries for this day"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_archive_month.html:13
+msgid "No entries for this month"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_archive_year.html:12
+msgid "No entries for this year"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_list.html:5
+msgid "Entries tagged"
+msgstr ""
+
+#: templates/cmsplugin_blog/entry_list.html:14
+msgid "No entries tagged"
+msgstr ""
+
+#: templates/cmsplugin_blog/month_links_snippet.html:3
+msgid "See entries for"
+msgstr ""
+
+#: templates/cmsplugin_blog/tag_links_snippet.html:3
+msgid "See entries tagged"
+msgstr ""
