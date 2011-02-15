@@ -10,6 +10,11 @@ setup(
     author_email='oyvind.saltvik@gmail.com',
     url='http://github.com/fivethreeo/cmsplugin-blog/',
     packages=find_packages(),
+    package_data={
+        'cmsplugin_blog': [
+            'locale/*/LC_MESSAGES/*',
+        ]
+    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
