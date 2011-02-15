@@ -1,0 +1,8 @@
+[cmsplugin-blog.djangopo]
+file_filter = cmsplugin_blog/locale/<lang>/LC_MESSAGES/django.po
+source_file = cmsplugin_blog/locale/en/LC_MESSAGES/django.po
+source_lang = en
+
+[main]
+host = http://www.transifex.net
+
