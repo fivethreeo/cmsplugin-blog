@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 14:17+0300\n"
+"POT-Creation-Date: 2011-03-03 23:32+0100\n"
 "PO-Revision-Date: 2011-02-15 14:29+0300\n"
 "Last-Translator: Gleb Chipiga <gleb.chipiga@gmail.com>\n"
 "Language-Team: Russian <gleb.chipiga@gmail.com>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.2\n"
 
 #: cms_app.py:6
@@ -35,12 +35,12 @@ msgstr "Записи блога"
 msgid "Blog entries in %s"
 msgstr "Записи блога на %s"
 
-#: feeds.py:71
+#: feeds.py:74
 #, python-format
 msgid "%(title)s tagged \"%(tag)s\""
 msgstr "%(title)s с тегом \"%(tag)s\""
 
-#: feeds.py:83
+#: feeds.py:86
 #, python-format
 msgid "%(description)s tagged \"%(tag)s\""
 msgstr "%(description)s с тегом \"%(tag)s\""
@@ -54,11 +54,13 @@ msgid "Published"
 msgstr "Опубликована"
 
 #: models.py:49 models.py:56
-msgid "Entry"
+#, fuzzy
+msgid "entry"
 msgstr "Запись"
 
 #: models.py:50
-msgid "Entries"
+#, fuzzy
+msgid "entries"
 msgstr "Записи"
 
 #: models.py:57
@@ -74,11 +76,13 @@ msgid "Slug"
 msgstr "Slug"
 
 #: models.py:76
-msgid "Entry title"
+#, fuzzy
+msgid "entry title"
 msgstr "Заголовок записи"
 
 #: models.py:77
-msgid "Entry titles"
+#, fuzzy
+msgid "entry titles"
 msgstr "Заголовки записей"
 
 #: models.py:83
@@ -131,4 +135,3 @@ msgstr "Смотреть запись для"
 #: templates/cmsplugin_blog/tag_links_snippet.html:3
 msgid "See entries tagged"
 msgstr "Смотреть записи с тегом"
-
