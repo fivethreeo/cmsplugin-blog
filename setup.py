@@ -3,7 +3,7 @@ import os
 
 setup(
     name='cmsplugin-blog',
-    version='0.9.6',
+    version='0.9.7',
     description='This is a blog app/plugin for django-cms 2.1',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.txt')).read(),
     author='Oyvind Saltvik',
