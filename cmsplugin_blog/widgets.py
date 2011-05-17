@@ -44,7 +44,7 @@ class AutoCompleteTagInput(forms.TextInput):
                     minLength: 0,
                     source: function( request, response ) {
                         // delegate back to autocomplete, but extract the last term
-                        response( $.ui.autocomplete.filter(
+                        response( blog.jQuery.ui.autocomplete.filter(
                             availableTags, extractLast( request.term ) ) );
                     },
                     focus: function() {
