@@ -12,6 +12,7 @@ setup(
     packages=find_packages(),
     package_data={
         'cmsplugin_blog': [
+            'static/cmsplugin_blog/*',
             'locale/*/LC_MESSAGES/*',
         ]
     },
