@@ -22,7 +22,7 @@ class AutoCompleteTagInput(forms.TextInput):
         tag_list = simplejson.dumps([tag.name for tag in page_tags],
                                     ensure_ascii=False)
         return output + mark_safe(u'''<script type="text/javascript">
-            jQuery("#id_%s").autocomplete(%s, {
+            blog.jQuery("#id_%s").autocomplete(%s, {
                 width: 150,
                 max: 10,
                 highlight: false,
