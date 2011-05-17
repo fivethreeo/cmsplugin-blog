@@ -2,19 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1a\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: cmsplugin-blog\n"
+"Report-Msgid-Bugs-To: http://github.com/fivethreeo/cmsplugin-blog/issues\n"
 "POT-Creation-Date: 2011-03-03 23:32+0100\n"
-"PO-Revision-Date: 2010-05-16 23:06-0000\n"
-"Last-Translator: Øyvind Saltvik <oyvind.saltvik@gmail.com>\n"
-"Language-Team: Norwegian <oyvind.saltvik@gmail.com>\n"
-"Language: no\n"
+"PO-Revision-Date: 2011-05-17 12:08+0000\n"
+"Last-Translator: fivethreeo <oyvind.saltvik@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cms_app.py:6
 msgid "Blog Apphook"
@@ -52,14 +53,12 @@ msgid "Published"
 msgstr "Publisert"
 
 #: models.py:49 models.py:56
-#, fuzzy
 msgid "entry"
-msgstr "Innlegg"
+msgstr "innlegg"
 
 #: models.py:50
-#, fuzzy
 msgid "entries"
-msgstr "Innlegg"
+msgstr "innlegg"
 
 #: models.py:57
 msgid "Language"
@@ -74,14 +73,12 @@ msgid "Slug"
 msgstr "Pen adressse"
 
 #: models.py:76
-#, fuzzy
 msgid "entry title"
-msgstr "Innleggtittel"
+msgstr "innleggstittel"
 
 #: models.py:77
-#, fuzzy
 msgid "entry titles"
-msgstr "Innleggstittler"
+msgstr "innleggstitler"
 
 #: models.py:83
 msgid "Number of entries items to show"
@@ -133,6 +130,3 @@ msgstr "Se innlegg for"
 #: templates/cmsplugin_blog/tag_links_snippet.html:3
 msgid "See entries tagged"
 msgstr "Se innlegg med stikkord"
-
-#~ msgid "Content"
-#~ msgstr "Innhold"

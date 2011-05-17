@@ -1,22 +1,21 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Gleb Chipiga <gleb.chipiga@gmail.com>, 2011.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: cmsplugin-blog\n"
+"Report-Msgid-Bugs-To: http://github.com/fivethreeo/cmsplugin-blog/issues\n"
 "POT-Creation-Date: 2011-03-03 23:32+0100\n"
-"PO-Revision-Date: 2011-02-15 14:29+0300\n"
-"Last-Translator: Gleb Chipiga <gleb.chipiga@gmail.com>\n"
-"Language-Team: Russian <gleb.chipiga@gmail.com>\n"
-"Language: ru\n"
+"PO-Revision-Date: 2011-05-16 00:10+0000\n"
+"Last-Translator: fivethreeo <oyvind.saltvik@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.2\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: cms_app.py:6
 msgid "Blog Apphook"
@@ -54,14 +53,12 @@ msgid "Published"
 msgstr "Опубликована"
 
 #: models.py:49 models.py:56
-#, fuzzy
 msgid "entry"
-msgstr "Запись"
+msgstr ""
 
 #: models.py:50
-#, fuzzy
 msgid "entries"
-msgstr "Записи"
+msgstr ""
 
 #: models.py:57
 msgid "Language"
@@ -76,14 +73,12 @@ msgid "Slug"
 msgstr "Slug"
 
 #: models.py:76
-#, fuzzy
 msgid "entry title"
-msgstr "Заголовок записи"
+msgstr ""
 
 #: models.py:77
-#, fuzzy
 msgid "entry titles"
-msgstr "Заголовки записей"
+msgstr ""
 
 #: models.py:83
 msgid "Number of entries items to show"
