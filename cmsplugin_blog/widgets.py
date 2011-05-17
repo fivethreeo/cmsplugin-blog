@@ -35,7 +35,7 @@ class AutoCompleteTagInput(forms.TextInput):
             blog.jQuery("#id_%s")
                 // don't navigate away from the field on tab when selecting an item
                 .bind( "keydown", function( event ) {
-                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                    if ( event.keyCode === blog.jQuery.ui.keyCode.TAB &&
                             $( this ).data( "autocomplete" ).menu.active ) {
                         event.preventDefault();
                     }
