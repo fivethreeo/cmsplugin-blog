@@ -60,7 +60,7 @@ class EntriesFeed(Feed):
         return items
         
     def item_pubdate(self, item):
-        return item.pub_date
+        return item.entry.pub_date
 
 class TaggedEntriesFeed(EntriesFeed):
     
