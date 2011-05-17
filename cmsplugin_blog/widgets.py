@@ -11,7 +11,9 @@ class AutoCompleteTagInput(forms.TextInput):
             'all': (settings.JQUERY_UI_CSS,)
         }
         js = (
-            settings.JQUERY_JS, settings.JQUERY_UI_JS
+            settings.JQUERY_JS,
+            settings.JQUERY_UI_JS,
+            '%scmsplugin_blog/jquery_init.js' % settings.STATIC_URL
         )
 
     def render(self, name, value, attrs=None):
