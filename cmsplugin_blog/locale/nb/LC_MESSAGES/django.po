@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cmsplugin-blog\n"
 "Report-Msgid-Bugs-To: http://github.com/fivethreeo/cmsplugin-blog/issues\n"
-"POT-Creation-Date: 2011-03-03 23:32+0100\n"
-"PO-Revision-Date: 2011-05-17 12:08+0000\n"
+"POT-Creation-Date: 2011-05-17 14:00+0200\n"
+"PO-Revision-Date: 2011-05-18 14:18+0000\n"
 "Last-Translator: fivethreeo <oyvind.saltvik@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Blogginlegg"
 #: feeds.py:37 feeds.py:48
 #, python-format
 msgid "Blog entries in %s"
-msgstr "Bloginnleg på %s"
+msgstr "Bloginnlegg på %s"
 
 #: feeds.py:74
 #, python-format
