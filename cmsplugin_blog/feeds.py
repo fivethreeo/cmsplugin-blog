@@ -22,14 +22,17 @@ def add_current_root(url):
 class EntriesFeed(Feed):
     
     def get_object(self, request, **kwargs):
-        self.language_code = get_language_from_request(request)        
+        self.language_code = get_language_from_request(request)
         self.any_language = kwargs.get('any_language', None)
+        self.language_namespace = ''
+        if 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES:
+            self.language_namespace = '%s:' % self.language_code
         return None
     
     def feed_url(self, obj):
         if self.any_language:
-            return add_current_root(reverse('%s:blog_rss_any' % self.language_code))
-        return add_current_root(reverse('%s:blog_rss' % self.language_code))
+            return add_current_root(reverse('%sblog_rss_any' % self.language_namespace))
+        return add_current_root(reverse('%sblog_rss' % self.language_namespace))
         
     def title(self, obj):
         if self.any_language:
@@ -37,7 +40,7 @@ class EntriesFeed(Feed):
         return _(u"Blog entries in %s") % get_lang_name(self.language_code)
 
     def link(self, obj):
-        return add_current_root(reverse('%s:blog_archive_index' % self.language_code))
+        return add_current_root(reverse('%sblog_archive_index' % self.language_namespace))
 
     def item_link(self, obj):
         return add_current_root(obj.get_absolute_url())
@@ -75,11 +78,11 @@ class TaggedEntriesFeed(EntriesFeed):
         
     def feed_url(self, obj):
         if self.any_language:
-            return add_current_root(reverse('%s:blog_rss_any_tagged' % self.language_code, kwargs={'tag': self.tag}))
-        return add_current_root(reverse('%s:blog_rss_tagged' % self.language_code, kwargs={'tag': self.tag}))
+            return add_current_root(reverse('%sblog_rss_any_tagged' % self.language_namespace, kwargs={'tag': self.tag}))
+        return add_current_root(reverse('%sblog_rss_tagged' % self.language_namespace, kwargs={'tag': self.tag}))
         
     def link(self, obj):
-        return add_current_root(reverse('%s:blog_archive_tagged' % self.language_code, kwargs={'tag': self.tag}))
+        return add_current_root(reverse('%sblog_archive_tagged' % self.language_namespace, kwargs={'tag': self.tag}))
 
     def description(self, obj):
         description = super(TaggedEntriesFeed, self).description(obj)
