@@ -20,6 +20,12 @@ blog_info_month_dict = {
     'month_format': '%m',
 }
 
+blog_info_year_dict = {
+    'queryset': Entry.objects.all(),
+    'date_field': 'pub_date',
+    'make_object_list': True,
+}
+
 blog_info_detail_dict = dict(blog_info_month_dict, slug_field='entrytitle__slug')
 
 def blog_archive_index(request, **kwargs):
@@ -51,7 +57,7 @@ urlpatterns = patterns('',
     (r'^$', blog_archive_index, blog_info_dict, 'blog_archive_index'),
     
     (r'^(?P<year>\d{4})/$', 
-        blog_archive_year, blog_info_dict, 'blog_archive_year'),
+        blog_archive_year, blog_info_year_dict, 'blog_archive_year'),
     
     (r'^(?P<year>\d{4})/(?P<month>\d{2})/$', 
         blog_archive_month, blog_info_month_dict, 'blog_archive_month'),
