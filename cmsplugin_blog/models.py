@@ -35,8 +35,8 @@ class PublishedEntriesManager(EntriesManager):
 CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', ('main',))
               
 class Entry(models.Model):
-    is_published = models.BooleanField(_('Is published'))
-    pub_date = models.DateTimeField(_('Published'), default=datetime.datetime.now)
+    is_published = models.BooleanField(_('is published'))
+    pub_date = models.DateTimeField(_('published'), default=datetime.datetime.now)
  
     placeholders = M2MPlaceholderField(actions=SimpleTranslationPlaceholderActions(), placeholders=CMSPLUGIN_BLOG_PLACEHOLDERS)
     
@@ -54,9 +54,9 @@ tagging.register(Entry, tag_descriptor_attr='entry_tags')
 
 class EntryTitle(models.Model):
     entry = models.ForeignKey(Entry, verbose_name=_('entry'))
-    language = models.CharField(_('Language'), max_length=15, choices=settings.LANGUAGES)
-    title = models.CharField(_('Title'), max_length=255)
-    slug = models.SlugField(_('Slug'), unique=True)
+    language = models.CharField(_('language'), max_length=15, choices=settings.LANGUAGES)
+    title = models.CharField(_('title'), max_length=255)
+    slug = models.SlugField(_('slug'), unique=True)
     author = models.ForeignKey('auth.User', null=True, blank=True)
     
     def __unicode__(self):
