@@ -1,0 +1,1 @@
+{% load placeholder_tags cmsplugin_blog_tags %}{% with obj.entry.placeholders|choose_placeholder:"main" as main %}{% render_placeholder main %}{% endwith %}
