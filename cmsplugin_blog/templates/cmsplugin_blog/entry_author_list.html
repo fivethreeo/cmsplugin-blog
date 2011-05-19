@@ -1,0 +1,32 @@
+{% extends "cmsplugin_blog/cmsplugin_blog_base.html" %}
+{% load i18n cmsplugin_blog_tags simple_translation_tags %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="alternate" type="application/rss+xml" title="RSS feed for author {{ author|escape }}" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_author author %}" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for author {{ author|escape }} (any language)" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_any_author author %}" />
+{% endblock extrahead %}
+
+{% block left-col %}
+<h1>{% trans "Entries by" %} {{ author }}</h1>
+
+{% for entry in object_list|annotate_with_translations %}
+    {% with entry|get_preferred_translation_from_request:request as title %}
+	<p>{{ entry.pub_date|date:"d b Y" }}<br/><a href="{{ title.get_absolute_url }}">{{ title }}</a>
+	   {{ entry|render_language_choices:request|safe }}
+	</p>
+	{% endwith %}
+{% empty %}
+	<p>{% trans "No entries by" %} {{ author }}<p>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block right-col %}
+
+{% render_month_links %}
+
+{% render_tag_links %}
+
+{% endblock %}
