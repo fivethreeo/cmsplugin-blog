@@ -71,7 +71,7 @@ class TaggedEntriesFeed(EntriesFeed):
     
     def get_object(self, request, **kwargs):
         super(TaggedEntriesFeed, self).get_object(request, **kwargs)
-        self.tag = kwargs.get('tag')  
+        self.tag = kwargs.get('tag')
         return None
     
     def title(self, obj):
@@ -94,4 +94,29 @@ class TaggedEntriesFeed(EntriesFeed):
         qs = super(TaggedEntriesFeed, self).get_queryset(obj)
         return Entry.tagged.with_any(self.tag, queryset=qs)
         
-
+class AuthorEntriesFeed(EntriesFeed):
+    
+    def get_object(self, request, **kwargs):
+        super(AuthorEntriesFeed, self).get_object(request, **kwargs)
+        self.author = kwargs.get('author')
+        return None
+    
+    def title(self, obj):
+        title = super(AuthorEntriesFeed, self).title(obj)
+        return _(u'%(title)s by %(author)s') % {'title': title, 'author': self.author}
+    
+    def feed_url(self, obj):
+        if self.any_language:
+            return add_current_root(reverse('%sblog_rss_any_author' % self.language_namespace, kwargs={'author': self.author}))
+        return add_current_root(reverse('%sblog_rss_author' % self.language_namespace, kwargs={'author': self.author}))
+    
+    def link(self, obj):
+        return add_current_root(reverse('%sblog_archive_author' % self.language_namespace, kwargs={'author': self.author}))
+    
+    def description(self, obj):
+        description = super(AuthorEntriesFeed, self).description(obj)
+        return _(u'%(description)s by %(author)s') % {'description': description, 'author': self.author}
+    
+    def get_queryset(self, obj):
+        qs = super(AuthorEntriesFeed, self).get_queryset(obj)
+        return qs.filter(entrytitle__author__username=self.author)

@@ -3,12 +3,12 @@
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="alternate" type="application/rss+xml" title="RSS feed for tag &quot;{{ tag|escape }}&quot;" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_tagged tag %}" />
-<link rel="alternate" type="application/rss+xml" title="RSS feed for tag &quot;{{ tag|escape }}&quot; (any language)" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_any_tagged tag %}" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for author {{ author|escape }}" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_author author %}" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for author {{ author|escape }} (any language)" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_any_author author %}" />
 {% endblock extrahead %}
 
 {% block left-col %}
-<h1>{% trans "Entries tagged" %} "{{ tag }}"</h1>
+<h1>{% trans "Entries by" %} {{ author }}</h1>
 
 {% for entry in object_list|annotate_with_translations %}
     {% with entry|get_preferred_translation_from_request:request as title %}
@@ -17,7 +17,7 @@
 	</p>
 	{% endwith %}
 {% empty %}
-	<p>{% trans "No entries tagged" %} "{{ tag }}"<p>
+	<p>{% trans "No entries by" %} {{ author }}<p>
 {% endfor %}
 
 

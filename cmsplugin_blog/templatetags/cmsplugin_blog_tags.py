@@ -1,5 +1,6 @@
 import datetime
 from django import template
+from django.contrib.auth import models as auth_models
 
 from tagging.models import Tag
 
@@ -25,7 +26,15 @@ def render_tag_links(context):
     return {
         'tags': Tag.objects.usage_for_model(Entry, filters=filters)
     }
-    
+
+@register.inclusion_tag('cmsplugin_blog/author_links_snippet.html', takes_context=True)
+def render_author_links(context, order_by='username'):
+    request = context["request"]
+    language = get_language_from_request(request)
+    return {
+        'authors': auth_models.User.objects.filter(pk__in=EntryTitle.objects.filter(entry__in=Entry.published.filter(entrytitle__language=language)).values('author')).order_by(order_by)
+    }
+
 @register.filter
 def choose_placeholder(placeholders, placeholder):
     try:
