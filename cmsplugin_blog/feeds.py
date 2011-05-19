@@ -27,6 +27,7 @@ class EntriesFeed(Feed):
         self.language_namespace = ''
         if 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES:
             self.language_namespace = '%s:' % self.language_code
+            self.any_language = True
         return None
     
     def feed_url(self, obj):
