@@ -1,6 +1,12 @@
 {% extends "cmsplugin_blog/cmsplugin_blog_base.html" %}
 {% load i18n cmsplugin_blog_tags simple_translation_tags %}
 
+{% block extrahead %}
+{{ block.super }}
+<link rel="alternate" type="application/rss+xml" title="RSS feed for tag &quot;{{ tag|escape }}&quot;" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_tagged tag %}" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for tag &quot;{{ tag|escape }}&quot; (any language)" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_any_tagged tag %}" />
+{% endblock extrahead %}
+
 {% block left-col %}
 <h1>{% trans "Entries tagged" %} "{{ tag }}"</h1>
 
