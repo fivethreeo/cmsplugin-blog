@@ -56,7 +56,7 @@ def run_tests():
         LANGUAGES=(('en', 'en'),('de','de')),
         JQUERY_UI_CSS='',
         JQUERY_JS='',
-        JQUERY_UI_JS=''
+        JQUERY_UI_JS='',
         STATIC_URL=''
     )
     
