@@ -20,6 +20,7 @@ def run_tests():
             'tagging',
             'simple_translation',    
             'cmsplugin_blog',
+            'staticfiles'
         ],
         MIDDLEWARE_CLASSES = (
             'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,6 +57,7 @@ def run_tests():
         JQUERY_UI_CSS='',
         JQUERY_JS='',
         JQUERY_UI_JS=''
+        STATIC_URL=''
     )
     
     from django.test.utils import get_runner
