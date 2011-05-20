@@ -10,6 +10,7 @@ from django.forms import CharField
 from django.http import HttpResponse
 from django.template.defaultfilters import title
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
 from simple_translation.admin import PlaceholderTranslationAdmin
 from simple_translation.forms import TranslationModelForm
 
@@ -97,9 +98,22 @@ class EntryAdmin(M2MPlaceholderAdmin):
     
     # needed because of admin validation
     prepopulated_fields = not settings.DEBUG and {'slug': ('title',)} or {}
-        
-    list_display = ('description', 'languages', 'is_published')
+    
+    search_fields = ('entrytitle__title', 'tags')
+    list_display = ('title', 'languages', 'author', 'is_published', 'pub_date')
     list_editable = ('is_published',)
+    list_filter = ('is_published', 'pub_date')
+    date_hierarchy = 'pub_date'
+
+    def author(self, obj):
+        return obj.entrytitle_set.all()[0].author
+    author.short_description = _('author')
+    author.admin_order_field = 'entrytitle__author'
+
+    def title(self, obj):
+        return obj.entrytitle_set.all()[0].title
+    title.short_description = _('title')
+    title.admin_order_field = 'entrytitle__title'
     
     # needed because of admin validation
     def get_fieldsets(self, request, obj=None):
