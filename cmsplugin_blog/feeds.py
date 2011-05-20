@@ -20,7 +20,9 @@ def add_current_root(url):
     return url
 
 class EntriesFeed(Feed):
-    
+    title_template = "cmsplugin_blog/feed_entries_title.html"
+    description_template = "cmsplugin_blog/feed_entries_description.html"
+
     def get_object(self, request, **kwargs):
         self.language_code = get_language_from_request(request)
         self.any_language = kwargs.get('any_language', None)
@@ -68,6 +70,8 @@ class EntriesFeed(Feed):
         return item.entry.pub_date
 
 class TaggedEntriesFeed(EntriesFeed):
+    title_template = "cmsplugin_blog/feed_tagged_title.html"
+    description_template = "cmsplugin_blog/feed_tagged_description.html"
     
     def get_object(self, request, **kwargs):
         super(TaggedEntriesFeed, self).get_object(request, **kwargs)
@@ -95,7 +99,9 @@ class TaggedEntriesFeed(EntriesFeed):
         return Entry.tagged.with_any(self.tag, queryset=qs)
         
 class AuthorEntriesFeed(EntriesFeed):
-    
+    title_template = "cmsplugin_blog/feed_author_title.html"
+    description_template = "cmsplugin_blog/feed_author_description.html"
+
     def get_object(self, request, **kwargs):
         super(AuthorEntriesFeed, self).get_object(request, **kwargs)
         self.author = kwargs.get('author')
