@@ -14,7 +14,19 @@ def _get_attached_field(self):
             if field.count():
                 self._attached_field_cache = rel.field
     return self._attached_field_cache
-        
+    
+def _get_attached_fields(self):
+    """
+    Returns an ITERATOR of all non-cmsplugin reverse foreign key related fields.
+    """
+    from cms.models import CMSPlugin
+    for rel in self._meta.get_all_related_objects() + self._meta.get_all_related_many_to_many_objects():
+        if isinstance(rel.model, CMSPlugin):
+            continue
+        field = getattr(self, rel.get_accessor_name())
+        if field.count():
+            yield rel.field
+                        
 class M2MPlaceholderField(models.ManyToManyField):
     
     def __init__(self, **kwargs):
@@ -34,6 +46,7 @@ class M2MPlaceholderField(models.ManyToManyField):
         
     def contribute_to_related_class(self, cls, related):
         setattr(cls, '_get_attached_field', _get_attached_field)
+        setattr(cls, '_get_attached_fields', _get_attached_fields)
         super(M2MPlaceholderField, self).contribute_to_related_class(cls, related)
 
 if "south" in settings.INSTALLED_APPS:
