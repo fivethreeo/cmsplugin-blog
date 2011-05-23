@@ -57,7 +57,7 @@ class EntryTitle(models.Model):
     language = models.CharField(_('language'), max_length=15, choices=settings.LANGUAGES)
     title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('slug'), unique=True)
-    author = models.ForeignKey('auth.User', null=True, blank=True)
+    author = models.ForeignKey('auth.User', null=True, blank=True, verbose_name=_("author"))
     
     def __unicode__(self):
         return self.title
