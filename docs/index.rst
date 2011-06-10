@@ -1,4 +1,3 @@
-
 .. toctree::
 
 ##############
@@ -11,13 +10,13 @@ cmsplugin-blog is really simple to set up on a working installation of django CM
 Requirements
 ************
 
-* `django CMS`_ 2.1.3 (or a higher release of 2.x).
-* `django-staticfiles`_ 1.0.x (or higher)
-* `django-tagging`_ 0.3.x
-* `djangocms-utils`_ 0.9.x
-* `simple-translation`_ 0.7.x
-* `jQuery`_ 1.4.4
-* `jQuery UI`_ 1.8.x
+* `django CMS`_ 2.1.5
+* `django-staticfiles`_ 1.0+
+* `django-tagging`_ 0.3+
+* `djangocms-utils`_ 0.9.5+
+* `simple-translation`_ 0.7.3+
+* `jQuery`_ 1.4.4+
+* `jQuery UI`_ 1.8.1+
 
 .. note :: jQuery can be provided either by locally or linking to a public server, like Google's or Microsoft's CDN.
 
