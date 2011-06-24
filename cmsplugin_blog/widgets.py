@@ -8,7 +8,10 @@ from cmsplugin_blog.models import Entry
 class AutoCompleteTagInput(forms.TextInput):
     class Media:
         css = {
-            'all': (settings.JQUERY_UI_CSS,)
+            'all': (
+                settings.JQUERY_UI_CSS,
+                '%scmsplugin_blog/cmsplugin_blog.css' % settings.STATIC_URL
+            )
         }
         js = (
             settings.JQUERY_JS,
