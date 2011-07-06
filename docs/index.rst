@@ -127,6 +127,26 @@ For example, if you have a template called ``base.html`` which has a block calle
 
 .. note:: The cmsplugin-blog uses the block names ``left-col`` and ``right-col`` by default.
 
+********
+Sitemaps
+********
+If you use the sitemaps framework in your cms, you can add your blog entry pages to the sitemaps.xml file by including the sitemap class in your urls.py.
+
+e.g.
+
+    from cms.sitemaps import CMSSitemap
+    from cmsplugin_blog.sitemaps import BlogSitemap
+    ...
+
+    urlpatterns = patterns('',
+        ...
+        url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap',
+                                            {'sitemaps': { 'cmspages': CMSSitemap,
+                                                           'blogentries': BlogSitemap,
+                                                         }}),  
+        url(r'^', include('cms.urls')),
+    )
+
 *****************
 Creating the blog
 *****************
