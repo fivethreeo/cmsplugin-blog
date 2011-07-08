@@ -141,7 +141,7 @@ e.g. ::
         url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {
             'sitemaps': {
                 'cmspages': CMSSitemap,
-                'blogentries': BlogSitema
+                'blogentries': BlogSitemap
             }
         }),  
         url(r'^', include('cms.urls'))
