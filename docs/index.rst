@@ -132,18 +132,18 @@ Sitemaps
 ********
 If you use the sitemaps framework in your cms, you can add your blog entry pages to the sitemaps.xml file by including the sitemap class in your urls.py.
 
-e.g.
+e.g. ::
 
     from cms.sitemaps import CMSSitemap
     from cmsplugin_blog.sitemaps import BlogSitemap
-    ...
 
     urlpatterns = patterns('',
-        ...
-        url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap',
-                                            {'sitemaps': { 'cmspages': CMSSitemap,
-                                                           'blogentries': BlogSitemap,
-                                                         }}),  
+        url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {
+            'sitemaps': {
+                'cmspages': CMSSitemap,
+                'blogentries': BlogSitemap,
+            }
+        }),  
         url(r'^', include('cms.urls')),
     )
 
