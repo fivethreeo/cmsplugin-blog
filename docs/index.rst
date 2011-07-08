@@ -141,10 +141,10 @@ e.g. ::
         url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {
             'sitemaps': {
                 'cmspages': CMSSitemap,
-                'blogentries': BlogSitemap,
+                'blogentries': BlogSitema
             }
         }),  
-        url(r'^', include('cms.urls')),
+        url(r'^', include('cms.urls'))
     )
 
 *****************
