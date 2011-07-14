@@ -5,15 +5,6 @@ except ImportError:
 
 from menus.utils import set_language_changer
 from cmsplugin_blog.models import Entry
-
-class PublishedPreviewMixin(object):
-
-    def get_queryset(self):
-        queryset = super(PublishedPreviewMixin, self).get_queryset()
-        if request.user.is_staff:
-            return queryset
-        else:
-            return queryset.published()
             
 class EntryDateDetailView(DateDetailView, PublishedPreviewMixin):
     
@@ -26,4 +17,10 @@ class EntryDateDetailView(DateDetailView, PublishedPreviewMixin):
         obj = super(EntryDateDetailView, self).get_object()
         set_language_changer(self.request, obj.get_absolute_url)
         return obj
-
+        
+    def get_queryset(self):
+        queryset = super(EntryDateDetailView, self).get_queryset()
+        if request.user.is_staff:
+            return queryset
+        else:
+            return queryset.published()
