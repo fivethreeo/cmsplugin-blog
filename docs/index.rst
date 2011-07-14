@@ -13,6 +13,7 @@ Requirements
 * `django CMS`_ 2.1.5
 * `django-staticfiles`_ 1.0+
 * `django-tagging`_ 0.3+
+* `django-cbv`_
 * `djangocms-utils`_ 0.9.5+
 * `simple-translation`_ 0.7.3+
 * `jQuery`_ 1.4.4+
@@ -27,6 +28,7 @@ Requirements
 .. _simple-translation: https://github.com/fivethreeo/simple-translation
 .. _jQuery: http://jquery.com/
 .. _jQuery UI: http://jqueryui.com/
+.. _django-cbv: http://pypi.python.org/pypi/django-cbv
 
 Installation
 ============
