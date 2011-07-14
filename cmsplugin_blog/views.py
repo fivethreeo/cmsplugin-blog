@@ -6,7 +6,7 @@ except ImportError:
 from menus.utils import set_language_changer
 from cmsplugin_blog.models import Entry
             
-class EntryDateDetailView(DateDetailView, PublishedPreviewMixin):
+class EntryDateDetailView(DateDetailView):
     
     slug_field = 'entrytitle__slug'
     date_field = 'pub_date'
