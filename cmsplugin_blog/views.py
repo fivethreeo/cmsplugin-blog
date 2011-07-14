@@ -17,6 +17,7 @@ class PublishedPreviewMixin(object):
             
 class EntryDateDetailView(DateDetailView, PublishedPreviewMixin):
     
+    date_field = 'pub_date'
     month_format = '%m'
     queryset = Entry.objects.all()
     
