@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 from django.db.models.query import QuerySet
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language, ugettext_lazy as _
 
 from cms.utils.placeholder import PlaceholderNoAction
 
@@ -44,7 +44,15 @@ class Entry(models.Model):
     
     objects = EntriesManager()
     published = PublishedEntriesManager()
-    
+
+    def get_absolute_url(self, language=None):
+        if not language:
+            language = get_language()
+        try:
+            self.entrytitle_set.get(language=language).get_absolute_url()
+        except EntryTitle.DoesNotExist:
+            return ''
+            
     class Meta:
         verbose_name = _('entry')
         verbose_name_plural = _('entries')

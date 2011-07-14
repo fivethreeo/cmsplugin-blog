@@ -1,10 +1,13 @@
-from cmsplugin_blog.feeds import EntriesFeed, TaggedEntriesFeed, AuthorEntriesFeed
-from cmsplugin_blog.models import Entry
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic.date_based import archive_index, archive_year, archive_month, archive_day, object_detail
 from django.views.generic.list_detail import object_list
+
 from tagging.views import tagged_object_list
+
+from cmsplugin_blog.feeds import EntriesFeed, TaggedEntriesFeed, AuthorEntriesFeed
+from cmsplugin_blog.models import Entry
+from cmsplugin_blog.views import EntryDateDetailView
 
 blog_info_dict = {
     'queryset': Entry.objects.all(),
@@ -51,9 +54,7 @@ def blog_archive_day(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
     return archive_day(request, **kwargs)
 
-def blog_detail(request, **kwargs):
-    kwargs['queryset'] = kwargs['queryset'].published()
-    return object_detail(request, **kwargs)
+blog_detail = EntryDateDetailView.as_view()
 
 def blog_archive_tagged(request, **kwargs):
     kwargs['queryset_or_model'] = kwargs['queryset_or_model'].published()
