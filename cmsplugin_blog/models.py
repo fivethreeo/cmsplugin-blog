@@ -49,8 +49,7 @@ class Entry(models.Model):
         if not language:
             language = get_language()
         try:
-            url = self.entrytitle_set.get(language=language).get_absolute_url()
-            return url[len(language)+1:]
+            return self.entrytitle_set.get(language=language).get_absolute_url()
         except EntryTitle.DoesNotExist:
             return ''
             
