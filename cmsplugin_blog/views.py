@@ -20,7 +20,7 @@ class EntryDateDetailView(DateDetailView):
         
     def get_queryset(self):
         queryset = super(EntryDateDetailView, self).get_queryset()
-        if request.user.is_staff:
+        if self.request.user.is_staff:
             return queryset
         else:
             return queryset.published()
