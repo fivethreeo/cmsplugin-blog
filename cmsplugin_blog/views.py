@@ -22,6 +22,6 @@ class EntryDateDetailView(DateDetailView, PublishedPreviewMixin):
     
     def get_object(self):
         obj = super(EntryDateDetailView, self).get_object()
-        set_language_changer(self.request, self.object.entry.get_absolute_url)
+        set_language_changer(self.request, self.object.get_absolute_url)
         return obj
 
