@@ -36,7 +36,7 @@ CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', (
               
 class Entry(models.Model):
     is_published = models.BooleanField(_('is published'))
-    pub_date = models.DateTimeField(_('published'), default=datetime.datetime.now)
+    pub_date = models.DateTimeField(_('publish at'), default=datetime.datetime.now)
  
     placeholders = M2MPlaceholderField(actions=SimpleTranslationPlaceholderActions(), placeholders=CMSPLUGIN_BLOG_PLACEHOLDERS)
     
