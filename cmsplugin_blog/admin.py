@@ -92,7 +92,7 @@ class M2MPlaceholderAdmin(PlaceholderTranslationAdmin):
         else:
             return HttpResponse(str("error"))        
                 
-class EntryAdmin(M2MPlaceholderAdmin):
+class BaseEntryAdmin(M2MPlaceholderAdmin):
     
     form = EntryForm
     
@@ -134,5 +134,12 @@ class EntryAdmin(M2MPlaceholderAdmin):
         if not translation_obj.author:
             translation_obj.author=request.user
         return translation_obj
-                   
+
+if 'guardian' in settings.INSTALLED_APPS:
+    from guardian.admin import GuardedModelAdmin
+    class EntryAdmin(BaseEntryAdmin, GuardedModelAdmin):
+        pass
+else:
+    EntryAdmin = BaseEntryAdmin
+    
 admin.site.register(Entry, EntryAdmin)
