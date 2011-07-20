@@ -1,3 +1,4 @@
+from django.contrib.sites.models import get_current_site
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.utils.translation import get_language, ugettext_lazy as _
@@ -25,6 +26,7 @@ class EntriesFeed(Feed):
 
     def get_object(self, request, **kwargs):
         self.language_code = get_language_from_request(request)
+        self.site = get_current_site(request)
         self.any_language = kwargs.get('any_language', None)
         self.language_namespace = ''
         if 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES:
@@ -40,8 +42,8 @@ class EntriesFeed(Feed):
         
     def title(self, obj):
         if self.any_language:
-            return _(u"Blog entries")
-        return _(u"Blog entries in %s") % get_lang_name(self.language_code)
+            return _(u"%(site)s blog entries") % {'site': self.site.name}
+        return _(u"%(site)s blog entries in %(lang)s") % {'site': self.site.name, 'lang': get_lang_name(self.language_code)}
 
     def link(self, obj):
         return add_current_root(reverse('%sblog_archive_index' % self.language_namespace))
@@ -49,10 +51,10 @@ class EntriesFeed(Feed):
     def item_link(self, obj):
         return add_current_root(obj.get_absolute_url())
 
-    def description(self, obj):        
+    def description(self, obj):
         if self.any_language:
-            return _(u"Blog entries")
-        return _(u"Blog entries in %s") % get_lang_name(self.language_code)
+            return _(u"%(site)s blog entries") % {'site': self.site.name}
+        return _(u"%(site)s blog entries in %(lang)s") % {'site': self.site.name, 'lang': get_lang_name(self.language_code)}
 
     def get_queryset(self, obj):
         if self.any_language:
