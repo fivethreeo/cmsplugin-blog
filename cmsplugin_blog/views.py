@@ -5,7 +5,7 @@ except ImportError:
 
 from menus.utils import set_language_changer
 from cmsplugin_blog.models import Entry
-            
+
 class EntryDateDetailView(DateDetailView):
     
     slug_field = 'entrytitle__slug'
@@ -15,7 +15,7 @@ class EntryDateDetailView(DateDetailView):
     
     def get_object(self):
         obj = super(EntryDateDetailView, self).get_object()
-        set_language_changer(self.request, obj.get_absolute_url)
+        set_language_changer(self.request, obj.language_changer)
         return obj
         
     def get_queryset(self):

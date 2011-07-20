@@ -1,9 +1,17 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from django.core.urlresolvers import reverse, resolve
+from django.http import Http404
+from django.core.handlers.base import BaseHandler
 from django.views.generic.date_based import archive_index, archive_year, archive_month, archive_day, object_detail
 from django.views.generic.list_detail import object_list
 
 from tagging.views import tagged_object_list
+
+from menus.utils import set_language_changer
+
+from cms.models import Title
+from cms.utils.urlutils import urljoin
 
 from cmsplugin_blog.feeds import EntriesFeed, TaggedEntriesFeed, AuthorEntriesFeed
 from cmsplugin_blog.models import Entry
@@ -39,26 +47,81 @@ blog_info_year_dict = {
 
 blog_info_detail_dict = dict(blog_info_month_dict, slug_field='entrytitle__slug')
 
+def language_changer(lang):
+    request = language_changer.request
+
+    if getattr(request, '_prevent_recursion', False):
+        return reverse('pages-root')
+
+    current_code = request.LANGUAGE_CODE
+
+    blog_prefix = ''
+
+    try:
+        title = Title.objects.get(application_urls='BlogApphook', language=lang)
+        blog_prefix = urljoin(reverse('pages-root'), title.overwrite_url or title.slug)
+        path = request.get_full_path()
+        url = path
+
+        if path.startswith(blog_prefix):
+            path = path[len(blog_prefix):]
+            if path and path[0] != '/':
+                path = '/%s' % (path,)
+
+        view, args, kwargs = resolve(path, 'cmsplugin_blog.urls')
+
+        handler = BaseHandler()
+        if handler._request_middleware is None:
+            handler.load_middleware()
+
+        request._prevent_recursion = True
+        request.LANGUAGE_CODE = lang
+
+        for middleware_method in handler._view_middleware:
+            response = middleware_method(request, view, args, kwargs)
+            if response:
+                # It is not 404 exception
+                return url
+
+        view(request, *args, **kwargs) # Test if page really exists (does it not throw 404 exception)
+
+        return url
+    except Title.DoesNotExist:
+        # Blog app hook not defined anywhere?
+        pass
+    except Http404:
+        pass
+    finally:
+        request._prevent_recursion = False
+        request.LANGUAGE_CODE = current_code
+
+    return blog_prefix or reverse('pages-root')
+
 def blog_archive_index(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
+    set_language_changer(request, language_changer)
     return archive_index(request, **kwargs)
     
 def blog_archive_year(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
+    set_language_changer(request, language_changer)
     return archive_year(request, **kwargs)
     
 def blog_archive_month(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
+    set_language_changer(request, language_changer)
     return archive_month(request, **kwargs)
 
 def blog_archive_day(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
+    set_language_changer(request, language_changer)
     return archive_day(request, **kwargs)
 
 blog_detail = EntryDateDetailView.as_view()
 
 def blog_archive_tagged(request, **kwargs):
     kwargs['queryset_or_model'] = kwargs['queryset_or_model'].published()
+    set_language_changer(request, language_changer)
     return tagged_object_list(request, **kwargs)
 
 def blog_archive_author(request, **kwargs):
@@ -67,8 +130,8 @@ def blog_archive_author(request, **kwargs):
     kwargs['extra_context'] = {
         'author': author,
     }
+    set_language_changer(request, language_changer)
     return object_list(request, **kwargs)
-
 
 urlpatterns = patterns('',
     (r'^$', blog_archive_index, blog_info_dict, 'blog_archive_index'),

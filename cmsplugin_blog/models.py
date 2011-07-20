@@ -1,13 +1,15 @@
 import datetime
 
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.query import QuerySet
 from django.conf import settings
 from django.utils.translation import get_language, ugettext_lazy as _
 
 from cms.utils.placeholder import PlaceholderNoAction
+from cms.utils.urlutils import urljoin
 
-from cms.models import CMSPlugin
+from cms.models import CMSPlugin, Title
 
 import tagging
 from tagging.fields import TagField
@@ -55,7 +57,22 @@ class Entry(models.Model):
             return url
         except EntryTitle.DoesNotExist:
             return ''
-            
+
+    def language_changer(self, language):
+        url = self.get_absolute_url(language)
+        if url:
+            return url
+
+        path = ''
+        try:
+            title = Title.objects.get(application_urls='BlogApphook', language=language)
+            path = title.overwrite_url or title.slug
+        except Title.DoesNotExist:
+            # Blog app hook not defined anywhere?
+            pass
+
+        return urljoin(reverse('pages-root'), path)
+     
     class Meta:
         verbose_name = _('entry')
         verbose_name_plural = _('entries')
