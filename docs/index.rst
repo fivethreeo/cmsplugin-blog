@@ -64,6 +64,13 @@ and required or highly recommended applications/libraries):
         ...
     )
 
+For Django < 1.3 you need django-cbv for support for class-based views and you should also add ``cbv.middleware.DeferredRenderingMiddleware`` to :setting:`django:MIDDLEWARE_CLASSES` ::
+
+    MIDDLEWARE_CLASSES = (
+        ...
+        'cbv.middleware.DeferredRenderingMiddleware',
+    )
+
 Static content
 --------------
 Set the ``STATIC_ROOT`` and ``STATIC_URL`` settings for ``django-staticfiles``.::
