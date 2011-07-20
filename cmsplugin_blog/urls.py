@@ -16,6 +16,7 @@ blog_info_dict = {
 
 blog_info_tagged_dict = {
     'queryset_or_model': Entry.objects.all(),
+    'allow_empty': False,
 }
 
 blog_info_author_dict = {
