@@ -15,7 +15,8 @@ def get_lang_name(lang):
     return _(dict(settings.LANGUAGES)[lang])
     
 def add_current_root(url):
-    if not has_lang_prefix(url):
+    if 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES and \
+        not has_lang_prefix(url):
         new_root = "/%s" % get_language()
         url = new_root + url
     return url
