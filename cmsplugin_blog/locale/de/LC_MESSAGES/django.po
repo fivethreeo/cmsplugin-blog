@@ -6,16 +6,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cmsplugin-blog\n"
-"Report-Msgid-Bugs-To: http://github.com/fivethreeo/cmsplugin-blog/issues\n"
-"POT-Creation-Date: 2011-05-17 14:00+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-28 21:47+0200\n"
 "PO-Revision-Date: 2011-05-19 14:42+0000\n"
 "Last-Translator: raphaa <webmaster@raphaa.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:110 models.py:91
+msgid "author"
+msgstr "Autor"
+
+#: admin.py:115 models.py:89
+msgid "title"
+msgstr "Titel"
 
 #: cms_app.py:6
 msgid "Blog Apphook"
@@ -25,72 +33,83 @@ msgstr "Blog-Applikation"
 msgid "Latest entries"
 msgstr "Die neuesten Einträge"
 
-#: feeds.py:36 feeds.py:47
-msgid "Blog entries"
-msgstr "Blog-Einträge"
-
-#: feeds.py:37 feeds.py:48
+#: feeds.py:45 feeds.py:56
 #, python-format
-msgid "Blog entries in %s"
-msgstr "Blog-Einträge in %s"
+msgid "%(site)s blog entries"
+msgstr "%(site)s Blog-Einträge"
 
-#: feeds.py:74
+#: feeds.py:46 feeds.py:57
+#, python-format
+msgid "%(site)s blog entries in %(lang)s"
+msgstr "%(site)s Blog-Einträge in %(lang)s"
+
+#: feeds.py:85
 #, python-format
 msgid "%(title)s tagged \"%(tag)s\""
 msgstr "%(title)s markiert \"%(tag)s\""
 
-#: feeds.py:86
+#: feeds.py:97
 #, python-format
 msgid "%(description)s tagged \"%(tag)s\""
 msgstr "%(description)s markiert \"%(tag)s\""
 
-#: models.py:38
-msgid "Is published"
-msgstr "Ist veröffentlicht"
+#: feeds.py:114
+#, python-format
+msgid "%(title)s by %(author)s"
+msgstr "%(title)s von \"%(tag)s\""
 
-#: models.py:39
-msgid "Published"
+#: feeds.py:126
+#, python-format
+msgid "%(description)s by %(author)s"
+msgstr "%(description)s by \"%(tag)s\""
+
+#: models.py:40
+msgid "is published"
 msgstr "Veröffentlicht"
 
-#: models.py:49 models.py:56
+#: models.py:41
+msgid "publish at"
+msgstr "Veröffentlicht am"
+
+#: models.py:80 models.py:87
 msgid "entry"
 msgstr "Eintrag"
 
-#: models.py:50
+#: models.py:81
 msgid "entries"
 msgstr "Einträge"
 
-#: models.py:57
-msgid "Language"
+#: models.py:88
+msgid "language"
 msgstr "Sprache"
 
-#: models.py:58
-msgid "Title"
-msgstr "Titel"
-
-#: models.py:59
-msgid "Slug"
+#: models.py:90
+msgid "slug"
 msgstr "Slug"
 
-#: models.py:76
+#: models.py:107
 msgid "entry title"
 msgstr "Eintragtitel"
 
-#: models.py:77
+#: models.py:108
 msgid "entry titles"
 msgstr "Eintragtitel"
 
-#: models.py:83
+#: models.py:114
 msgid "Number of entries items to show"
 msgstr "Anzahl der angezeigten Einträge"
 
-#: models.py:84
+#: models.py:115
 msgid "Limits the number of items that will be displayed"
 msgstr "Maximale Anzahl an Elemente, die angezeigt werden sollen"
 
-#: models.py:86
+#: models.py:117
 msgid "Only show entries for the current language"
 msgstr "Nur Einträge für die aktuelle Sprache anzeigen"
+
+#: templates/cmsplugin_blog/author_links_snippet.html:3
+msgid "See entries by"
+msgstr "Einträge von"
 
 #: templates/cmsplugin_blog/entry_archive.html:14
 #: templates/cmsplugin_blog/latest_entries.html:7
@@ -115,18 +134,26 @@ msgstr "Keine Einträge für diesen Monat"
 msgid "No entries for this year"
 msgstr "Keine Einträge für dieses Jahr"
 
-#: templates/cmsplugin_blog/entry_list.html:5
+#: templates/cmsplugin_blog/entry_author_list.html:11
+msgid "Entries by"
+msgstr "Einträge von"
+
+#: templates/cmsplugin_blog/entry_author_list.html:20
+msgid "No entries by"
+msgstr "Keine Einträge von"
+
+#: templates/cmsplugin_blog/entry_list.html:11
 msgid "Entries tagged"
 msgstr "Markierte Einträge"
 
-#: templates/cmsplugin_blog/entry_list.html:14
+#: templates/cmsplugin_blog/entry_list.html:20
 msgid "No entries tagged"
 msgstr "Keine Einträge markiert"
 
 #: templates/cmsplugin_blog/month_links_snippet.html:3
 msgid "See entries for"
-msgstr "Siehe Einträge für"
+msgstr "Einträge für"
 
 #: templates/cmsplugin_blog/tag_links_snippet.html:3
 msgid "See entries tagged"
-msgstr "Siehe markierte Einträge"
+msgstr "Markierte Einträge"
