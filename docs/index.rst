@@ -16,7 +16,7 @@ Requirements
 * `django-cbv`_
 * `django-missing`_
 * `djangocms-utils`_ 0.9.5+
-* `simple-translation`_ 0.7.3+
+* `simple-translation`_ 0.7.4+
 * `jQuery`_ 1.4.4+
 * `jQuery UI`_ 1.8.1+
 
