@@ -11,12 +11,13 @@ from simple_translation.templatetags.simple_translation_tags import get_preferre
 
 from cmsplugin_blog.models import Entry
 
+MULTILINGUAL = 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES
+
 def get_lang_name(lang):
     return _(dict(settings.LANGUAGES)[lang])
-    
+
 def add_current_root(url):
-    if 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES and \
-        not has_lang_prefix(url):
+    if MULTILINGUAL and not has_lang_prefix(url):
         new_root = "/%s" % get_language()
         url = new_root + url
     return url
@@ -30,10 +31,8 @@ class EntriesFeed(Feed):
         self.site = get_current_site(request)
         self.any_language = kwargs.get('any_language', None)
         self.language_namespace = ''
-        if 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES:
+        if MULTILINGUAL:
             self.language_namespace = '%s:' % self.language_code
-        else:
-            self.any_language = True
         return None
     
     def feed_url(self, obj):
@@ -58,7 +57,7 @@ class EntriesFeed(Feed):
         return _(u"%(site)s blog entries in %(lang)s") % {'site': self.site.name, 'lang': get_lang_name(self.language_code)}
 
     def get_queryset(self, obj):
-        if self.any_language:
+        if not MULTILINGUAL or self.any_language :
             qs = Entry.published.order_by('-pub_date')
         else:
             qs = Entry.published.filter(entrytitle__language=self.language_code).order_by('-pub_date')
