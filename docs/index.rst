@@ -114,12 +114,6 @@ You can create multiple placeholders for each blog entry. This is useful for cre
 
     CMSPLUGIN_BLOG_PLACEHOLDERS = ('first', 'second', 'third')
 
-Slug max length
----------------
-You can configure a shorter slug max length (default is 255) with::
-
-    CMSPLUGIN_BLOG_SLUG_LENGTH = 50
-
 Update the database
 ===================
 Next, you need to update the database with the fields required by cmsplugin-blog::
