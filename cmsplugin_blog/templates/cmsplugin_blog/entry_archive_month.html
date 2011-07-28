@@ -10,7 +10,7 @@
 	<p>{{ object.pub_date|date:"d b Y" }}<br/><a href="{{ title.get_absolute_url }}">{{ title }}</a> {{ object|render_language_choices:request|safe }}</p>
 	{% endwith %}
 {% empty %}
-	<p>{% trans "No entries for this month" %}<p>
+	<p>{% trans "No entries for this month" %}</p>
 {% endfor %}
 
 {% endblock %}

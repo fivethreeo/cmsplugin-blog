@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from django.core.urlresolvers import reverse, resolve
-from django.http import Http404
-from django.core.handlers.base import BaseHandler
+from django.core.urlresolvers import reverse
 from django.views.generic.date_based import archive_index, archive_year, archive_month, archive_day, object_detail
 from django.views.generic.list_detail import object_list
 
@@ -20,16 +18,17 @@ from cmsplugin_blog.views import EntryDateDetailView
 blog_info_dict = {
     'queryset': Entry.objects.all(),
     'date_field': 'pub_date',
+    'allow_empty': True,
 }
 
 blog_info_tagged_dict = {
     'queryset_or_model': Entry.objects.all(),
-    'allow_empty': False,
+    'allow_empty': True,
 }
 
 blog_info_author_dict = {
     'queryset': Entry.objects.all(),
-    'allow_empty': False,
+    'allow_empty': True,
     'template_name': 'cmsplugin_blog/entry_author_list.html',
 }
 
@@ -37,65 +36,21 @@ blog_info_month_dict = {
     'queryset': Entry.objects.all(),
     'date_field': 'pub_date',
     'month_format': '%m',
+    'allow_empty': True,
 }
 
 blog_info_year_dict = {
     'queryset': Entry.objects.all(),
     'date_field': 'pub_date',
     'make_object_list': True,
+    'allow_empty': True,
 }
 
 blog_info_detail_dict = dict(blog_info_month_dict, slug_field='entrytitle__slug')
 
 def language_changer(lang):
     request = language_changer.request
-
-    if getattr(request, '_prevent_recursion', False):
-        return reverse('pages-root')
-
-    current_code = request.LANGUAGE_CODE
-
-    blog_prefix = ''
-
-    try:
-        title = Title.objects.get(application_urls='BlogApphook', language=lang)
-        blog_prefix = urljoin(reverse('pages-root'), title.overwrite_url or title.slug)
-        path = request.get_full_path()
-        url = path
-
-        if path.startswith(blog_prefix):
-            path = path[len(blog_prefix):]
-            if path and path[0] != '/':
-                path = '/%s' % (path,)
-
-        view, args, kwargs = resolve(path, 'cmsplugin_blog.urls')
-
-        handler = BaseHandler()
-        if handler._request_middleware is None:
-            handler.load_middleware()
-
-        request._prevent_recursion = True
-        request.LANGUAGE_CODE = lang
-
-        for middleware_method in handler._view_middleware:
-            response = middleware_method(request, view, args, kwargs)
-            if response:
-                # It is not 404 exception
-                return url
-
-        view(request, *args, **kwargs) # Test if page really exists (does it not throw 404 exception)
-
-        return url
-    except Title.DoesNotExist:
-        # Blog app hook not defined anywhere?
-        pass
-    except Http404:
-        pass
-    finally:
-        request._prevent_recursion = False
-        request.LANGUAGE_CODE = current_code
-
-    return blog_prefix or reverse('pages-root')
+    return request.get_full_path()
 
 def blog_archive_index(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()

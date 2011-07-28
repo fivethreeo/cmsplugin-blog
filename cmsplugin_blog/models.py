@@ -63,15 +63,18 @@ class Entry(models.Model):
         if url:
             return url
 
-        path = ''
+        # There is no entry in the given language, we return blog's root
+
+        blog_prefix = ''
+
         try:
             title = Title.objects.get(application_urls='BlogApphook', language=language)
-            path = title.overwrite_url or title.slug
+            blog_prefix = urljoin(reverse('pages-root'), title.overwrite_url or title.slug)
         except Title.DoesNotExist:
             # Blog app hook not defined anywhere?
             pass
 
-        return urljoin(reverse('pages-root'), path)
+        return blog_prefix or reverse('pages-root')
      
     class Meta:
         verbose_name = _('entry')
