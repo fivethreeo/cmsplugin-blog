@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# raphaa <webmaster@raphaa.de>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: cmsplugin-blog\n"
+"Report-Msgid-Bugs-To: http://github.com/fivethreeo/cmsplugin-blog/issues\n"
+"POT-Creation-Date: 2011-05-17 14:00+0200\n"
+"PO-Revision-Date: 2011-05-19 14:42+0000\n"
+"Last-Translator: raphaa <webmaster@raphaa.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: cms_app.py:6
+msgid "Blog Apphook"
+msgstr "Blog-Applikation"
+
+#: cms_plugins.py:12 templates/cmsplugin_blog/entry_archive.html:5
+msgid "Latest entries"
+msgstr "Die neuesten Einträge"
+
+#: feeds.py:36 feeds.py:47
+msgid "Blog entries"
+msgstr "Blog-Einträge"
+
+#: feeds.py:37 feeds.py:48
+#, python-format
+msgid "Blog entries in %s"
+msgstr "Blog-Einträge in %s"
+
+#: feeds.py:74
+#, python-format
+msgid "%(title)s tagged \"%(tag)s\""
+msgstr "%(title)s markiert \"%(tag)s\""
+
+#: feeds.py:86
+#, python-format
+msgid "%(description)s tagged \"%(tag)s\""
+msgstr "%(description)s markiert \"%(tag)s\""
+
+#: models.py:38
+msgid "Is published"
+msgstr "Ist veröffentlicht"
+
+#: models.py:39
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: models.py:49 models.py:56
+msgid "entry"
+msgstr "Eintrag"
+
+#: models.py:50
+msgid "entries"
+msgstr "Einträge"
+
+#: models.py:57
+msgid "Language"
+msgstr "Sprache"
+
+#: models.py:58
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:59
+msgid "Slug"
+msgstr "Slug"
+
+#: models.py:76
+msgid "entry title"
+msgstr "Eintragtitel"
+
+#: models.py:77
+msgid "entry titles"
+msgstr "Eintragtitel"
+
+#: models.py:83
+msgid "Number of entries items to show"
+msgstr "Anzahl der angezeigten Einträge"
+
+#: models.py:84
+msgid "Limits the number of items that will be displayed"
+msgstr "Maximale Anzahl an Elemente, die angezeigt werden sollen"
+
+#: models.py:86
+msgid "Only show entries for the current language"
+msgstr "Nur Einträge für die aktuelle Sprache anzeigen"
+
+#: templates/cmsplugin_blog/entry_archive.html:14
+#: templates/cmsplugin_blog/latest_entries.html:7
+msgid "No entries"
+msgstr "Keine Einträge"
+
+#: templates/cmsplugin_blog/entry_archive_day.html:6
+#: templates/cmsplugin_blog/entry_archive_month.html:6
+#: templates/cmsplugin_blog/entry_archive_year.html:7
+msgid "Entries for"
+msgstr "Einträge für"
+
+#: templates/cmsplugin_blog/entry_archive_day.html:14
+msgid "No entries for this day"
+msgstr "Keine Einträge für diesen Tag"
+
+#: templates/cmsplugin_blog/entry_archive_month.html:13
+msgid "No entries for this month"
+msgstr "Keine Einträge für diesen Monat"
+
+#: templates/cmsplugin_blog/entry_archive_year.html:12
+msgid "No entries for this year"
+msgstr "Keine Einträge für dieses Jahr"
+
+#: templates/cmsplugin_blog/entry_list.html:5
+msgid "Entries tagged"
+msgstr "Markierte Einträge"
+
+#: templates/cmsplugin_blog/entry_list.html:14
+msgid "No entries tagged"
+msgstr "Keine Einträge markiert"
+
+#: templates/cmsplugin_blog/month_links_snippet.html:3
+msgid "See entries for"
+msgstr "Siehe Einträge für"
+
+#: templates/cmsplugin_blog/tag_links_snippet.html:3
+msgid "See entries tagged"
+msgstr "Siehe markierte Einträge"
