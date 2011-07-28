@@ -14,6 +14,7 @@ Requirements
 * `django-staticfiles`_ 1.0+
 * `django-tagging`_ 0.3+
 * `django-cbv`_
+* `django-missing`_
 * `djangocms-utils`_ 0.9.5+
 * `simple-translation`_ 0.7.3+
 * `jQuery`_ 1.4.4+
@@ -29,6 +30,7 @@ Requirements
 .. _jQuery: http://jquery.com/
 .. _jQuery UI: http://jqueryui.com/
 .. _django-cbv: http://pypi.python.org/pypi/django-cbv
+.. _django-missing: https://bitbucket.org/mitar/django-missing
 
 Installation
 ============
@@ -52,6 +54,7 @@ and required or highly recommended applications/libraries):
 * ``'djangocms_utils'``, utilities and extensions to django CMS
 * ``'simple_translation'``, enables multilingual features
 * ``'tagging'``, enables tagging of posts
+* ``'missing'``, provides improved slug generation
 * ``'staticfiles'``, for serving static files ::
 
     INSTALLED_APPS = (
@@ -60,6 +63,7 @@ and required or highly recommended applications/libraries):
         'djangocms_utils',
         'simple_translation',
         'tagging',
+        'missing',
         'staticfiles',
         ...
     )
@@ -112,9 +116,9 @@ You can create multiple placeholders for each blog entry. This is useful for cre
 
 Slug max length
 ---------------
-You can configure slug max length (default is 50) with::
+You can configure a shorter slug max length (default is 255) with::
 
-    CMSPLUGIN_BLOG_SLUG_LENGTH = 255
+    CMSPLUGIN_BLOG_SLUG_LENGTH = 50
 
 Update the database
 ===================
