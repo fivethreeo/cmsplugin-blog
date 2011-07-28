@@ -56,12 +56,12 @@ msgstr "%(description)s markiert \"%(tag)s\""
 #: feeds.py:114
 #, python-format
 msgid "%(title)s by %(author)s"
-msgstr "%(title)s von \"%(tag)s\""
+msgstr "%(title)s von \"%(author)s\""
 
 #: feeds.py:126
 #, python-format
 msgid "%(description)s by %(author)s"
-msgstr "%(description)s by \"%(tag)s\""
+msgstr "%(description)s by \"%(author)s\""
 
 #: models.py:40
 msgid "is published"
