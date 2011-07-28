@@ -63,7 +63,7 @@ class Entry(models.Model):
 
 tagging.register(Entry, tag_descriptor_attr='entry_tags')
 
-CMSPLUGIN_BLOG_SLUG_LENGTH = getattr(settings, 'CMSPLUGIN_BLOG_SLUG_LENGTH', 50)
+CMSPLUGIN_BLOG_SLUG_LENGTH = getattr(settings, 'CMSPLUGIN_BLOG_SLUG_LENGTH', 255)
 
 class EntryTitle(models.Model):
     entry = models.ForeignKey(Entry, verbose_name=_('entry'))
