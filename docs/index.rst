@@ -105,7 +105,7 @@ If you are interested in multilingual blog, add ``cmsplugin_blog.middleware.Mult
 
     MIDDLEWARE_CLASSES = (
         ...
-        'cms.middleware.toolbar.ToolbarMiddleware',
+        'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware',
     )
 
 Blog entry placeholders
