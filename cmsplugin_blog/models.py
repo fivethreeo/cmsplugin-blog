@@ -34,7 +34,7 @@ class PublishedEntriesManager(EntriesManager):
     def get_query_set(self):
         return super(PublishedEntriesManager, self).get_query_set().published()
                     
-CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', ('main',))
+CMSPLUGIN_BLOG_PLACEHOLDERS = getattr(settings, 'CMSPLUGIN_BLOG_PLACEHOLDERS', ('excerpt', 'content'))
               
 class Entry(models.Model):
     is_published = models.BooleanField(_('is published'))
