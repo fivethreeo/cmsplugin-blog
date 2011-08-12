@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.core.urlresolvers import reverse
-from django.views.generic.date_based import archive_index, archive_year, archive_month, archive_day, object_detail
+from django.views.generic.date_based import archive_year, archive_month, archive_day, object_detail
 from django.views.generic.list_detail import object_list
 
 from tagging.views import tagged_object_list
@@ -17,8 +17,9 @@ from cmsplugin_blog.views import EntryDateDetailView
 
 blog_info_dict = {
     'queryset': Entry.objects.all(),
-    'date_field': 'pub_date',
     'allow_empty': True,
+    'paginate_by': 15,
+    'template_name': 'cmsplugin_blog/entry_archive.html',
 }
 
 blog_info_tagged_dict = {
@@ -55,7 +56,7 @@ def language_changer(lang):
 def blog_archive_index(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
     set_language_changer(request, language_changer)
-    return archive_index(request, **kwargs)
+    return object_list(request, **kwargs)
     
 def blog_archive_year(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
