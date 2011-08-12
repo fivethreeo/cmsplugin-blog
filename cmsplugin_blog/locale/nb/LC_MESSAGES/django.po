@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: cmsplugin-blog\n"
-"Report-Msgid-Bugs-To: http://github.com/fivethreeo/cmsplugin-blog/issues\n"
-"POT-Creation-Date: 2011-05-17 14:00+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-12 11:23+0200\n"
 "PO-Revision-Date: 2011-05-18 14:18+0000\n"
 "Last-Translator: fivethreeo <oyvind.saltvik@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,15 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
+#: admin.py:110 models.py:91
+msgid "author"
+msgstr "forfatter"
+
+#: admin.py:115 models.py:89
+#, fuzzy
+msgid "title"
+msgstr "Tittel"
+
 #: cms_app.py:6
 msgid "Blog Apphook"
 msgstr "Blogg Applikasjon"
@@ -25,75 +34,84 @@ msgstr "Blogg Applikasjon"
 msgid "Latest entries"
 msgstr "Siste innlegg"
 
-#: feeds.py:36 feeds.py:47
-msgid "Blog entries"
+#: feeds.py:45 feeds.py:56
+#, fuzzy, python-format
+msgid "%(site)s blog entries"
 msgstr "Blogginlegg"
 
-#: feeds.py:37 feeds.py:48
-#, python-format
-msgid "Blog entries in %s"
+#: feeds.py:46 feeds.py:57
+#, fuzzy, python-format
+msgid "%(site)s blog entries in %(lang)s"
 msgstr "Bloginnlegg på %s"
 
-#: feeds.py:74
+#: feeds.py:85
 #, python-format
 msgid "%(title)s tagged \"%(tag)s\""
 msgstr "%(title)s tagget med \"%(tag)s\""
 
-#: feeds.py:86
+#: feeds.py:97
 #, python-format
 msgid "%(description)s tagged \"%(tag)s\""
 msgstr "%(description)s tagget med \"%(tag)s\""
 
-#: models.py:38
-msgid "Is published"
-msgstr "Publisert?"
+#: feeds.py:114
+msgid "%(title)s by %(author)s"
+msgstr "%(title)s av %(author)s"
 
-#: models.py:39
-msgid "Published"
-msgstr "Publisert"
+#: feeds.py:126
+msgid "%(description)s by %(author)s"
+msgstr "%(description)s av %(author)s"
 
-#: models.py:49 models.py:56
+#: models.py:40
+msgid "is published"
+msgstr "er publisert"
+
+#: models.py:41
+msgid "publish at"
+msgstr "publisert når"
+
+#: models.py:80 models.py:87
 msgid "entry"
 msgstr "innlegg"
 
-#: models.py:50
+#: models.py:81
 msgid "entries"
 msgstr "innlegg"
 
-#: models.py:57
-msgid "Language"
+#: models.py:88
+msgid "language"
 msgstr "Språk"
 
-#: models.py:58
-msgid "Title"
-msgstr "Tittel"
-
-#: models.py:59
-msgid "Slug"
+#: models.py:90
+msgid "slug"
 msgstr "Pen adressse"
 
-#: models.py:76
-msgid "entry title"
-msgstr "innleggstittel"
+#: models.py:108
+msgid "blogentry"
+msgstr "innlegg"
 
-#: models.py:77
-msgid "entry titles"
-msgstr "innleggstitler"
+#: models.py:109
+msgid "blogentries"
+msgstr "Blogginlegg"
 
-#: models.py:83
+#: models.py:115
 msgid "Number of entries items to show"
 msgstr "Antall innlegg som skal vises"
 
-#: models.py:84
+#: models.py:116
 msgid "Limits the number of items that will be displayed"
 msgstr "Begrenser antall innlegg som vil bli vist"
 
-#: models.py:86
+#: models.py:118
 msgid "Only show entries for the current language"
 msgstr "Bare vis innlegg for aktivt språk"
 
-#: templates/cmsplugin_blog/entry_archive.html:14
-#: templates/cmsplugin_blog/latest_entries.html:7
+#: templates/cmsplugin_blog/author_links_snippet.html:3
+msgid "See entries by"
+msgstr "Se innlegg av"
+
+#: templates/cmsplugin_blog/entry_archive.html:17
+#: templates/cmsplugin_blog/latest_entries.html:13
 msgid "No entries"
 msgstr "Ingen innlegg"
 
@@ -103,11 +121,11 @@ msgstr "Ingen innlegg"
 msgid "Entries for"
 msgstr "Innlegg for"
 
-#: templates/cmsplugin_blog/entry_archive_day.html:14
+#: templates/cmsplugin_blog/entry_archive_day.html:17
 msgid "No entries for this day"
 msgstr "Ingen innlegg for denne dagen"
 
-#: templates/cmsplugin_blog/entry_archive_month.html:13
+#: templates/cmsplugin_blog/entry_archive_month.html:18
 msgid "No entries for this month"
 msgstr "Ingen innlegg for denne måneden"
 
@@ -115,11 +133,20 @@ msgstr "Ingen innlegg for denne måneden"
 msgid "No entries for this year"
 msgstr "Ingen innlegg for dette året"
 
-#: templates/cmsplugin_blog/entry_list.html:5
+#: templates/cmsplugin_blog/entry_author_list.html:11
+msgid "Entries by"
+msgstr "Innlegg for"
+
+#: templates/cmsplugin_blog/entry_author_list.html:23
+#, fuzzy
+msgid "No entries by"
+msgstr "Ingen bloginnlegg av"
+
+#: templates/cmsplugin_blog/entry_list.html:11
 msgid "Entries tagged"
 msgstr "Bloginnlegg tagget"
 
-#: templates/cmsplugin_blog/entry_list.html:14
+#: templates/cmsplugin_blog/entry_list.html:23
 msgid "No entries tagged"
 msgstr "Ingen innlegg tagget"
 
@@ -130,3 +157,6 @@ msgstr "Se innlegg for"
 #: templates/cmsplugin_blog/tag_links_snippet.html:3
 msgid "See entries tagged"
 msgstr "Se innlegg med stikkord"
+
+#~ msgid "Published"
+#~ msgstr "Publisert"

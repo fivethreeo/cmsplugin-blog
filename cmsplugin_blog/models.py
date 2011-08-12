@@ -105,8 +105,8 @@ class EntryTitle(models.Model):
 
     class Meta:
         unique_together = ('language', 'slug')
-        verbose_name = _('entry title')
-        verbose_name_plural = _('entry titles')
+        verbose_name = _('blogentry')
+        verbose_name_plural = _('blogentries')
     
 class LatestEntriesPlugin(CMSPlugin):
     """
