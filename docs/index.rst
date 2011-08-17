@@ -14,11 +14,12 @@ Requirements
 * `django-staticfiles`_ 1.0+
 * `django-tagging`_ 0.3+
 * `django-cbv`_
-* `django-missing`_
 * `djangocms-utils`_ 0.9.5+
 * `simple-translation`_ 0.7.4+
 * `jQuery`_ 1.4.4+
 * `jQuery UI`_ 1.8.1+
+* `django-missing`_ (optional)
+* `django-guardian`_ (optional)
 
 .. note :: jQuery can be provided either by locally or linking to a public server, like Google's or Microsoft's CDN.
 
@@ -31,6 +32,7 @@ Requirements
 .. _jQuery UI: http://jqueryui.com/
 .. _django-cbv: http://pypi.python.org/pypi/django-cbv
 .. _django-missing: https://bitbucket.org/mitar/django-missing
+.. _django-guardian: http://readthedocs.org/docs/django-guardian/en/v1.0.2/
 
 Installation
 ============
@@ -54,8 +56,9 @@ and required or highly recommended applications/libraries):
 * ``'djangocms_utils'``, utilities and extensions to django CMS
 * ``'simple_translation'``, enables multilingual features
 * ``'tagging'``, enables tagging of posts
-* ``'missing'``, provides improved slug generation
 * ``'staticfiles'``, for serving static files ::
+* ``'missing'``, provides improved slug generation
+* ``'guardian'``, provides per-object-permissions (see docs for `django-guardian`_)
 
     INSTALLED_APPS = (
         ...
@@ -63,8 +66,9 @@ and required or highly recommended applications/libraries):
         'djangocms_utils',
         'simple_translation',
         'tagging',
-        'missing',
         'staticfiles',
+        'missing', # optional
+        'guardian', # optional
         ...
     )
 
