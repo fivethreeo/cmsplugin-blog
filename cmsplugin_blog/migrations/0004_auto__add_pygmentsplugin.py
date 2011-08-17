@@ -7,21 +7,10 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
-        # Adding model 'PygmentsPlugin'
-        db.create_table('cmsplugin_pygmentsplugin', (
-            ('cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-            ('code_language', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('code', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal('cmsplugin_blog', ['PygmentsPlugin'])
-
+        pass
 
     def backwards(self, orm):
-        
-        # Deleting model 'PygmentsPlugin'
-        db.delete_table('cmsplugin_pygmentsplugin')
-
+        pass
 
     models = {
         'cms.cmsplugin': {
@@ -61,12 +50,6 @@ class Migration(SchemaMigration):
             'language': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'db_index': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        'cmsplugin_blog.pygmentsplugin': {
-            'Meta': {'object_name': 'PygmentsPlugin', 'db_table': "'cmsplugin_pygmentsplugin'", '_ormbases': ['cms.CMSPlugin']},
-            'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'code': ('django.db.models.fields.TextField', [], {}),
-            'code_language': ('django.db.models.fields.CharField', [], {'max_length': '20'})
         }
     }
 
