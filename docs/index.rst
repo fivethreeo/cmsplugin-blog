@@ -60,6 +60,8 @@ and required or highly recommended applications/libraries):
 * ``'missing'``, provides improved slug generation
 * ``'guardian'``, provides per-object-permissions (see docs for `django-guardian`_)
 
+Add required settings::
+
     INSTALLED_APPS = (
         ...
         'cmsplugin_blog',
