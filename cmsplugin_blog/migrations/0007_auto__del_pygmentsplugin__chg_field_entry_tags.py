@@ -7,20 +7,10 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
-        # Deleting model 'PygmentsPlugin'
-        db.delete_table('cmsplugin_pygmentsplugin')
-
+        pass
 
     def backwards(self, orm):
-        
-        # Adding model 'PygmentsPlugin'
-        db.create_table('cmsplugin_pygmentsplugin', (
-            ('code', self.gf('django.db.models.fields.TextField')()),
-            ('code_language', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-        ))
-        db.send_create_signal('cmsplugin_blog', ['PygmentsPlugin'])
+        pass
 
     models = {
         'cms.cmsplugin': {

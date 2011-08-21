@@ -67,12 +67,6 @@ class Migration(SchemaMigration):
             'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
             'current_language_only': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'limit': ('django.db.models.fields.PositiveIntegerField', [], {})
-        },
-        'cmsplugin_blog.pygmentsplugin': {
-            'Meta': {'object_name': 'PygmentsPlugin', 'db_table': "'cmsplugin_pygmentsplugin'", '_ormbases': ['cms.CMSPlugin']},
-            'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'code': ('django.db.models.fields.TextField', [], {}),
-            'code_language': ('django.db.models.fields.CharField', [], {'max_length': '20'})
         }
     }
 
