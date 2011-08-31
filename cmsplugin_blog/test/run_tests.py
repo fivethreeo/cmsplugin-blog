@@ -57,7 +57,8 @@ def run_tests():
         JQUERY_UI_CSS='',
         JQUERY_JS='',
         JQUERY_UI_JS='',
-        STATIC_URL='/some/url/'
+        STATIC_URL='/some/url/',
+        TEST_RUNNER = 'djangoxmlrunner.DjangoXmlTestSuiteRunner'
     )
     
     from django.test.utils import get_runner
