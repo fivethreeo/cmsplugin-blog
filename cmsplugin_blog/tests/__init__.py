@@ -150,13 +150,16 @@ class ViewsTestCase(BaseBlogTestCase):
     
     def test_01_generics(self):
         user = User.objects.all()[0]
+        
         published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at, author=user)
         entry.tags = 'test'
         entry.save()
+        
         response = self.client.get(reverse('en:blog_archive_index'))
         self.assertEquals(response.status_code, 200)
+        
         response = self.client.get(reverse('en:blog_archive_year', kwargs={'year': published_at.strftime('%Y')}))
         self.assertEquals(response.status_code, 200)
         
@@ -195,7 +198,18 @@ class ViewsTestCase(BaseBlogTestCase):
                 'author': user.username
             }))
         self.assertEquals(response.status_code, 200)
+        
+        self.client.login(username='admin', password='admin')
 
+        response = self.client.get(reverse('en:blog_detail',
+            kwargs={
+                'year': published_at.strftime('%Y'),
+                'month': published_at.strftime('%m'),
+                'day': published_at.strftime('%d'),
+                'slug': title.slug
+            }))
+        self.assertEquals(response.status_code, 200)
+        
 class SitemapsTestCase(BaseBlogTestCase):
     
     def test_01_sitemaps(self):
