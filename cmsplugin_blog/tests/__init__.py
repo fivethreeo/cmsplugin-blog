@@ -128,8 +128,42 @@ class BlogRSSTestCase(BaseBlogTestCase):
             published_at=published_at)
         response = self.client.get(reverse('en:blog_rss_any_author', kwargs={'author': user.username}))
         self.assertEquals(response.status_code, 200)
-        self.assertNotContains(response, 'in English')  
-
+        self.assertNotContains(response, 'in English')
+        
+class ViewsTestCase(BaseBlogTestCase):
+    
+    def test_01_generics(self):
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=-24)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        response = self.client.get(reverse('en:blog_archive_index'))
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('en:blog_archive_year', kwargs={'year': published_at.strftime('%Y')}))
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('en:blog_archive_month',
+            kwargs={
+                'year': published_at.strftime('%Y'),
+                'month': published_at.strftime('%m')
+            }))
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('en:blog_archive_day',
+            kwargs={
+                'year': published_at.strftime('%Y'),
+                'month': published_at.strftime('%m'),
+                'day': published_at.strftime('%d')
+            }))
+        self.assertEquals(response.status_code, 200)
+        '''
+        response = self.client.get(reverse('en:blog_detail',
+            kwargs={
+                'year': published_at.strftime('%Y'),
+                'month': published_at.strftime('%m'),
+                'day': published_at.strftime('%d'),
+                'slug': title.slug
+            }))
+        self.assertEquals(response.status_code, 200)
+        '''
+             
 class SitemapsTestCase(BaseBlogTestCase):
     
     def test_01_sitemaps(self):
