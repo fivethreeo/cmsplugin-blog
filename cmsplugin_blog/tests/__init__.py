@@ -78,7 +78,7 @@ class BlogTestCase(BaseBlogTestCase):
         
         # add english
         response = self.client.post(add_url, {'language': 'en', 'title': 'english', 'slug': 'english',
-            'pub_date_0': '2011-01-16', 'pub_date_1': '09:09:09'})
+            'pub_date_0': '2011-01-16', 'pub_date_1': '09:09:09', 'author': ''})
         # self.assertEquals(response.content, '')
 
         self.assertEquals(response.status_code, 302)
