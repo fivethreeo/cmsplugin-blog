@@ -43,7 +43,7 @@ case "${args[$index]}" in
             echo " -r, --rebuild-env - run buildout before the tests"
             echo " -d, --django <version> - run tests against a django version, options: 12, 13 or trunk"
             echo " -c, --with-coverage - enables coverage"
-            #echo " -p, --python /path/to/python - python version to use to run the tests"
+            echo " -p, --python /path/to/python - python version to use to run the tests"
             echo " -h, --help - display this help"
             exit 1
             ;;
@@ -51,9 +51,11 @@ case "${args[$index]}" in
 let "index = $index + 1"
 done
 
-echo "using python at: $python"
+python_executeable=`which $python`
 
-venv="venv-$django"
+echo "using python at: $python_executeable"
+
+venv="venv-$python-$django"
 
 if [ $reuse_env == false ]; then
     rm -rf $venv
@@ -61,7 +63,7 @@ if [ $reuse_env == false ]; then
 fi
 if [ ! -d $venv ]; then
     echo "building virtualenv"
-    virtualenv $venv --distribute
+    virtualenv $venv --distribute -p $python_executeable
     $venv/bin/pip install -r requirements-$django.txt
 else
     echo "reusing current virualenv"

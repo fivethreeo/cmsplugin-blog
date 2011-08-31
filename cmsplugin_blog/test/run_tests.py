@@ -28,11 +28,11 @@ def run_tests():
             'django.contrib.auth.middleware.AuthenticationMiddleware',
             'django.middleware.doc.XViewMiddleware',
             'django.contrib.csrf.middleware.CsrfMiddleware',
+            'cms.middleware.multilingual.MultilingualURLMiddleware',
             'cms.middleware.user.CurrentUserMiddleware',
             'cms.middleware.page.CurrentPageMiddleware',
             'cms.middleware.toolbar.ToolbarMiddleware',
             'cms.middleware.media.PlaceholderMediaMiddleware',
-            'cms.middleware.multilingual.MultilingualURLMiddleware',
             'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware'
         ),
         TEMPLATE_CONTEXT_PROCESSORS = (
@@ -53,7 +53,7 @@ def run_tests():
             ('default.html', 'default'),
         ),
         ROOT_URLCONF='cmsplugin_blog.test.testapp.urls',
-        LANGUAGES=(('en', 'en'),('de','de')),
+        LANGUAGES=(('en', 'English'),('de','German')),
         JQUERY_UI_CSS='',
         JQUERY_JS='',
         JQUERY_UI_JS='',

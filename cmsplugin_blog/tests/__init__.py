@@ -31,12 +31,12 @@ class BlogTestCase(BaseBlogTestCase):
         # edit english
         response = self.client.get(add_url, {'language': 'en'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'value="en" type="button" disabled' )
+        self.assertContains(response, 'value="English" type="button" disabled' )
         
         # edit german
         response = self.client.get(add_url, {'language': 'de'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'value="de" type="button" disabled')
+        self.assertContains(response, 'value="German" type="button" disabled')
         
     def test_04_admin_change(self):
         
@@ -57,13 +57,13 @@ class BlogTestCase(BaseBlogTestCase):
         # edit english
         response = self.client.get(edit_url, {'language': 'en'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'value="en" type="button" disabled' )
+        self.assertContains(response, 'value="English" type="button" disabled' )
 
         
         # edit german
         response = self.client.get(edit_url, {'language': 'de'})
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'value="de" type="button" disabled' )
+        self.assertContains(response, 'value="German" type="button" disabled' )
 
     def test_05_admin_add_post(self):
         
@@ -94,3 +94,29 @@ class BlogTestCase(BaseBlogTestCase):
         self.assertEquals([title.title for title in entry.entrytitle_set.all()], ['english', 'german'])
         
         
+class BlogRSSTestCase(BaseBlogTestCase):
+    
+    def test_01_posts_one_language(self):
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=-1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        response = self.client.get(reverse('en:blog_rss'))
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(response, 'in English')
+        
+    def test_02_posts_all_languages(self):
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=-1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        response = self.client.get(reverse('en:blog_rss'))
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(response, 'in English')
+        
+class SitemapsTestCase(BaseBlogTestCase):
+    
+    def test_01_sitemaps(self):
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=-1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        response = self.client.get('/sitemap.xml')
+        self.assertEquals(response.status_code, 200)
