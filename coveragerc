@@ -3,6 +3,7 @@ branch = True
 source =
     cmsplugin_blog
 omit =
-    ../*migrations*
+    *migrations*
+    *tests*
 [report]
 precision = 2
