@@ -138,7 +138,7 @@ class BlogRSSTestCase(BaseBlogTestCase):
         self.assertEquals(response.status_code, 200)
         self.assertContains(response, 'in English')  
         
-    def test_05_posts_tagged_single_language(self):
+    def test_05_posts_tagged_all_languages(self):
         published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
