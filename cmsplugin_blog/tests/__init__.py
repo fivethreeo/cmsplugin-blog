@@ -108,10 +108,28 @@ class BlogRSSTestCase(BaseBlogTestCase):
         published_at = datetime.datetime.now() - datetime.timedelta(hours=-1)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
-        response = self.client.get(reverse('en:blog_rss'))
+        response = self.client.get(reverse('en:blog_rss_any'))
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'in English')
+        self.assertNotContains(response, 'in English')
         
+    def test_03_posts_by_author_single_language(self):
+        user = User.objects.all()[0]
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=-1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        response = self.client.get(reverse('en:blog_rss_author', kwargs={'author': user.username}))
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(response, 'in English')  
+        
+    def test_04_posts_by_author_all_languages(self):
+        user = User.objects.all()[0]
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=-1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        response = self.client.get(reverse('en:blog_rss_any_author', kwargs={'author': user.username}))
+        self.assertEquals(response.status_code, 200)
+        self.assertNotContains(response, 'in English')  
+
 class SitemapsTestCase(BaseBlogTestCase):
     
     def test_01_sitemaps(self):

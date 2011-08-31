@@ -16,5 +16,5 @@ urlpatterns += patterns('',
             'blogentries': BlogSitemap
         }
     }),
-    url(r'^', include('cms.urls')),
+    url(r'^', include('cms.urls'))
 )
