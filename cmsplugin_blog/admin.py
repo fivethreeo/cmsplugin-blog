@@ -129,11 +129,10 @@ class BaseEntryAdmin(M2MPlaceholderAdmin):
         )})
         return fieldsets
         
-    def save_translated_form(self, request, obj, form, change):
-        translation_obj = super(BaseEntryAdmin, self).save_translated_form(request, obj, form, change)
+    def save_translated_model(self, request, obj, translation_obj, form, change):
         if not translation_obj.author:
             translation_obj.author=request.user
-        return translation_obj
+        super(BaseEntryAdmin, self).save_translated_model(request, obj, translation_obj, form, change)
 
 if 'guardian' in settings.INSTALLED_APPS:
     from guardian.admin import GuardedModelAdmin
