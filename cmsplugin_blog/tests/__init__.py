@@ -210,6 +210,24 @@ class ViewsTestCase(BaseBlogTestCase):
             }))
         self.assertEquals(response.status_code, 200)
         
+class LanguageChangerTestCase(BaseBlogTestCase):
+    
+    def test_01_language_changer(self):
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        de_title = self.create_entry_title(entry, title='german', language='de')
+        
+        from django.utils.translation import activate
+        activate('en')
+        self.assertEquals(entry.get_absolute_url(), '/test-page-1/2011/08/31/entry-title/')
+        
+
+        self.assertEquals(entry.get_absolute_url('en'), '/test-page-1/2011/08/31/entry-title/')
+        self.assertEquals(entry.language_changer('en'), '/test-page-1/2011/08/31/entry-title/')
+        self.assertEquals(entry.language_changer('de'), '/test-page-1/2011/08/31/german/')
+        self.assertEquals(entry.language_changer('nb'), '/')
+
 class SitemapsTestCase(BaseBlogTestCase):
     
     def test_01_sitemaps(self):
