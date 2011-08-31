@@ -104,6 +104,7 @@ class BlogTestCase(BaseBlogTestCase):
         
         changelist_url = reverse('admin:cmsplugin_blog_entry_changelist')
         response = self.client.get(changelist_url)
+        self.assertContains(response, 'a' )
         self.assertEquals(response.status_code, 200)
                 
 class BlogRSSTestCase(BaseBlogTestCase):
