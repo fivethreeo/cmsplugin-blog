@@ -93,7 +93,19 @@ class BlogTestCase(BaseBlogTestCase):
         entry = Entry.objects.get(pk=1)
         self.assertEquals([title.title for title in entry.entrytitle_set.all()], ['english', 'german'])
         
+    def test_06_admin_changelist(self):
         
+        superuser = User(username="super", is_staff=True, is_active=True, 
+            is_superuser=True)
+        superuser.set_password("super")
+        superuser.save()
+        
+        self.client.login(username='super', password='super')
+        
+        changelist_url = reverse('admin:cmsplugin_blog_entry_changelist')
+        response = self.client.get(changelist_url)
+        self.assertEquals(response.status_code, 200)
+                
 class BlogRSSTestCase(BaseBlogTestCase):
     
     def test_01_posts_one_language(self):
