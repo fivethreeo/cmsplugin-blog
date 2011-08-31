@@ -74,8 +74,8 @@ if [ $disable_coverage == false ]; then
     retcode=$?
     echo "build coverage reports"
 
-    $venv/bin/coverage xml
-    $venv/bin/coverage html
+    $venv/bin/coverage xml --rcfile=coveragerc setup.py test
+    $venv/bin/coverage html --rcfile=coveragerc setup.py test
 else
     $venv/bin/python setup.py test
     retcode=$?
