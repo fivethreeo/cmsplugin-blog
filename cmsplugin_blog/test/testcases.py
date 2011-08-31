@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from cms.test.testcases import CMSTestCase
@@ -20,6 +21,7 @@ class BaseBlogTestCase(CMSTestCase):
             page=page
         )
         page.title_set.all().update(application_urls='BlogApphook')
+        reverse('en:blog_archive_index') # fill cache
         
     def create_entry_with_title(self, title=None, slug=None, language=None, published=False, published_at=None, author=None):
         kwargs = {'is_published': published}

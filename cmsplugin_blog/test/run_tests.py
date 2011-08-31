@@ -1,4 +1,22 @@
 import sys
+import django
+
+MIDDLEWARE_CLASSES = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+    'django.contrib.csrf.middleware.CsrfViewMiddleware',
+    'cms.middleware.multilingual.MultilingualURLMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.media.PlaceholderMediaMiddleware',
+    'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware'
+]
+
+if django.VERSION[1] > 2: # pragma: no cover
+    MIDDLEWARE_CLASSES.insert(5, 'cbv.middleware.DeferredRenderingMiddleware')
 
 def run_tests():
     
@@ -22,19 +40,7 @@ def run_tests():
             'cmsplugin_blog',
             'staticfiles'
         ],
-        MIDDLEWARE_CLASSES = (
-            'django.contrib.sessions.middleware.SessionMiddleware',
-            'django.middleware.common.CommonMiddleware',
-            'django.contrib.auth.middleware.AuthenticationMiddleware',
-            'django.middleware.doc.XViewMiddleware',
-            'django.contrib.csrf.middleware.CsrfMiddleware',
-            'cms.middleware.multilingual.MultilingualURLMiddleware',
-            'cms.middleware.user.CurrentUserMiddleware',
-            'cms.middleware.page.CurrentPageMiddleware',
-            'cms.middleware.toolbar.ToolbarMiddleware',
-            'cms.middleware.media.PlaceholderMediaMiddleware',
-            'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware'
-        ),
+        MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES,
         TEMPLATE_CONTEXT_PROCESSORS = (
             "django.core.context_processors.auth",
             "django.core.context_processors.i18n",
