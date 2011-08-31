@@ -1,3 +1,5 @@
+#!/bin/bash
+
 args=("$@")
 num_args=${#args[@]}
 index=0
