@@ -1,0 +1,2 @@
+coverage
+Django==1.3
