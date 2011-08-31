@@ -20,6 +20,13 @@ class BaseBlogTestCase(CMSTestCase):
             path=english_title.path,
             page=page
         )
+        Title.objects.create(
+            language='nb',
+            title='%s NB' % english_title.title,
+            slug=english_title.slug,
+            path=english_title.path,
+            page=page
+        )
         page.title_set.all().update(application_urls='BlogApphook')
         reverse('en:blog_archive_index') # fill cache
         

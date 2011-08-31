@@ -59,7 +59,7 @@ def run_tests():
             ('default.html', 'default'),
         ),
         ROOT_URLCONF='cmsplugin_blog.test.testapp.urls',
-        LANGUAGES=(('en', 'English'),('de','German')),
+        LANGUAGES=(('en', 'English'),('de','German'),('nb','Norwegian'),('nn','Norwegian Nynorsk')),
         JQUERY_UI_CSS='',
         JQUERY_JS='',
         JQUERY_UI_JS='',

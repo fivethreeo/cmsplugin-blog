@@ -226,8 +226,9 @@ class LanguageChangerTestCase(BaseBlogTestCase):
         self.assertEquals(entry.get_absolute_url('en'), '/test-page-1/2011/08/31/entry-title/')
         self.assertEquals(entry.language_changer('en'), '/test-page-1/2011/08/31/entry-title/')
         self.assertEquals(entry.language_changer('de'), '/test-page-1/2011/08/31/german/')
-        self.assertEquals(entry.language_changer('nb'), '/')
-
+        self.assertEquals(entry.language_changer('nb'), '/test-page-1/')
+        self.assertEquals(entry.language_changer('nn'), '/')
+        
 class SitemapsTestCase(BaseBlogTestCase):
     
     def test_01_sitemaps(self):
