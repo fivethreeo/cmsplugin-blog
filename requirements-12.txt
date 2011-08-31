@@ -1,4 +1,4 @@
--e http://github.com/fivethreeo/django-xmlrunner.git#egg=django-xmlrunner
+-e git+http://github.com/fivethreeo/django-xmlrunner.git#egg=django-xmlrunner
 coverage
 Django==1.2.5
 django-cbv
