@@ -237,7 +237,6 @@ class LanguageChangerTestCase(BaseBlogTestCase):
         from django.utils.translation import activate
         activate('en')
         self.assertEquals(entry.get_absolute_url(), u'/test-page-1/2011/08/31/entry-title/')
-        
 
         self.assertEquals(entry.get_absolute_url('en'), u'/test-page-1/2011/08/31/entry-title/')
         self.assertEquals(entry.language_changer('en'), u'/test-page-1/2011/08/31/entry-title/')
