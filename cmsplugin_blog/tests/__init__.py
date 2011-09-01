@@ -229,7 +229,7 @@ class ViewsTestCase(BaseBlogTestCase):
 class LanguageChangerTestCase(BaseBlogTestCase):
     
     def test_01_language_changer(self):
-        published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
+        published_at = datetime.datetime(2011, 8, 31, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
         de_title = self.create_entry_title(entry, title='german', language='de')
