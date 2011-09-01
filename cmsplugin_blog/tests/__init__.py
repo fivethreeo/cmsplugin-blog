@@ -236,14 +236,14 @@ class LanguageChangerTestCase(BaseBlogTestCase):
         
         from django.utils.translation import activate
         activate('en')
-        self.assertEquals(entry.get_absolute_url(), '/test-page-1/2011/08/31/entry-title/')
+        self.assertEquals(entry.get_absolute_url(), u'/test-page-1/2011/08/31/entry-title/')
         
 
-        self.assertEquals(entry.get_absolute_url('en'), '/test-page-1/2011/08/31/entry-title/')
-        self.assertEquals(entry.language_changer('en'), '/test-page-1/2011/08/31/entry-title/')
-        self.assertEquals(entry.language_changer('de'), '/test-page-1/2011/08/31/german/')
-        self.assertEquals(entry.language_changer('nb'), '/test-page-1/')
-        self.assertEquals(entry.language_changer('nn'), '/')
+        self.assertEquals(entry.get_absolute_url('en'), u'/test-page-1/2011/08/31/entry-title/')
+        self.assertEquals(entry.language_changer('en'), u'/test-page-1/2011/08/31/entry-title/')
+        self.assertEquals(entry.language_changer('de'), u'/test-page-1/2011/08/31/german/')
+        self.assertEquals(entry.language_changer('nb'), u'/test-page-1/')
+        self.assertEquals(entry.language_changer('nn'), u'/')
         
 class SitemapsTestCase(BaseBlogTestCase):
     
