@@ -95,6 +95,10 @@ class BlogTestCase(BaseBlogTestCase):
         
     def test_06_admin_changelist(self):
         
+        published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+                    
         superuser = User(username="super", is_staff=True, is_active=True, 
             is_superuser=True)
         superuser.set_password("super")
@@ -104,7 +108,6 @@ class BlogTestCase(BaseBlogTestCase):
         
         changelist_url = reverse('admin:cmsplugin_blog_entry_changelist')
         response = self.client.get(changelist_url)
-        self.assertContains(response, 'a' )
         self.assertEquals(response.status_code, 200)
                 
 class BlogRSSTestCase(BaseBlogTestCase):
