@@ -1,6 +1,9 @@
+from __future__ import with_statement
 import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+
+from cms.test_utils.util.context_managers import SettingsOverride
 
 from cmsplugin_blog.models import Entry
 from cmsplugin_blog.test.testcases import BaseBlogTestCase
@@ -161,6 +164,17 @@ class BlogRSSTestCase(BaseBlogTestCase):
         response = self.client.get(reverse('en:blog_rss_any_tagged', kwargs={'tag': 'test'}))
         self.assertEquals(response.status_code, 200)
         self.assertNotContains(response, 'in English') 
+    
+    def test_06_no_multilingual(self):
+        mwc = list(set(settings.MIDDLEWARE_CLASSES) - set('cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware''))
+        with SettingsOverride(MIDDLEWARE_CLASSES=mwc):
+            published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
+            title, entry = self.create_entry_with_title(published=True, 
+                published_at=published_at)
+            response = self.client.get(reverse('en:blog_rss'))
+            self.assertEquals(response.status_code, 200)
+            self.assertContains(response, 'in English')
+            
                 
 class ViewsTestCase(BaseBlogTestCase):
     
