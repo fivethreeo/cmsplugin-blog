@@ -131,4 +131,4 @@ class AuthorEntriesFeed(EntriesFeed):
     def get_queryset(self, obj):
         qs = super(AuthorEntriesFeed, self).get_queryset(obj)
         kw = get_translation_filter(**{'author__username': self.author})
-        return qs.filter(**kw)
+        return qs.filter(Entry, **kw)
