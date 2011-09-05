@@ -295,9 +295,12 @@ class LatestEntriesTestCase(BaseBlogTestCase):
             published_at=published_at)
         de_title = self.create_entry_title(entry, title='german', language='de')
         ph = Placeholder(slot='main')
+        ph.save()
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
+        plugin.save()
         self.assertEquals(plugin.render_plugin({}), '')
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=True)
+        plugin.save()
         self.assertEquals(plugin.render_plugin({}), '')
         
 class SitemapsTestCase(BaseBlogTestCase):
