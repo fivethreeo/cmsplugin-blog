@@ -2,8 +2,10 @@ try:
     from django.views.generic import DateDetailView
 except ImportError:
     from cbv import DateDetailView
-
+    
 from menus.utils import set_language_changer
+
+from simple_translation.utils import get_translation_filter
 from cmsplugin_blog.models import Entry
 
 class EntryDateDetailView(DateDetailView):
