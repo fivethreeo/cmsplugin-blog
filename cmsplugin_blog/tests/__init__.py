@@ -290,8 +290,9 @@ class LanguageChangerTestCase(BaseBlogTestCase):
 class LatestEntriesTestCase(BaseBlogTestCase):
     
     def test_01_plugin(self):
-        r = object()
-        r.LANGUAGE_CODE = 'en'
+        class MockRequest(object):
+            LANGUAGE_CODE = 'en'
+        r = MockRequest()
         published_at = datetime.datetime(2011, 8, 30, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at, language='en')
