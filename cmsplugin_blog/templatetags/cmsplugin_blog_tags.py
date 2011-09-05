@@ -36,7 +36,7 @@ def render_tag_links(context):
 def render_author_links(context, order_by='username'):
     request = context["request"]
     language = get_language_from_request(request)
-    info = translation_pool.get_info(model)
+    info = translation_pool.get_info(Entry)
     model = info.translated_model
     kw = get_translation_filter_language(Entry, language)
     return {
