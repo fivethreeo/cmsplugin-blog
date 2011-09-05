@@ -1,5 +1,6 @@
 from __future__ import with_statement
 import datetime
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
