@@ -4,6 +4,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+from cms.models.placeholdermodel import Placeholder
+
 from cmsplugin_blog.models import Entry, LatestEntriesPlugin
 from cmsplugin_blog.test.testcases import BaseBlogTestCase
 
@@ -292,9 +294,10 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
         de_title = self.create_entry_title(entry, title='german', language='de')
-        plugin = LatestEntriesPlugin(plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
+        ph = Paceholder(slot='main')
+        plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
         self.assertEquals(plugin.render_plugin({}), '')
-        plugin = LatestEntriesPlugin(plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=True)
+        plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=True)
         self.assertEquals(plugin.render_plugin({}), '')
         
 class SitemapsTestCase(BaseBlogTestCase):
