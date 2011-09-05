@@ -302,11 +302,11 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         ph.save()
         from django.utils.translation import activate
         activate('en')
-        plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=True)
+        plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=True)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
         self.assertEquals(plugin.render_plugin({}), '')        
-        plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
+        plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
         self.assertEquals(plugin.render_plugin({}), '')
