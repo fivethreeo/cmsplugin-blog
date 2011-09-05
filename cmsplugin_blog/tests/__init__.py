@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from cmsplugin_blog.models import Entry, 
+from cmsplugin_blog.models import Entry, LatestEntriesPlugin
 from cmsplugin_blog.test.testcases import BaseBlogTestCase
 
 class NULL:
