@@ -43,7 +43,8 @@ def render_author_links(context, order_by='username'):
         'authors': auth_models.User.objects.filter(
             pk__in=model.objects.filter(
                 entry__in=Entry.published.filter(**kw)
-        )).order_by(order_by).values('author')
+            ).values('author')
+        ).order_by(order_by)
     }
 
 @register.filter
