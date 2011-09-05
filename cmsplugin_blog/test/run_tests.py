@@ -39,7 +39,8 @@ def run_tests():
             'simple_translation',    
             'cmsplugin_blog',
             'staticfiles',
-            'djangocms_utils'
+            'djangocms_utils',
+            'sekizai'
         ],
         MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES,
         TEMPLATE_CONTEXT_PROCESSORS = (
