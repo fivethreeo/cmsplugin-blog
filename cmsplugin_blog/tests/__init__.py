@@ -14,12 +14,12 @@ class NULL:
     
 class SettingsOverride(object):
     """
-Overrides Django settings within a context and resets them to their inital
-values on exit.
-Example:
-with SettingsOverride(DEBUG=True):
-# do something
-"""
+    Overrides Django settings within a context and resets them to their inital
+    values on exit.
+    Example:
+    with SettingsOverride(DEBUG=True):
+    # do something
+    """
     
     def __init__(self, **overrides):
         self.overrides = overrides
@@ -292,10 +292,12 @@ class LatestEntriesTestCase(BaseBlogTestCase):
     def test_01_plugin(self):
         published_at = datetime.datetime(2011, 8, 31, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
-            published_at=published_at)
+            published_at=published_at, language='en')
         de_title = self.create_entry_title(entry, title='german', language='de')
         ph = Placeholder(slot='main')
         ph.save()
+        from django.utils.translation import activate
+        activate('en')
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
