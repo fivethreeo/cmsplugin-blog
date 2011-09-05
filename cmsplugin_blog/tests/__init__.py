@@ -290,6 +290,8 @@ class LanguageChangerTestCase(BaseBlogTestCase):
 class LatestEntriesTestCase(BaseBlogTestCase):
     
     def test_01_plugin(self):
+        r = object()
+        r.LANGUAGE_CODE = 'en'
         published_at = datetime.datetime(2011, 8, 30, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at, language='en')
@@ -305,11 +307,11 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=True)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({}), '')        
+        self.assertEquals(plugin.render_plugin({'request': r}), '')        
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({}), '')
+        self.assertEquals(plugin.render_plugin({'request': r}), '')
 
         
 class SitemapsTestCase(BaseBlogTestCase):
