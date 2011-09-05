@@ -301,7 +301,6 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         published_at = datetime.datetime(2011, 8, 31, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at, language='en', title='english 2')
-        de_title = self.create_entry_title(entry, title='german 2', language='de')
         ph = Placeholder(slot='main')
         ph.save()
         from django.utils.translation import activate
