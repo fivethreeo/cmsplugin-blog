@@ -297,11 +297,11 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         ph = Placeholder(slot='main')
         ph.save()
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
-        plugin.insert_at(None, position='last-child', save=False)
+        plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
         self.assertEquals(plugin.render_plugin({}), '')
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=True)
-        plugin.insert_at(None, position='last-child', save=False)
+        plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
         self.assertEquals(plugin.render_plugin({}), '')
         
