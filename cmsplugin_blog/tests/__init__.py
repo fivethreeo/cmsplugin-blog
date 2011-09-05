@@ -313,7 +313,7 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({'request': r}))
+        self.assertEquals(plugin.render_plugin({'request': r}), '')
 
         
 class SitemapsTestCase(BaseBlogTestCase):
