@@ -292,6 +292,7 @@ class LatestEntriesTestCase(BaseBlogTestCase):
     def test_01_plugin(self):
         class MockRequest(object):
             LANGUAGE_CODE = 'en'
+            REQUEST = {}
         r = MockRequest()
         published_at = datetime.datetime(2011, 8, 30, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
