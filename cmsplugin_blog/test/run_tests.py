@@ -16,7 +16,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 if django.VERSION[1] < 3: # pragma: no cover
-    MIDDLEWARE_CLASSES.insert(5, 'cbv.middleware.DeferredRenderingMiddleware')
+    MIDDLEWARE_CLASSES.insert(12, 'cbv.middleware.DeferredRenderingMiddleware')
 
 def run_tests():
     
