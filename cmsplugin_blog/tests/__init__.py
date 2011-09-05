@@ -4,8 +4,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-
-from cmsplugin_blog.models import Entry
+from cmsplugin_blog.models import Entry, 
 from cmsplugin_blog.test.testcases import BaseBlogTestCase
 
 class NULL:
@@ -285,6 +284,18 @@ class LanguageChangerTestCase(BaseBlogTestCase):
         self.assertEquals(entry.language_changer('de'), u'/test-page-1/2011/08/31/german/')
         self.assertEquals(entry.language_changer('nb'), u'/test-page-1/')
         self.assertEquals(entry.language_changer('nn'), u'/')
+        
+class LatestEntriesTestCase(BaseBlogTestCase):
+    
+    def test_01_plugin(self):
+        published_at = datetime.datetime(2011, 8, 31, 11, 0)
+        title, entry = self.create_entry_with_title(published=True, 
+            published_at=published_at)
+        de_title = self.create_entry_title(entry, title='german', language='de')
+        plugin = LatestEntriesPlugin(limit=1, current_language_only=False)
+        self.assertEquals(plugin.render({}), '')
+        plugin = LatestEntriesPlugin(limit=1, current_language_only=True)
+        self.assertEquals(plugin.render({}), '')
         
 class SitemapsTestCase(BaseBlogTestCase):
     
