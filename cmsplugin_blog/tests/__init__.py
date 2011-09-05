@@ -194,7 +194,7 @@ class BlogRSSTestCase(BaseBlogTestCase):
         self.assertNotContains(response, 'in English') 
     
     def test_06_no_multilingual(self):
-        mwc = [mw for mw in settingsMIDDLEWARE_CLASSES if mw != 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware']
+        mwc = [mw for mw in settings.MIDDLEWARE_CLASSES if mw != 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware']
         with SettingsOverride(MIDDLEWARE_CLASSES=mwc):
             published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
             title, entry = self.create_entry_with_title(published=True, 
