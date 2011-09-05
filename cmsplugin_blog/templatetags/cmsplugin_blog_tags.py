@@ -44,7 +44,7 @@ def render_author_links(context, order_by='username'):
             pk__in=model.objects.filter(
                 entry__in=Entry.published.filter(**kw)
             ).values('author')
-        ).order_by(order_by)
+        ).order_by(order_by).values('username')
     }
 
 @register.filter
