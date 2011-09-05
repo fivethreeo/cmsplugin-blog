@@ -1,6 +1,8 @@
+from django.utils.translation import ugettext_lazy as _, get_language
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.utils.translation import ugettext_lazy as _
+from cms.utils import get_language_from_request
 
 from cmsplugin_blog.models import LatestEntriesPlugin, Entry
 
@@ -19,8 +21,10 @@ class CMSLatestEntriesPlugin(CMSPluginBase):
         qs = Entry.published.all()
         
         if instance.current_language_only:
-            from cms.utils import get_language_from_request
-            language = get_language_from_request(context["request"])
+            try:
+                language = get_language_from_request(context["request"])
+            except KeyError:
+                language = get_current_language()
             qs = qs.filter(entrytitle__language=language)
             
         latest = qs[:instance.limit]
