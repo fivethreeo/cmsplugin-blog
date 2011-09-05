@@ -15,7 +15,7 @@ Requirements
 * `django-tagging`_ 0.3+
 * `django-cbv`_
 * `djangocms-utils`_ 0.9.5+
-* `simple-translation`_ 0.7.4+
+* `simple-translation`_ 0.7.5+
 * `jQuery`_ 1.4.4+
 * `jQuery UI`_ 1.8.1+
 * `django-missing`_ (optional)
