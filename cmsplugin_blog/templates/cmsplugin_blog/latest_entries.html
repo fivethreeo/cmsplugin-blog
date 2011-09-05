@@ -1,4 +1,4 @@
-{% load i18n placeholder_tags simple_translation_tags %}
+{% load i18n placeholder_tags simple_translation_tags djangocms_utils_tags %}
 {% for entry in object_list|annotate_with_translations %}
     {% with entry|get_preferred_translation_from_request:request as title %}
     {% with entry.placeholders|choose_placeholder:"excerpt" as excerpt %}
