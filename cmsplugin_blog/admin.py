@@ -134,7 +134,7 @@ class BaseEntryAdmin(M2MPlaceholderAdmin):
             translation_obj.author=request.user
         super(BaseEntryAdmin, self).save_translated_model(request, obj, translation_obj, form, change)
 
-if 'guardian' in settings.INSTALLED_APPS:
+if 'guardian' in settings.INSTALLED_APPS: # pragma: no cover
     from guardian.admin import GuardedModelAdmin
     class EntryAdmin(BaseEntryAdmin, GuardedModelAdmin):
         pass
