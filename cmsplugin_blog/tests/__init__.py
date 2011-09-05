@@ -296,11 +296,9 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         r = MockRequest()
         published_at = datetime.datetime(2011, 8, 30, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
-            published_at=published_at, language='en')
-        de_title = self.create_entry_title(entry, title='german', language='de')
-        published_at = datetime.datetime(2011, 8, 31, 11, 0)
+            published_at=published_at, language='en', title='english title')
         title, entry = self.create_entry_with_title(published=True, 
-            published_at=published_at, language='en', title='english 2')
+            published_at=published_at, language='de', title='german title')
         ph = Placeholder(slot='main')
         ph.save()
         from django.utils.translation import activate
@@ -308,12 +306,13 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=True)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({'request': r}).count('english 2'), 1)
-        self.assertEquals(plugin.render_plugin({'request': r}).count('Entry title'), 1)
+        self.assertEquals(plugin.render_plugin({'request': r}).count('english title'), 1)
+        self.assertEquals(plugin.render_plugin({'request': r}).count('german title'), None)
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({'request': r}), '')
+        self.assertEquals(plugin.render_plugin({'request': r}).count('english title'), 1)
+        self.assertEquals(plugin.render_plugin({'request': r}).count('german title'), 1)
 
         
 class SitemapsTestCase(BaseBlogTestCase):
