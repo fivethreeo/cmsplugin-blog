@@ -33,17 +33,17 @@ class BaseBlogTestCase(CMSTestCase):
         page.title_set.all().update(application_urls='BlogApphook')
         reverse('en:blog_archive_index') # fill cache
         
-    def create_entry_with_title(self, title=None, slug=None, language=None, published=False, published_at=None, author=None):
-        kwargs = {'is_published': published}
+    def create_entry_with_title(self, title=None, slug=None, language=None, published=False, published_at=None, author=None, **kwargs):
+        entry_kwargs = {'is_published': published}
         if published_at:
-            kwargs['pub_date'] = published_at
-        entry = Entry.objects.create(**kwargs)
-        entrytitle = self.create_entry_title(entry, title=title, slug=slug, language=language, author=author)
+            entry_kwargs['pub_date'] = published_at
+        entry = Entry.objects.create(**entry_kwargs)
+        entrytitle = self.create_entry_title(entry, title=title, slug=slug, language=language, author=author, **kwargs)
         return (entrytitle, entry)
         
-    def create_entry_title(self, entry, title=None, slug=None, language=None, author=None):
+    def create_entry_title(self, entry, title=None, slug=None, language=None, author=None, **kwargs):
         if not title:
             title = 'Entry title'
         slug = slug or slugify(title)
         language = language or 'en'
-        return get_translation_manager(entry).create(entry=entry, title=title, slug=slug, language=language, author=author)
+        return get_translation_manager(entry).create(entry=entry, title=title, slug=slug, language=language, author=author, **kwargs)
