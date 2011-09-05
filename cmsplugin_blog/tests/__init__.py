@@ -307,7 +307,7 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
         self.assertEquals(plugin.render_plugin({'request': r}).count('english title'), 1)
-        self.assertEquals(plugin.render_plugin({'request': r}).count('german title'), None)
+        self.assertEquals(plugin.render_plugin({'request': r}).count('german title'), 0)
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
