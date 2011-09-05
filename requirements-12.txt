@@ -1,3 +1,4 @@
+django-sekizai
 coverage
 Django==1.2.5
 django-cbv
