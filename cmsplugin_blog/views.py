@@ -8,7 +8,7 @@ from cmsplugin_blog.models import Entry
 
 class EntryDateDetailView(DateDetailView):
     
-    slug_field = 'entrytitle__slug'
+    slug_field = get_translation_filter(Entry, slug=None).items()[0][0]
     date_field = 'pub_date'
     month_format = '%m'
     queryset = Entry.objects.all()
