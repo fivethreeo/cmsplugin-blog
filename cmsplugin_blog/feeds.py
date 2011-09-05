@@ -12,7 +12,7 @@ from simple_translation.templatetags.simple_translation_tags import get_preferre
 from cmsplugin_blog.models import Entry
 
 def is_multilingual():
-    return = 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES
+    return 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES
 
 def get_lang_name(lang):
     return _(dict(settings.LANGUAGES)[lang])
