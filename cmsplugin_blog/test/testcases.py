@@ -1,10 +1,13 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+
 from cms.test.testcases import CMSTestCase
 from cms.models.titlemodels import Title
 
-from cmsplugin_blog.models import Entry, EntryTitle
+from simple_translation.utils import get_translation_manager
+
+from cmsplugin_blog.models import Entry
 
 class BaseBlogTestCase(CMSTestCase):
 
@@ -43,4 +46,4 @@ class BaseBlogTestCase(CMSTestCase):
             title = 'Entry title'
         slug = slug or slugify(title)
         language = language or 'en'
-        return entry.entrytitle_set.create(entry=entry, title=title, slug=slug, language=language, author=author)
+        return get_translation_manager(entry).create(entry=entry, title=title, slug=slug, language=language, author=author)
