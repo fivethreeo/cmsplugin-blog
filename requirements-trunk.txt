@@ -1,0 +1,1 @@
+-e git+http://github.com/django/django.git#egg=Django

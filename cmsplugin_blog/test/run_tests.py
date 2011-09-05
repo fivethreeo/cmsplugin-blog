@@ -15,7 +15,7 @@ MIDDLEWARE_CLASSES = [
     'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware'
 ]
 
-if django.VERSION[1] > 2: # pragma: no cover
+if django.VERSION[1] < 3: # pragma: no cover
     MIDDLEWARE_CLASSES.insert(5, 'cbv.middleware.DeferredRenderingMiddleware')
 
 def run_tests():

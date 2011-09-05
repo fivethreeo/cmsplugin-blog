@@ -1,5 +1,2 @@
-django-sekizai
-coverage
 Django==1.2.5
 django-cbv
-unittest-xml-reporting==1.2
