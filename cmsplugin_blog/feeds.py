@@ -8,7 +8,7 @@ from cms.utils import get_language_from_request
 from cms.middleware.multilingual import has_lang_prefix
 from simple_translation.translation_pool import translation_pool
 from simple_translation.templatetags.simple_translation_tags import get_preferred_translation_from_lang
-from simple_translation.utils import get_translation_filter_language
+from simple_translation.utils import get_translation_filter, get_translation_filter_language
 
 from cmsplugin_blog.models import Entry
 
@@ -130,4 +130,5 @@ class AuthorEntriesFeed(EntriesFeed):
     
     def get_queryset(self, obj):
         qs = super(AuthorEntriesFeed, self).get_queryset(obj)
-        return qs.filter(entrytitle__author__username=self.author)
+        kw = get_translation_filter(**{'author__username': self.author})
+        return qs.filter(**kw)
