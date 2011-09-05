@@ -9,7 +9,7 @@ from cmsplugin_blog.models import Entry, EntryTitle
 from cms.models import Placeholder
 
 from simple_translation.translation_pool import translation_pool
-    from simple_translation.utils import get_translation_filter_language
+from simple_translation.utils import get_translation_filter_language
 
 register = template.Library()
 
@@ -43,7 +43,7 @@ def render_author_links(context, order_by='username'):
         'authors': auth_models.User.objects.filter(
             pk__in=model.objects.filter(
                 entry__in=Entry.published.filter(**kw)
-        ).order_by(order_by).values('author')
+        )).order_by(order_by).values('author')
     }
 
 @register.filter
