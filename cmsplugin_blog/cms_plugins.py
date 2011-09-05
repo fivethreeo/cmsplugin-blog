@@ -24,7 +24,7 @@ class CMSLatestEntriesPlugin(CMSPluginBase):
             try:
                 language = get_language_from_request(context["request"])
             except KeyError:
-                language = get_current_language()
+                language = get_language()
             qs = qs.filter(entrytitle__language=language)
             
         latest = qs[:instance.limit]
