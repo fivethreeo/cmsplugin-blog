@@ -91,6 +91,7 @@ if [ $disable_coverage == false ]; then
 
     $venv/bin/coverage xml --rcfile=coveragerc
     $venv/bin/coverage html --rcfile=coveragerc
+    $venv/bin/coverage report -m --rcfile=coveragerc
 else
     $venv/bin/python setup.py test
     retcode=$?
