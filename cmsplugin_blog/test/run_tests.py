@@ -38,7 +38,8 @@ def run_tests():
             'tagging',
             'simple_translation',    
             'cmsplugin_blog',
-            'staticfiles'
+            'staticfiles',
+            'djangocms_utils'
         ],
         MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES,
         TEMPLATE_CONTEXT_PROCESSORS = (
