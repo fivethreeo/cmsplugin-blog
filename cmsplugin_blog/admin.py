@@ -59,7 +59,7 @@ class M2MPlaceholderAdmin(PlaceholderTranslationAdmin):
 
         return given_fieldsets
             
-    def move_plugin(self, request):
+    def move_plugin(self, request): # pragma: no cover
         
         def get_placeholder(plugin, request):
             
