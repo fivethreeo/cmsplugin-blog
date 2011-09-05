@@ -308,11 +308,11 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=True)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({'request': r}), '')        
+        self.assertEquals(plugin.render_plugin({'request': r}), u'''\n\n    \n    \n    <p>31 aug 2011<br/><a href="/test-page-1/2011/08/31/english-2/">english 2</a>\n       (\r\n    <a href="/de/test-page-1/2011/08/31/german-2/">DE</a>\r\n    )\n    </p>\n    \n    \n    \n\n    \n    \n    <p>30 aug 2011<br/><a href="/test-page-1/2011/08/30/entry-title/">Entry title</a>\n       (\r\n    <a href="/de/test-page-1/2011/08/30/german/">DE</a>\r\n    )\n    </p>\n    \n    \n    \n\n''')        
         plugin = LatestEntriesPlugin(placeholder=ph, plugin_type='CMSLatestEntriesPlugin', limit=2, current_language_only=False)
         plugin.insert_at(None, position='last-child', commit=False)
         plugin.save()
-        self.assertEquals(plugin.render_plugin({'request': r}), '')
+        self.assertEquals(plugin.render_plugin({'request': r}))
 
         
 class SitemapsTestCase(BaseBlogTestCase):
