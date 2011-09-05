@@ -293,9 +293,9 @@ class LatestEntriesTestCase(BaseBlogTestCase):
             published_at=published_at)
         de_title = self.create_entry_title(entry, title='german', language='de')
         plugin = LatestEntriesPlugin(limit=1, current_language_only=False)
-        self.assertEquals(plugin.render({}), '')
+        self.assertEquals(plugin.render_plugin({}), '')
         plugin = LatestEntriesPlugin(limit=1, current_language_only=True)
-        self.assertEquals(plugin.render({}), '')
+        self.assertEquals(plugin.render_plugin({}), '')
         
 class SitemapsTestCase(BaseBlogTestCase):
     
