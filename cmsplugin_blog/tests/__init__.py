@@ -292,9 +292,9 @@ class LatestEntriesTestCase(BaseBlogTestCase):
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
         de_title = self.create_entry_title(entry, title='german', language='de')
-        plugin = LatestEntriesPlugin(plugin_type='LatestEntriesPlugin', limit=1, current_language_only=False)
+        plugin = LatestEntriesPlugin(plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=False)
         self.assertEquals(plugin.render_plugin({}), '')
-        plugin = LatestEntriesPlugin(plugin_type='LatestEntriesPlugin', limit=1, current_language_only=True)
+        plugin = LatestEntriesPlugin(plugin_type='CMSLatestEntriesPlugin', limit=1, current_language_only=True)
         self.assertEquals(plugin.render_plugin({}), '')
         
 class SitemapsTestCase(BaseBlogTestCase):
