@@ -10,7 +10,7 @@ cmsplugin-blog is really simple to set up on a working installation of django CM
 Requirements
 ************
 
-* `django CMS`_ 2.1.5
+* `django CMS`_ 2.2
 * `django-staticfiles`_ 1.0+
 * `django-tagging`_ 0.3+
 * `django-cbv`_
