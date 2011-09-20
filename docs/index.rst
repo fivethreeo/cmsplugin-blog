@@ -12,7 +12,7 @@ Requirements
 
 * `django CMS`_ 2.2
 * `djangocms-utils`_ 0.9.5+
-* `simple-translation`_ 0.8.2+
+* `simple-translation`_ 0.8.3+
 * `jQuery`_ 1.4.4+
 * `jQuery UI`_ 1.8.1+
 * `django-missing`_ (optional)
