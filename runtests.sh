@@ -72,7 +72,7 @@ fi
 
 if [ ! -d $venv ]; then
     echo "building virtualenv"
-    virtualenv $venv --distribute -p $python_executeable
+    virtualenv $venv --distribute --no-site-packages -p $python_executeable
     update_requirements=true
 else
     echo "reusing current virualenv: $venv"
