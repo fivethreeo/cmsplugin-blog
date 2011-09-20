@@ -2,8 +2,9 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
-from cms.test.testcases import CMSTestCase
+from cms.test_utils.testcases import CMSTestCase
 from cms.models.titlemodels import Title
+from cms.api import create_page
 
 from simple_translation.utils import get_translation_manager
 
@@ -13,7 +14,7 @@ class BaseBlogTestCase(CMSTestCase):
 
     def setUp(self):
         superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'admin')
-        page = self.create_page(user=superuser, published=True)
+        page = create_page('test', 'nav_playground.html', 'en', published=True, created_by=superuser)
         english_title = page.title_set.all()[0]
         self.assertEquals(english_title.language, 'en')
         Title.objects.create(
