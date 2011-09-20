@@ -14,7 +14,8 @@ class BaseBlogTestCase(CMSTestCase):
 
     def setUp(self):
         superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'admin')
-        page = create_page('test', 'nav_playground.html', 'en', published=True, created_by=superuser)
+        home = create_page('home', 'nav_playground.html', 'en', published=True, created_by=superuser)
+        page = create_page( 'test-page-1', 'nav_playground.html', 'en', parent=home, published=True, created_by=superuser)
         english_title = page.title_set.all()[0]
         self.assertEquals(english_title.language, 'en')
         Title.objects.create(

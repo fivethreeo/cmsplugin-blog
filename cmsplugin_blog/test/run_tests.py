@@ -29,7 +29,6 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.media.PlaceholderMediaMiddleware',
     'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware'
 ]
 
@@ -57,13 +56,7 @@ def run_tests():
     settings.configure(
         INSTALLED_APPS=INSTALLED_APPS,
         MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES,
-        TEMPLATE_CONTEXT_PROCESSORS = (
-            "django.core.context_processors.auth",
-            "django.core.context_processors.i18n",
-            "django.core.context_processors.debug",
-            "django.core.context_processors.request",
-            "django.core.context_processors.media",
-        ),
+        TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS,
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
