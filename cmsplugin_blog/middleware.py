@@ -9,7 +9,10 @@ class MultilingualBlogEntriesMiddleware(MultilingualGenericsMiddleware):
     ]
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if 'queryset' in view_kwargs and view_kwargs['queryset'].model == Entry:
+        if 'queryset' in view_kwargs or hasattr(view_func, 'queryset'):
+            queryset = getattr(view_func, 'queryset', view_kwargs['queryset'])
+            model = queryset.model
+        if model == Entry:
             super(MultilingualBlogEntriesMiddleware, self).process_view(
                 request, view_func, view_args, view_kwargs)
         if 'queryset_or_model' in view_kwargs and getattr(view_kwargs['queryset_or_model'], 'model', None) == Entry:
