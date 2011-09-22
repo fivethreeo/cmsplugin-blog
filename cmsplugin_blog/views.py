@@ -1,7 +1,7 @@
 try:
-    from django.views.generic import DateDetailView
+    from django.views.generic import DateDetailView, ArchiveIndexView
 except ImportError:
-    from cbv import DateDetailView
+    from cbv import DateDetailView, ArchiveIndexView
     
 from menus.utils import set_language_changer
 
@@ -10,7 +10,6 @@ from simple_translation.utils import get_translation_filter
 from cmsplugin_blog.models import Entry
 
 class EntryDateDetailView(DateDetailView):
-    
     slug_field = get_translation_filter(Entry, slug=None).items()[0][0]
     date_field = 'pub_date'
     template_name_field = 'template'
@@ -29,3 +28,21 @@ class EntryDateDetailView(DateDetailView):
             return queryset
         else:
             return queryset.published()
+
+class EntryArchiveIndexView(ArchiveIndexView):
+    date_field = 'pub_date'
+    allow_empty = True
+    paginate_by = 15
+    template_name_field = 'template'
+    queryset = Entry.objects.all()
+
+    def get_dated_items(self):
+        items = super(EntryArchiveIndexView, self).get_dated_items()
+        from cmsplugin_blog.urls import language_changer
+        set_language_changer(self.request, language_changer)
+        return items
+
+    def get_dated_queryset(self, **lookup):
+        queryset = super(EntryArchiveIndexView, self).get_dated_queryset(**lookup)
+        queryset = filter_queryset_language(self.request, queryset)
+        return queryset.published()

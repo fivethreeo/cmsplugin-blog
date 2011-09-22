@@ -13,13 +13,13 @@ from cms.utils.urlutils import urljoin
 
 from cmsplugin_blog.feeds import EntriesFeed, TaggedEntriesFeed, AuthorEntriesFeed
 from cmsplugin_blog.models import Entry
-from cmsplugin_blog.views import EntryDateDetailView
+from cmsplugin_blog.views import EntryDateDetailView, EntryArchiveIndexView
 
 blog_info_dict = {
     'queryset': Entry.objects.all(),
+    'date_field': 'pub_date',
     'allow_empty': True,
     'paginate_by': 15,
-    'template_name': 'cmsplugin_blog/entry_archive.html',
 }
 
 blog_info_tagged_dict = {
@@ -53,11 +53,8 @@ def language_changer(lang):
     request = language_changer.request
     return request.get_full_path()
 
-def blog_archive_index(request, **kwargs):
-    kwargs['queryset'] = kwargs['queryset'].published()
-    set_language_changer(request, language_changer)
-    return object_list(request, **kwargs)
-    
+blog_archive_index = EntryArchiveIndexView.as_view()
+
 def blog_archive_year(request, **kwargs):
     kwargs['queryset'] = kwargs['queryset'].published()
     set_language_changer(request, language_changer)
