@@ -43,7 +43,7 @@ class EntriesFeed(Feed):
         return add_current_root(reverse('%sblog_rss' % self.language_namespace))
         
     def title(self, obj):
-        if self.any_language:
+        if self.any_language or not is_multilingual():
             return _(u"%(site)s blog entries") % {'site': self.site.name}
         return _(u"%(site)s blog entries in %(lang)s") % {'site': self.site.name, 'lang': get_lang_name(self.language_code)}
 
@@ -54,7 +54,7 @@ class EntriesFeed(Feed):
         return add_current_root(obj.get_absolute_url())
 
     def description(self, obj):
-        if self.any_language:
+        if self.any_language or not is_multilingual():
             return _(u"%(site)s blog entries") % {'site': self.site.name}
         return _(u"%(site)s blog entries in %(lang)s") % {'site': self.site.name, 'lang': get_lang_name(self.language_code)}
 
