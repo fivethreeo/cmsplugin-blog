@@ -75,7 +75,13 @@ class Entry(models.Model):
             pass
 
         return blog_prefix or reverse('pages-root')
-     
+        
+    def _template(self):
+        from simple_translation.utils import get_translated_model
+        model = get_translated_model(self.__class__)
+        return model.DETAIL_TEMPLATE
+    template = property(_template)
+         
     class Meta:
         verbose_name = _('entry')
         verbose_name_plural = _('entries')
@@ -83,7 +89,10 @@ class Entry(models.Model):
 
 tagging.register(Entry, tag_descriptor_attr='entry_tags')
 
-class EntryTitle(models.Model):
+class AbstractEntryTitle(models.Model):
+    
+    DETAIL_TEMPLATE = 'cmsplugin_blog/entry_detail.html'
+    
     entry = models.ForeignKey(Entry, verbose_name=_('entry'))
     language = models.CharField(_('language'), max_length=15, choices=settings.LANGUAGES)
     title = models.CharField(_('title'), max_length=255)
@@ -105,9 +114,14 @@ class EntryTitle(models.Model):
 
     class Meta:
         unique_together = ('language', 'slug')
+        abstract=True
+    
+class EntryTitle(AbstractEntryTitle):
+    
+    class Meta:
         verbose_name = _('blogentry')
         verbose_name_plural = _('blogentries')
-    
+        
 class LatestEntriesPlugin(CMSPlugin):
     """
         Model for the settings when using the latest entries cms plugin

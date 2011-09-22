@@ -8,6 +8,8 @@
 {% endblock extrahead %}
 
 {% block left-col %}
+{{ block.super }}
+
 <h1>{% trans "Entries tagged" %} "{{ tag }}"</h1>
 
 {% for entry in object_list|annotate_with_translations %}

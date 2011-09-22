@@ -13,6 +13,7 @@ from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 from simple_translation.admin import PlaceholderTranslationAdmin
 from simple_translation.forms import TranslationModelForm
+from simple_translation.utils import get_translation_queryset
 
 class EntryForm(TranslationModelForm):
         
@@ -59,7 +60,7 @@ class M2MPlaceholderAdmin(PlaceholderTranslationAdmin):
 
         return given_fieldsets
             
-    def move_plugin(self, request):
+    def move_plugin(self, request): # pragma: no cover
         
         def get_placeholder(plugin, request):
             
@@ -106,12 +107,12 @@ class BaseEntryAdmin(M2MPlaceholderAdmin):
     date_hierarchy = 'pub_date'
 
     def author(self, obj):
-        return obj.entrytitle_set.all()[0].author
+        return get_translation_queryset(obj)[0].author
     author.short_description = _('author')
     author.admin_order_field = 'entrytitle__author'
 
     def title(self, obj):
-        return obj.entrytitle_set.all()[0].title
+        return get_translation_queryset(obj)[0].title
     title.short_description = _('title')
     title.admin_order_field = 'entrytitle__title'
     
@@ -129,13 +130,12 @@ class BaseEntryAdmin(M2MPlaceholderAdmin):
         )})
         return fieldsets
         
-    def save_translated_form(self, request, obj, form, change):
-        translation_obj = super(BaseEntryAdmin, self).save_translated_form(request, obj, form, change)
+    def save_translated_model(self, request, obj, translation_obj, form, change):
         if not translation_obj.author:
             translation_obj.author=request.user
-        return translation_obj
+        super(BaseEntryAdmin, self).save_translated_model(request, obj, translation_obj, form, change)
 
-if 'guardian' in settings.INSTALLED_APPS:
+if 'guardian' in settings.INSTALLED_APPS: # pragma: no cover
     from guardian.admin import GuardedModelAdmin
     class EntryAdmin(BaseEntryAdmin, GuardedModelAdmin):
         pass

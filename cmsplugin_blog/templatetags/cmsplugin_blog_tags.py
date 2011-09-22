@@ -8,21 +8,26 @@ from cms.utils import get_language_from_request
 from cmsplugin_blog.models import Entry, EntryTitle
 from cms.models import Placeholder
 
+from simple_translation.translation_pool import translation_pool
+from simple_translation.utils import get_translation_filter_language
+
 register = template.Library()
 
 @register.inclusion_tag('cmsplugin_blog/month_links_snippet.html', takes_context=True)
 def render_month_links(context):
     request = context["request"]
     language = get_language_from_request(request)
+    kw = get_translation_filter_language(Entry, language)
     return {
-        'dates': Entry.published.filter(entrytitle__language=language).dates('pub_date', 'month'),
+        'dates': Entry.published.filter(**kw).dates('pub_date', 'month'),
     }
 
 @register.inclusion_tag('cmsplugin_blog/tag_links_snippet.html', takes_context=True)
 def render_tag_links(context):
     request = context["request"]
     language = get_language_from_request(request)
-    filters = dict(is_published=True, pub_date__lte=datetime.datetime.now(), entrytitle__language=language)
+    kw = get_translation_filter_language(Entry, language)
+    filters = dict(is_published=True, pub_date__lte=datetime.datetime.now(), **kw)
     return {
         'tags': Tag.objects.usage_for_model(Entry, filters=filters)
     }
@@ -31,8 +36,15 @@ def render_tag_links(context):
 def render_author_links(context, order_by='username'):
     request = context["request"]
     language = get_language_from_request(request)
+    info = translation_pool.get_info(Entry)
+    model = info.translated_model
+    kw = get_translation_filter_language(Entry, language)
     return {
-        'authors': auth_models.User.objects.filter(pk__in=EntryTitle.objects.filter(entry__in=Entry.published.filter(entrytitle__language=language)).values('author')).order_by(order_by)
+        'authors': auth_models.User.objects.filter(
+            pk__in=model.objects.filter(
+                entry__in=Entry.published.filter(**kw)
+            ).values('author')
+        ).order_by(order_by).values_list('username', flat=True)
     }
 
 @register.filter

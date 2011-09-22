@@ -10,16 +10,17 @@ cmsplugin-blog is really simple to set up on a working installation of django CM
 Requirements
 ************
 
-* `django CMS`_ 2.1.5
-* `django-staticfiles`_ 1.0+
-* `django-tagging`_ 0.3+
-* `django-cbv`_
+* `django CMS`_ 2.2
 * `djangocms-utils`_ 0.9.5+
-* `simple-translation`_ 0.7.4+
+* `simple-translation`_ 0.8.5+
 * `jQuery`_ 1.4.4+
 * `jQuery UI`_ 1.8.1+
 * `django-missing`_ (optional)
 * `django-guardian`_ (optional)
+
+On Django 1.2.7:
+* `django-tagging`_ 0.3+
+* `django-cbv`_
 
 .. note :: jQuery can be provided either by locally or linking to a public server, like Google's or Microsoft's CDN.
 
@@ -41,7 +42,7 @@ Install ``cmsplugin-blog`` from pypi: ::
 
     pip install cmsplugin-blog
 
-.. note :: When installing the cmsplugin-blog using pip, `django-staticfiles`_, `django-tagging`_, `djangocms-utils`_, and `simple-translation`_ will be installed automatically.
+.. note :: When installing the cmsplugin-blog using pip `django-tagging`_, `djangocms-utils`_, and `simple-translation`_ will be installed automatically.
 
 ***********************
 Configuration and setup
