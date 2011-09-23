@@ -1,4 +1,5 @@
 import sys
+import os
 import django
 
 INSTALLED_APPS = [
@@ -72,6 +73,7 @@ def run_tests():
         JQUERY_JS='',
         JQUERY_UI_JS='',
         STATIC_URL='/some/url/',
+        STATIC_ROOT=os.path.join(os.path.split(os.path.abspath(os.path.dirname(__file__)))[:-2]),
         TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner',
         TEST_OUTPUT_VERBOSE = True
     )
