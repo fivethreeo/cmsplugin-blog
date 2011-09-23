@@ -73,7 +73,7 @@ def run_tests():
         JQUERY_JS='',
         JQUERY_UI_JS='',
         STATIC_URL='/some/url/',
-        STATIC_ROOT=os.path.join(os.path.dirname(os.path.abspath(__file__)), os.dirpath, os.dirpath),
+        STATIC_ROOT=os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir, os.path.pardir),
         TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner',
         TEST_OUTPUT_VERBOSE = True
     )
