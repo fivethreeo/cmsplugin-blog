@@ -11,6 +11,7 @@ from menus.utils import set_language_changer
 from simple_translation.middleware import filter_queryset_language
 from simple_translation.utils import get_translation_filter
 from cmsplugin_blog.models import Entry
+from django.utils import translation
 
 class Redirect(Exception):
     def __init__(self, *args, **kwargs):
@@ -35,14 +36,16 @@ class EntryDateDetailView(DateDetailView):
         except Http404, e:
             # No entry has been found for a given language, we fallback to search for an entry in any language
             # Could find multiple entries, in this way we cannot decide which one is the right one, so we let
-            # exception be propagated
-            self._should_get_queryset_limit_language = False
-            try:
-                obj = super(EntryDateDetailView, self).get_object()
-            except Entry.MultipleObjectsReturned:
-                raise e
-            # We know there is only one title for this entry, so we can simply use get()
-            raise Redirect(obj.entrytitle_set.get().get_absolute_url())
+            # exception be propagated FIXME later
+            if not request.GET.get('redirected'): # no eternal redirects
+                self._should_get_queryset_limit_language = False
+                try:
+                    obj = super(EntryDateDetailView, self).get_object()
+                except Entry.MultipleObjectsReturned:
+                    raise e
+                
+                # We know there is only one title for this entry, so we can simply use get()
+                raise Redirect(obj.entrytitle_set.get().get_absolute_url())
         finally:
             self._should_get_queryset_limit_language = True
         set_language_changer(self.request, obj.language_changer)
@@ -61,7 +64,9 @@ class EntryDateDetailView(DateDetailView):
         try:
             return super(EntryDateDetailView, self).dispatch(request, *args, **kwargs)
         except Redirect, e:
-            return redirect(*e.args, **e.kwargs)
+            response = redirect(*e.args, **e.kwargs)
+            response['Location'] = u'%s?redirected=1' % response['Location']
+            return response
 
 class EntryArchiveIndexView(ArchiveIndexView):
     date_field = 'pub_date'
