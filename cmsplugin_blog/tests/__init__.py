@@ -186,7 +186,7 @@ class BlogRSSTestCase(BaseBlogTestCase):
         self.assertEquals(response.status_code, 200)
         self.assertContains(response, 'in English')  
         
-    def test_05_posts_tagged_all_languages(self):
+    def test_06_posts_tagged_all_languages(self):
         published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
@@ -194,7 +194,7 @@ class BlogRSSTestCase(BaseBlogTestCase):
         self.assertEquals(response.status_code, 200)
         self.assertNotContains(response, 'in English') 
     
-    def test_06_no_multilingual(self):
+    def test_07_no_multilingual(self):
         mwc = [mw for mw in settings.MIDDLEWARE_CLASSES if mw != 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware']
         with SettingsOverride(MIDDLEWARE_CLASSES=mwc):
             published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
@@ -202,7 +202,7 @@ class BlogRSSTestCase(BaseBlogTestCase):
                 published_at=published_at)
             response = self.client.get(reverse('en:blog_rss'))
             self.assertEquals(response.status_code, 200)
-            self.assertContains(response, 'in English')
+            self.assertNotContains(response, 'in English')
             
                 
 class ViewsTestCase(BaseBlogTestCase):
