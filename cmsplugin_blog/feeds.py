@@ -63,7 +63,7 @@ class EntriesFeed(Feed):
             qs = Entry.published.order_by('-pub_date')
         else:
             kw = get_translation_filter_language(Entry, self.language_code)
-            qs = Entry.published.filter(**kw).order_by('-pub_date')
+            qs = Entry.published.filter(**kw).order_by('-pub_date').distinct()
         return qs
         
     def items(self, obj):
@@ -101,7 +101,7 @@ class TaggedEntriesFeed(EntriesFeed):
         
     def get_queryset(self, obj):
         qs = super(TaggedEntriesFeed, self).get_queryset(obj)
-        return Entry.tagged.with_any(self.tag, queryset=qs)
+        return Entry.tagged.with_any(self.tag, queryset=qs).distinct()
         
 class AuthorEntriesFeed(EntriesFeed):
     title_template = "cmsplugin_blog/feed_author_title.html"
@@ -131,4 +131,4 @@ class AuthorEntriesFeed(EntriesFeed):
     def get_queryset(self, obj):
         qs = super(AuthorEntriesFeed, self).get_queryset(obj)
         kw = get_translation_filter(Entry, **{'author__username': self.author})
-        return qs.filter(**kw)
+        return qs.filter(**kw).distinct()
