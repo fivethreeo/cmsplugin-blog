@@ -77,7 +77,7 @@ class EntryDateDetailView(DateDetailView):
         if queryset is None:
             queryset = self.get_queryset()
 
-        if not self.get_allow_future() and date > datetime.date.today():
+        if not self.get_allow_future() and date > datetime.date.today(): # pragma: no cover
             raise Http404(_(u"Future %(verbose_name_plural)s not available because %(class_name)s.allow_future is False.") % {
                 'verbose_name_plural': queryset.model._meta.verbose_name_plural,
                 'class_name': self.__class__.__name__,
