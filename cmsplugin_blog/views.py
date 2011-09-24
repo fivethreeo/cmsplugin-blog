@@ -55,8 +55,7 @@ class EntryDateDetailView(DateDetailView):
             
     def get_queryset(self):
         queryset = super(EntryDateDetailView, self).get_queryset()
-        if self._should_get_queryset_limit_language:
-            queryset = filter_queryset_language(self.request, queryset)
+        queryset = filter_queryset_language(self.request, queryset)
         if self.request.user.is_staff or self.request.user.is_superuser:
             return queryset
         else:
