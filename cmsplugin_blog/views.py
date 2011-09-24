@@ -79,7 +79,7 @@ class EntryDateDetailView(DateDetailView):
 
         if not self.get_allow_future() and date > datetime.date.today():
             raise Http404(_(u"Future %(verbose_name_plural)s not available because %(class_name)s.allow_future is False.") % {
-                'verbose_name_plural': qs.model._meta.verbose_name_plural,
+                'verbose_name_plural': queryset.model._meta.verbose_name_plural,
                 'class_name': self.__class__.__name__,
             })
 
@@ -87,7 +87,7 @@ class EntryDateDetailView(DateDetailView):
         # URL. This'll get passed as the queryset to DetailView.get_object,
         # which'll handle the 404
         date_field = self.get_date_field()
-        field = qs.model._meta.get_field(date_field)
+        field = queryset.model._meta.get_field(date_field)
         lookup = _date_lookup_for_field(field, date)
         queryset = queryset.filter(**lookup)
 
