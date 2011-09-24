@@ -1,18 +1,22 @@
 try:
-    from django.views.generic import DateDetailView, ArchiveIndexView
+    from django.views.generic import DateDetailView, ArchiveIndexView, _date_lookup_for_field
 except ImportError:
-    from cbv import DateDetailView, ArchiveIndexView
+    from cbv import DateDetailView, ArchiveIndexView, _date_lookup_for_field
 
 from django.http import Http404
 from django.shortcuts import redirect
 
+from cms.middleware.multilingual import has_lang_prefix
 from menus.utils import set_language_changer
 
 from simple_translation.middleware import filter_queryset_language
-from simple_translation.utils import get_translation_filter
+from simple_translation.utils import get_translation_filter, get_translation_filter_language
 from cmsplugin_blog.models import Entry
+from cmsplugin_blog.utils import is_multilingual, get_lang_name, add_current_root
+
 from django.utils import translation
 
+    
 class Redirect(Exception):
     def __init__(self, *args, **kwargs):
         self.args = args
@@ -24,33 +28,33 @@ class EntryDateDetailView(DateDetailView):
     template_name_field = 'template'
     month_format = '%m'
     queryset = Entry.objects.all()
-
-    def __init__(self, *args, **kwargs):
-        # Ugly hack because of https://code.djangoproject.com/ticket/16918
-        # Otherwise we could simply provide a queryset to get_object
-        self._should_get_queryset_limit_language = True
     
     def get_object(self):
         try:
             obj = super(EntryDateDetailView, self).get_object()
         except Http404, e:
-            # No entry has been found for a given language, we fallback to search for an entry in any language
-            # Could find multiple entries, in this way we cannot decide which one is the right one, so we let
-            # exception be propagated FIXME later
-            if not self.request.GET.get('redirected'): # no eternal redirects
-                self._should_get_queryset_limit_language = False
-                try:
-                    obj = super(EntryDateDetailView, self).get_object()
-                except Entry.MultipleObjectsReturned:
-                    raise e
+            # No entry has been found for a given language,
+            # we fallback to search for an entry in current language
+            if is_multilingual():
+                language = translation.get_language()
+                
+                queryset = self.get_language_queryset(language)
+                obj = super(EntryDateDetailView, self).get_object(queryset=queryset))
                 
                 # We know there is only one title for this entry, so we can simply use get()
-                raise Redirect(obj.entrytitle_set.get().get_absolute_url())
-        finally:
-            self._should_get_queryset_limit_language = True
+                raise Redirect(obj.entrytitle_set.get(language=language).get_absolute_url())
+
         set_language_changer(self.request, obj.language_changer)
         return obj
         
+    def get_language_queryset(self, language):
+        queryset = super(EntryDateDetailView, self).get_queryset()
+        queryset = queryset.filter(**get_translation_filter_language(Entry, language))
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            return queryset
+        else:
+            return queryset.published()        
+            
     def get_queryset(self):
         queryset = super(EntryDateDetailView, self).get_queryset()
         if self._should_get_queryset_limit_language:
@@ -59,14 +63,43 @@ class EntryDateDetailView(DateDetailView):
             return queryset
         else:
             return queryset.published()
+    
+    # Override to fix django bug
+    def get_object(self, queryset=None):
+        """
+        Get the object this request displays.
+        """
+        year = self.get_year()
+        month = self.get_month()
+        day = self.get_day()
+        date = _date_from_string(year, self.get_year_format(),
+                                 month, self.get_month_format(),
+                                 day, self.get_day_format())
 
+        if quersyet is None:
+            queryset = self.get_queryset()
+
+        if not self.get_allow_future() and date > datetime.date.today():
+            raise Http404(_(u"Future %(verbose_name_plural)s not available because %(class_name)s.allow_future is False.") % {
+                'verbose_name_plural': qs.model._meta.verbose_name_plural,
+                'class_name': self.__class__.__name__,
+            })
+
+        # Filter down a queryset from self.queryset using the date from the
+        # URL. This'll get passed as the queryset to DetailView.get_object,
+        # which'll handle the 404
+        date_field = self.get_date_field()
+        field = qs.model._meta.get_field(date_field)
+        lookup = _date_lookup_for_field(field, date)
+        queryset = queryset.filter(**lookup)
+
+        return super(DateDetailView, self).get_object(queryset=queryset)
+        
     def dispatch(self, request, *args, **kwargs):
         try:
             return super(EntryDateDetailView, self).dispatch(request, *args, **kwargs)
         except Redirect, e:
-            response = redirect(*e.args, **e.kwargs)
-            response['Location'] = u'%s?redirected=1' % response['Location']
-            return response
+            return redirect(*e.args, **e.kwargs)
 
 class EntryArchiveIndexView(ArchiveIndexView):
     date_field = 'pub_date'

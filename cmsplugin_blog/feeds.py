@@ -5,24 +5,12 @@ from django.utils.translation import get_language, ugettext_lazy as _
 
 from cms import settings
 from cms.utils import get_language_from_request
-from cms.middleware.multilingual import has_lang_prefix
 from simple_translation.translation_pool import translation_pool
 from simple_translation.templatetags.simple_translation_tags import get_preferred_translation_from_lang
 from simple_translation.utils import get_translation_filter, get_translation_filter_language
 
 from cmsplugin_blog.models import Entry
-
-def is_multilingual():
-    return 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware' in settings.MIDDLEWARE_CLASSES
-
-def get_lang_name(lang):
-    return _(dict(settings.LANGUAGES)[lang])
-
-def add_current_root(url):
-    if is_multilingual() and not has_lang_prefix(url):
-        new_root = "/%s" % get_language()
-        url = new_root + url
-    return url
+from cmsplugin_blog.utils import is_multilingual, get_lang_name, add_current_root
 
 class EntriesFeed(Feed):
     title_template = "cmsplugin_blog/feed_entries_title.html"
