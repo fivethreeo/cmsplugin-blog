@@ -37,7 +37,7 @@ class EntryDateDetailView(DateDetailView):
             # No entry has been found for a given language, we fallback to search for an entry in any language
             # Could find multiple entries, in this way we cannot decide which one is the right one, so we let
             # exception be propagated FIXME later
-            if not request.GET.get('redirected'): # no eternal redirects
+            if not self.request.GET.get('redirected'): # no eternal redirects
                 self._should_get_queryset_limit_language = False
                 try:
                     obj = super(EntryDateDetailView, self).get_object()
