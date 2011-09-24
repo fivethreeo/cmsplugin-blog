@@ -297,7 +297,7 @@ class RedirectTestCase(BaseBlogTestCase):
             
         with SettingsOverride(DEBUG=True):    
             response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
-            self.assertRecirects(response, u'/test-page-1/2011/08/31/entry-title/')
+            self.assertRedirects(response, u'/test-page-1/2011/08/31/entry-title/')
             entry.delete()
             response = self.client.get(entry.get_absolute_url(), u'/test-page-1/2011/08/31/entry-title/')
             self.assertRaises(response, Http404)
