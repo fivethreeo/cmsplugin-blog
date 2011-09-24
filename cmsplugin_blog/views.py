@@ -1,3 +1,4 @@
+import datetime
 try:
     from django.views.generic import DateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
 except ImportError:
