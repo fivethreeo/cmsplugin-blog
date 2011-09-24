@@ -2,7 +2,7 @@ try:
     from django.views.generic import DateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
 except ImportError:
     from cbv import DateDetailView, ArchiveIndexView
-    from cbv.dates import _date_lookup_for_field, _date_from_string
+    from cbv.views.dates import _date_lookup_for_field, _date_from_string
 
 from django.http import Http404
 from django.shortcuts import redirect
