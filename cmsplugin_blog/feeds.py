@@ -1,7 +1,7 @@
 from django.contrib.sites.models import get_current_site
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
-from django.utils.translation import get_language, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from cms import settings
 from cms.utils import get_language_from_request

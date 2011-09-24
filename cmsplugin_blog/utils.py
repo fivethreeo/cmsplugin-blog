@@ -1,3 +1,4 @@
+from django.utils.translation import get_language, ugettext_lazy as _
 from cms import settings
 from cms.middleware.multilingual import has_lang_prefix
 
