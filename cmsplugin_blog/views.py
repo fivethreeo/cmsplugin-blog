@@ -12,11 +12,8 @@ from menus.utils import set_language_changer
 from simple_translation.middleware import filter_queryset_language
 from simple_translation.utils import get_translation_filter, get_translation_filter_language
 from cmsplugin_blog.models import Entry
-from cmsplugin_blog.utils import is_multilingual, get_lang_name, add_current_root
+from cmsplugin_blog.utils import is_multilingual
 
-from django.utils import translation
-
-    
 class Redirect(Exception):
     def __init__(self, *args, **kwargs):
         self.args = args
@@ -33,23 +30,23 @@ class EntryDateDetailView(DateDetailView):
         try:
             obj = super(EntryDateDetailView, self).get_object()
         except Http404, e:
-            # No entry has been found for a given language,
-            # we fallback to search for an entry in current language
+            # No entry has been found for a given language, we fallback to search for an entry in any language
+            # Could find multiple entries, in this way we cannot decide which one is the right one, so we let
+            # exception be propagated FIXME later
             if is_multilingual():
-                language = translation.get_language()
-                
-                queryset = self.get_language_queryset(language)
-                obj = super(EntryDateDetailView, self).get_object(queryset=queryset))
-                
+                try
+                    queryset = self.get_unfiltered_queryset()
+                    obj = super(EntryDateDetailView, self).get_object(queryset=queryset))
+                except Entry.MultipleObjectsReturned:
+                    raise e
                 # We know there is only one title for this entry, so we can simply use get()
-                raise Redirect(obj.entrytitle_set.get(language=language).get_absolute_url())
+                raise Redirect(obj.entrytitle_set.get().get_absolute_url())
 
         set_language_changer(self.request, obj.language_changer)
         return obj
         
-    def get_language_queryset(self, language):
+    def get_unfiltered_queryset(self, language):
         queryset = super(EntryDateDetailView, self).get_queryset()
-        queryset = queryset.filter(**get_translation_filter_language(Entry, language))
         if self.request.user.is_staff or self.request.user.is_superuser:
             return queryset
         else:
