@@ -74,7 +74,7 @@ class EntryDateDetailView(DateDetailView):
                                  month, self.get_month_format(),
                                  day, self.get_day_format())
 
-        if quersyet is None:
+        if queryset is None:
             queryset = self.get_queryset()
 
         if not self.get_allow_future() and date > datetime.date.today():
