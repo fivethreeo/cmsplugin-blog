@@ -294,11 +294,11 @@ class RedirectTestCase(BaseBlogTestCase):
         published_at = datetime.datetime(2011, 8, 31, 11, 0)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at, language='de')
-
-        response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
-        self.assertRecirects(response, u'/test-page-1/2011/08/31/entry-title/')
-        entry.delete()
-        with SettingsOverride(DEBUG=True):
+            
+        with SettingsOverride(DEBUG=True):    
+            response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
+            self.assertRecirects(response, u'/test-page-1/2011/08/31/entry-title/')
+            entry.delete()
             response = self.client.get(entry.get_absolute_url(), u'/test-page-1/2011/08/31/entry-title/')
             self.assertRaises(response, Http404)
          
