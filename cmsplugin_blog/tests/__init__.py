@@ -296,11 +296,12 @@ class RedirectTestCase(BaseBlogTestCase):
             published_at=published_at, language='de')
             
         with SettingsOverride(DEBUG=True):    
-            response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
-            self.assertRedirects(response, u'/test-page-1/2011/08/31/entry-title/')
+            response = self.client.get(u'/en/test-page-1/2011/08/31/entry-title/')
+            self.assertRedirects(response, u'/en/test-page-1/2011/08/31/entry-title/')
             entry.delete()
-            response = self.client.get(entry.get_absolute_url(), u'/test-page-1/2011/08/31/entry-title/')
-            self.assertRaises(response, Http404)
+            with SettingsOverride(LANGUAGE_CODE='en'):
+                response = self.client.get(u'/de/test-page-1/2011/08/31/entry-title/')
+                self.assertRaises(response, Http404)
          
 class LatestEntriesTestCase(BaseBlogTestCase):
     
