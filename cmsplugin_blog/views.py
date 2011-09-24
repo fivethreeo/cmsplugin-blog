@@ -19,9 +19,42 @@ from cmsplugin_blog.utils import is_multilingual
 class Redirect(Exception):
     def __init__(self, *args, **kwargs):
         self.args = args
+        
         self.kwargs = kwargs
+        
+class FixDateDetailView(DateDetailView):
+    # Override to fix django bug
+    def get_object(self, queryset=None):
+        """
+        Get the object this request displays.
+        """
+        year = self.get_year()
+        month = self.get_month()
+        day = self.get_day()
+        date = _date_from_string(year, self.get_year_format(),
+                                 month, self.get_month_format(),
+                                 day, self.get_day_format())
 
-class EntryDateDetailView(DateDetailView):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        if not self.get_allow_future() and date > datetime.date.today(): # pragma: no cover
+            raise Http404(_(u"Future %(verbose_name_plural)s not available because %(class_name)s.allow_future is False.") % {
+                'verbose_name_plural': queryset.model._meta.verbose_name_plural,
+                'class_name': self.__class__.__name__,
+            })
+
+        # Filter down a queryset from self.queryset using the date from the
+        # URL. This'll get passed as the queryset to DetailView.get_object,
+        # which'll handle the 404
+        date_field = self.get_date_field()
+        field = queryset.model._meta.get_field(date_field)
+        lookup = _date_lookup_for_field(field, date)
+        queryset = queryset.filter(**lookup)
+
+        return super(DateDetailView, self).get_object(queryset=queryset)
+    
+class EntryDateDetailView(FixDateDetailView):
     slug_field = get_translation_filter(Entry, slug=None).items()[0][0]
     date_field = 'pub_date'
     template_name_field = 'template'
@@ -62,37 +95,6 @@ class EntryDateDetailView(DateDetailView):
         else:
             return queryset.published()
     
-    # Override to fix django bug
-    def get_object(self, queryset=None):
-        """
-        Get the object this request displays.
-        """
-        year = self.get_year()
-        month = self.get_month()
-        day = self.get_day()
-        date = _date_from_string(year, self.get_year_format(),
-                                 month, self.get_month_format(),
-                                 day, self.get_day_format())
-
-        if queryset is None:
-            queryset = self.get_queryset()
-
-        if not self.get_allow_future() and date > datetime.date.today(): # pragma: no cover
-            raise Http404(_(u"Future %(verbose_name_plural)s not available because %(class_name)s.allow_future is False.") % {
-                'verbose_name_plural': queryset.model._meta.verbose_name_plural,
-                'class_name': self.__class__.__name__,
-            })
-
-        # Filter down a queryset from self.queryset using the date from the
-        # URL. This'll get passed as the queryset to DetailView.get_object,
-        # which'll handle the 404
-        date_field = self.get_date_field()
-        field = queryset.model._meta.get_field(date_field)
-        lookup = _date_lookup_for_field(field, date)
-        queryset = queryset.filter(**lookup)
-
-        return super(DateDetailView, self).get_object(queryset=queryset)
-        
     def dispatch(self, request, *args, **kwargs):
         try:
             return super(EntryDateDetailView, self).dispatch(request, *args, **kwargs)
