@@ -38,8 +38,8 @@ class EntryDateDetailView(DateDetailView):
             if is_multilingual():
                 try:
                     queryset = self.get_unfiltered_queryset()
-                    obj = super(EntryDateDetailView, self).get_object(queryset=queryset)
-                except Entry.MultipleObjectsReturned:
+                    obj = self.get_object(queryset=queryset)
+                except Entry.MultipleObjectsReturned, Http404:
                     raise e
                 # We know there is only one title for this entry, so we can simply use get()
                 raise Redirect(obj.entrytitle_set.get().get_absolute_url())
