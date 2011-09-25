@@ -297,10 +297,17 @@ class RedirectTestCase(BaseBlogTestCase):
             
         with SettingsOverride(DEBUG=True):
             self.client.get(u'/en/')
+            mwc = [mw for mw in settings.MIDDLEWARE_CLASSES if mw != 'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware']
+            with SettingsOverride(MIDDLEWARE_CLASSES=mwc):
+                response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
+	        self.assertEqual(response.status_code, 404)
+	        
             response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
             self.assertRedirects(response, u'/de/test-page-1/2011/08/31/entry-title/')
+            
             response = self.client.get(u'/de/test-page-1/2011/08/31/entry-title/')
             self.assertEqual(response.status_code, 200)
+
             self.create_entry_title(entry, language='nb')
             self.client.get(u'/en/')
             response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')

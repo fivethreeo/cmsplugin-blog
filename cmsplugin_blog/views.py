@@ -1,8 +1,8 @@
 import datetime
-try:
+try: # pragma: no cover
     from django.views.generic.dates import BaseDateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
     from django.views.generic.detail import SingleObjectTemplateResponseMixin
-except ImportError:
+except ImportError: # pragma: no cover
     from cbv.views.detail import SingleObjectTemplateResponseMixin
     from cbv.views.dates import BaseDateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
 
@@ -76,6 +76,8 @@ class EntryDateDetailView(DateDetailView):
                     raise e
                 # We know there is only one title for this entry, so we can simply use get()
                 raise Redirect(obj.entrytitle_set.get().get_absolute_url())
+            else:
+                raise e
 
         set_language_changer(self.request, obj.language_changer)
         return obj
