@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.http import Http404
-
+from django.db import connection
 from cms.models.placeholdermodel import Placeholder
 
 from cmsplugin_blog.models import Entry, LatestEntriesPlugin
@@ -41,14 +41,14 @@ class SettingsOverride(object):
 class BlogTestCase(BaseBlogTestCase):
     
     def test_01_apphook_added(self):
-        self.assertEquals(reverse('en:blog_archive_index'), '/en/test-page-1/')
+        self.assertEquals(reverse('en:blog_archive_index'), '/test-page-1/')
         self.assertEquals(reverse('de:blog_archive_index'), '/de/test-page-1/')
         
     def test_02_title_absolute_url(self):
         published_at = datetime.datetime.now() - datetime.timedelta(hours=1)
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at)
-        self.assertEquals(title.get_absolute_url(), '/en/test-page-1/%s/entry-title/' % published_at.strftime('%Y/%m/%d'))
+        self.assertEquals(title.get_absolute_url(), '/test-page-1/%s/entry-title/' % published_at.strftime('%Y/%m/%d'))
         
     def test_03_admin_add(self):
         
@@ -295,13 +295,20 @@ class RedirectTestCase(BaseBlogTestCase):
         title, entry = self.create_entry_with_title(published=True, 
             published_at=published_at, language='de')
             
-        with SettingsOverride(DEBUG=True):    
-            response = self.client.get(u'/en/test-page-1/2011/08/31/entry-title/')
-            self.assertRedirects(response, u'/en/test-page-1/2011/08/31/entry-title/')
+        with SettingsOverride(DEBUG=True):
+            self.client.get(u'/en/')
+            response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
+            self.assertRedirects(response, u'/de/test-page-1/2011/08/31/entry-title/')
+            response = self.client.get(u'/de/test-page-1/2011/08/31/entry-title/')
+            self.assertEqual(response.status_code, 200)
+            self.create_entry_title(entry, language='nb')
+            self.client.get(u'/en/')
+            response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
+            self.assertEqual(response.status_code, 404)
             entry.delete()
-            with SettingsOverride(LANGUAGE_CODE='en'):
-                response = self.client.get(u'/de/test-page-1/2011/08/31/entry-title/')
-                self.assertRaises(response, Http404)
+            response = self.client.get(u'/de/')
+            response = self.client.get(u'/test-page-1/2011/08/31/entry-title/')
+            self.assertEqual(response.status_code, 404)
          
 class LatestEntriesTestCase(BaseBlogTestCase):
     

@@ -1,9 +1,10 @@
 import datetime
 try:
-    from django.views.generic import DateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
+    from django.views.generic.dates import BaseDateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
+    from django.views.generic.detail import SingleObjectTemplateResponseMixin
 except ImportError:
-    from cbv import DateDetailView, ArchiveIndexView
-    from cbv.views.dates import _date_lookup_for_field, _date_from_string
+    from cbv.views.detail import SingleObjectTemplateResponseMixin
+    from cbv.views.dates import BaseDateDetailView, ArchiveIndexView, _date_lookup_for_field, _date_from_string
 
 from django.http import Http404
 from django.shortcuts import redirect
@@ -19,10 +20,9 @@ from cmsplugin_blog.utils import is_multilingual
 class Redirect(Exception):
     def __init__(self, *args, **kwargs):
         self.args = args
-        
         self.kwargs = kwargs
         
-class FixDateDetailView(DateDetailView):
+class DateDetailView(SingleObjectTemplateResponseMixin, BaseDateDetailView):
     # Override to fix django bug
     def get_object(self, queryset=None):
         """
@@ -52,9 +52,9 @@ class FixDateDetailView(DateDetailView):
         lookup = _date_lookup_for_field(field, date)
         queryset = queryset.filter(**lookup)
 
-        return super(DateDetailView, self).get_object(queryset=queryset)
+        return super(BaseDateDetailView, self).get_object(queryset=queryset)
     
-class EntryDateDetailView(FixDateDetailView):
+class EntryDateDetailView(DateDetailView):
     slug_field = get_translation_filter(Entry, slug=None).items()[0][0]
     date_field = 'pub_date'
     template_name_field = 'template'
@@ -71,8 +71,8 @@ class EntryDateDetailView(FixDateDetailView):
             if is_multilingual():
                 try:
                     queryset = self.get_unfiltered_queryset()
-                    obj = self.get_object(queryset=queryset)
-                except Entry.MultipleObjectsReturned, Http404:
+                    obj = super(EntryDateDetailView, self).get_object(queryset=queryset)
+                except Entry.MultipleObjectsReturned, s:
                     raise e
                 # We know there is only one title for this entry, so we can simply use get()
                 raise Redirect(obj.entrytitle_set.get().get_absolute_url())
@@ -80,12 +80,8 @@ class EntryDateDetailView(FixDateDetailView):
         set_language_changer(self.request, obj.language_changer)
         return obj
         
-    def get_unfiltered_queryset(self, language):
-        queryset = super(EntryDateDetailView, self).get_queryset()
-        if self.request.user.is_staff or self.request.user.is_superuser:
-            return queryset
-        else:
-            return queryset.published()        
+    def get_unfiltered_queryset(self):
+        return super(EntryDateDetailView, self).get_queryset().published()
             
     def get_queryset(self):
         queryset = super(EntryDateDetailView, self).get_queryset()

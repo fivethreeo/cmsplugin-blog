@@ -68,6 +68,8 @@ def run_tests():
             ('nav_playground.html', 'default'),
         ),
         ROOT_URLCONF='cmsplugin_blog.test.testapp.urls',
+        USE_I8N=True,
+        LANGUAGE_CODE='en',
         LANGUAGES=(('en', 'English'),('de','German'),('nb','Norwegian'),('nn','Norwegian Nynorsk')),
         JQUERY_UI_CSS='',
         JQUERY_JS='',
