@@ -1,4 +1,5 @@
 import datetime
+from django.conf import settings
 from django import template
 from django.contrib.auth import models as auth_models
 
@@ -53,4 +54,10 @@ def choose_placeholder(placeholders, placeholder):
         return placeholders.get(slot=placeholder)
     except Placeholder.DoesNotExist:
         return None
-    
+
+
+@register.inclusion_tag('admin/cmsplugin_blog/admin_helpers.html')
+def admin_helpers():
+    return {
+        'use_missing': 'missing' in settings.INSTALLED_APPS,
+    }
