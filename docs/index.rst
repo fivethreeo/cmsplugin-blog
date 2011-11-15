@@ -15,11 +15,11 @@ Requirements
 * `simple-translation`_ 0.8.5+
 * `jQuery`_ 1.4.4+
 * `jQuery UI`_ 1.8.1+
-* `django-missing`_ (optional)
+* `django-tagging`_ 0.3+
+* `django-missing`_
 * `django-guardian`_ (optional)
 
 On Django 1.2.7:
-* `django-tagging`_ 0.3+
 * `django-cbv`_
 
 .. note :: jQuery can be provided either by locally or linking to a public server, like Google's or Microsoft's CDN.
@@ -42,7 +42,7 @@ Install ``cmsplugin-blog`` from pypi: ::
 
     pip install cmsplugin-blog
 
-.. note :: When installing the cmsplugin-blog using pip `django-tagging`_, `djangocms-utils`_, and `simple-translation`_ will be installed automatically.
+.. note :: When installing the cmsplugin-blog using pip `django-tagging`_, `django-missing`_, `djangocms-utils`_, and `simple-translation`_ will be installed automatically.
 
 ***********************
 Configuration and setup
@@ -70,7 +70,7 @@ Add required settings::
         'simple_translation',
         'tagging',
         'staticfiles',
-        'missing', # optional
+        'missing',
         'guardian', # optional
         ...
     )
