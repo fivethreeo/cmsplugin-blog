@@ -31,7 +31,8 @@ class CMSLatestEntriesPlugin(CMSPluginBase):
         context.update({
             'instance': instance,
             'latest': latest,
-            'placeholder': placeholder,
+            'object_list': latest,
+            'placeholder': placeholder
         })
         return context
 
