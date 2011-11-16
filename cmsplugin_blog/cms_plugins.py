@@ -1,5 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 
+from tagging.models import TaggedItem
+from tagging.utils import get_tag_list
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from cms.utils import get_language_from_request
@@ -27,7 +30,12 @@ class CMSLatestEntriesPlugin(CMSPluginBase):
             kw = get_translation_filter_language(Entry, language)
             qs = qs.filter(**kw)
             
+        if instance.tagged:
+            tags = get_tag_list(instance.tagged)
+            qs  = TaggedItem.objects.get_by_model(qs , tags)
+            
         latest = qs[:instance.limit]
+        
         context.update({
             'instance': instance,
             'latest': latest,
