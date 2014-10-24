@@ -4,16 +4,22 @@ from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+# WARNING : an assumption is made that the actual user model
+# will have the fields of the frozen user model
+# required to process this migration
+from django.conf import settings
+user_model = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+
         # Adding field 'EntryTitle.author'
-        db.add_column('cmsplugin_blog_entrytitle', 'author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True), keep_default=False)
+        db.add_column('cmsplugin_blog_entrytitle', 'author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm[user_model], null=True, blank=True), keep_default=False)
 
 
     def backwards(self, orm):
-        
+
         # Deleting field 'EntryTitle.author'
         db.delete_column('cmsplugin_blog_entrytitle', 'author_id')
 
@@ -32,7 +38,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
+        user_model: {
             'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
@@ -78,7 +84,7 @@ class Migration(SchemaMigration):
         },
         'cmsplugin_blog.entrytitle': {
             'Meta': {'object_name': 'EntryTitle'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True', 'blank': 'True'}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['%s']" % user_model, 'null': 'True', 'blank': 'True'}),
             'entry': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cmsplugin_blog.Entry']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
